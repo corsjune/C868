@@ -1,0 +1,30 @@
+﻿
+<template> 
+    <require from="../../gotoroute/gotoroute"></require> 
+    <require from="../../../resources/currency-format"></require>
+    <require from="./step5.css"></require>
+    <br />
+    <div class="alert alert-info" role="alert">Thank you ${currentOrder.Customer.FirstName}. You are requesting to book ${currentOrder.TotalCount} hr(s). The total is ${currentOrder.TotalAmount | currencyFormat}. We accept all major credit cards for payment. We do not store your credit card information on our servers; instead we send the credit card information securely to <a href="https://stripe.com/about">Stripe</a> who is our payment processor. Please enter the payment information and click submit to finalize this request. </div>
+
+    <!-- Used to display form errors -->
+    <div show.bind="showErrors" id="errors" role="alert" class="alert alert-danger"></div>
+    <div class="well paddingtop50" style="height:10em;"> 
+            <div class="form-row">
+                <label for="card-element">
+                    Please pay using one of the following:  <i class="fa fa-cc-visa fa-2x"></i><i class="fa fa-cc-mastercard fa-2x"></i><i class="fa fa-cc-discover fa-2x"></i><i class="fa fa-cc-amex fa-2x"></i><i class="fa fa-cc-jcb fa-2x"></i><i class="fa fa-cc-diners-club fa-2x"></i>
+                </label>
+                <div id="card-element">
+                    <!-- a Stripe Element will be inserted here. -->
+                </div>
+                 
+          
+            </div> 
+    </div>
+    <div id="navigation" class="row paddingtop10">
+        <div class="col-sm-12  btn-group">
+            <button go-to-route="route: step4" class="btn btn-default minimumwidth15em "><span class="glyphicon glyphicon-arrow-left"></span> Previous Step</button>
+            <button click.delegate="BookTime()" class="btn btn-default minimumwidth15em"><span class="fa fa-check-square-o"></span>Submit</button>
+        </div>
+    </div>
+    <div class="paddingtop50"><a href="https://stripe.com/about"><img src="/powered_by_stripe.png" /> </a></div>
+</template>
