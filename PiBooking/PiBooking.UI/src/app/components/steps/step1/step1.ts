@@ -179,7 +179,11 @@ export class Step1 {
 
             let data = await this.remoteTS.GetTimeSlots(this.MinDate, this.MaxDate);
 
-            let myDictionary = data.filter(x => x.IsBooked === false);
+            let myDictionary = data.filter(
+                x => {
+                    return x.IsBooked === false;
+                }
+                );
             myDictionary.forEach(x => {
                 this.TimeSlots[new Date(x.BeginDatetime).getTime()] = {
                     BeginDatetime: new Date(x.BeginDatetime),
