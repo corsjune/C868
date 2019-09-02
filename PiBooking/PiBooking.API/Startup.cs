@@ -20,12 +20,17 @@ namespace PiBooking.API
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+    readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
+
+    public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+          services.AddCors();
+
+          services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,6 +46,15 @@ namespace PiBooking.API
                 app.UseHsts();
             }
 
+            app.UseCors(
+                          builder =>
+                          {
+                            builder.AllowAnyHeader()
+                             .AllowAnyMethod()
+                             .SetIsOriginAllowed(_ => true)
+                             .AllowCredentials();
+                          } 
+              );
             app.UseHttpsRedirection();
             app.UseMvc();
         }
