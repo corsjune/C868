@@ -20,14 +20,7 @@ namespace PiBooking.API.Controllers
             var y = DateTime.Today.AddHours(18);
 
 
-            x.Add(new TimeSlotViewModel()
-            {
-                BeginDatetime = y,
-                EndDatetime = y.AddHours(1),
-                Rate = 50,
-                TimeslotId = 1,
-                IsBooked = false
-            });
+ 
 
             return x;
         }

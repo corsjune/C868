@@ -14,9 +14,9 @@ namespace PiBooking.API.Controllers
     public class TimeSlotController : ControllerBase
     {
         private ITimeSlotService _timeSlots;
-        public TimeSlotController(ITimeSlotService _timeSlots)
+        public TimeSlotController(ITimeSlotService timeSlots)
         {
-            _timeSlots = _timeSlots;
+            _timeSlots = timeSlots;
         }
         // GET: api/TimeSlot
         [HttpGet]

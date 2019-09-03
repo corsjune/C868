@@ -15,6 +15,7 @@ using PiBooking.Core.AppSettings;
 using PiBooking.Core.Repository;
 using PiBooking.Core.Interfaces.Repository;
 using PiBooking.Core.Interfaces.Services;
+using PiBooking.Core;
 
 namespace PiBooking.API
 {
@@ -37,6 +38,15 @@ namespace PiBooking.API
                         .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
 
             services.AddSwaggerDocument();
+
+            var config = new AutoMapper.MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new AutoMapperProfileConfiguration());
+            });
+
+            var mapper = config.CreateMapper();
+            services.AddSingleton(mapper);
+
 
             //internal for DI
             services.AddScoped<ICustomerRepository, CustomerRepository>();

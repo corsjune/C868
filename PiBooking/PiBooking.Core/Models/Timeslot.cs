@@ -8,26 +8,31 @@ using System.Threading.Tasks;
 
 namespace PiBooking.Core.Models
 {
+    [Table("Timeslot")]
     public class Timeslot
     {
         [Key]
-        public int TimeslotId { get; set; }
+        public Guid TimeslotID { get; set; }
+
+        public Guid? EngineerID { get; set; }
 
        // [Column(ForceToUtc = false)]
-        public DateTime BeginDatetime { get; set; }
+        public DateTime? BeginDatetime { get; set; }
 
        // [Column(ForceToUtc = false)]
-        public DateTime EndDatetime { get; set; }
+        public DateTime? EndDatetime { get; set; }
 
-        public Decimal Rate { get; set; }
+        public Decimal? Rate { get; set; }
+
+        public int? Status { get; set; }
 
         //[Reference(ReferenceType.Foreign, ColumnName = "payment_id", ReferenceMemberName = "payment_id")]
         //[ComplexMapping]
-        public Guid? PaymentId { get; set; }
+        //public Guid? PaymentId { get; set; }
 
         //[Reference(ReferenceType.Foreign, ColumnName = "job_id", ReferenceMemberName = "job_id")]
         //[ComplexMapping]
-        public Guid? JobId { get; set; }
+        //public Guid? JobId { get; set; }
  
 
     }

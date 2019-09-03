@@ -6,7 +6,7 @@ namespace PiBooking.Core.ViewModels
 {
     public class TimeSlotViewModel
     {
-        public int TimeslotId { get; set; }
+        public Guid TimeslotId { get; set; }
 
         public DateTime BeginDatetime { get; set; }
 
