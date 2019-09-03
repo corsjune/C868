@@ -26,9 +26,11 @@ export class Step5 {
 
         this.showErrors = false;
         this.currentOrder = sess.orderValue;
-        this.stripe = Stripe(env.stripePK);
 
-        var elements = this.stripe.elements();
+
+        //the production version (not the academic one) will use Stripe for CC processing
+        //this.stripe = Stripe(env.stripePK); 
+        //var elements = this.stripe.elements();
         const style = {
             base: {
                 // Add your base input styles here. For example:
@@ -38,7 +40,7 @@ export class Step5 {
         };
 
         // Create an instance of the card Element
-        this.card = elements.create('card', { style });
+        //this.card = elements.create('card', { style });
 
     }
 

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PiBooking.Core.ViewModels
 {
-    class EngineerViewModel
+    public class EngineerViewModel
     {
         public Guid EngineerID { get; set; }
 

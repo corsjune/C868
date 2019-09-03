@@ -56,15 +56,12 @@ var Step5 = (function () {
         this.myrouter = myrouter;
         this.showErrors = false;
         this.currentOrder = sess.orderValue;
-        this.stripe = Stripe(env.stripePK);
-        var elements = this.stripe.elements();
         var style = {
             base: {
                 fontSize: '20px',
                 lineHeight: '28px',
             }
         };
-        this.card = elements.create('card', { style: style });
     }
     Step5.prototype.attached = function () {
         return __awaiter(this, void 0, void 0, function () {
