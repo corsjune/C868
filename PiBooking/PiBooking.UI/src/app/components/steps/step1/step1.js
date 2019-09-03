@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -23,8 +22,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
         while (_) try {
-            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [0, t.value];
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
             switch (op[0]) {
                 case 0: case 1: t = op; break;
                 case 4: _.label++; return { value: op[1], done: false };
@@ -43,35 +42,29 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-/// <reference types="ej.web.all" />
-var $ = require("jquery");
-var aurelia_fetch_client_1 = require("aurelia-fetch-client");
-var aurelia_framework_1 = require("aurelia-framework");
-var TimeSlotFunction_1 = require("../../../services/TimeSlotFunction");
-var QueryCellInfo = (function () {
-    function QueryCellInfo(http, x) {
-        var self = this;
-        self.remoteTS = x;
-        //grid
-        self.gridData = [];
-        self.gridSort = { sortedColumns: [{ field: 'BeginDatetime', direction: 'ascending' }, { field: 'Rate' }] };
-        self.TimeSlots = new Object();
-        self.TimeInterval = {
+import { HttpClient } from 'aurelia-fetch-client';
+import { autoinject } from 'aurelia-framework';
+import { RemoteTSService } from '../../../services/RemoteTSService';
+import { sessionService } from '../../../services/sessionService';
+import { stepsEnabledService } from '../../../services/stepsEnabledService';
+import * as Enumerable from 'linq';
+import * as moment from 'moment';
+var Step1 = (function () {
+    function Step1(stepsEnabled, http, x, sess) {
+        this.stepsEnabled = stepsEnabled;
+        this.currentOrder = sess.orderValue;
+        this.remoteTS = x;
+        this.TimeSlots = new Object();
+        this.TimeInterval = {
             minorSlotCount: 1,
             majorSlot: 60
         };
-        self.MinDate = self.addHours(0, new Date(Date.now()));
-        self.MaxDate = self.addHours(336, new Date(Date.now()));
-        while (self.MaxDate.getDay() !== 6) {
-            self.MaxDate = self.addHours(24, self.MaxDate); //we need to end this on a Saturday
-        }
-        while (self.MinDate.getDay() !== 0) {
-            self.MinDate = self.addHours(-24, self.MinDate); //we need to end this on a Saturday
-        }
-        self.Views = ['workweek'];
-        self.WorkHours = { start: 8, end: 20, highlight: false };
-        self.AppointmentList = {
+        this.MinDate = moment().startOf('week').toDate();
+        this.MaxDate = moment().add(45, 'days').endOf('week').toDate();
+        this.Views = ['workweek'];
+        this.WorkHours = { start: 8, end: 20, highlight: false };
+        this.myWorkWeek = ['Sunday', 'Monday', 'Tuesday', 'Friday', 'Saturday'];
+        this.AppointmentList = {
             id: 'TimeslotId',
             subject: 'Rate',
             startTime: 'BeginDatetime',
@@ -79,51 +72,50 @@ var QueryCellInfo = (function () {
             endTime: 'EndDatetime'
         };
     }
-    QueryCellInfo.prototype.addHours = function (hours, myDate) {
-        myDate.setHours(myDate.getHours() + hours);
-        return myDate;
+    Step1.prototype.refreshTotals = function (appointments) {
+        var count = 0;
+        this.currentOrder.TotalAmount = appointments.reduce(function (previousValue, currentValue, currentIndex, array) {
+            count++;
+            return previousValue + currentValue.Rate;
+        }, 0);
+        this.currentOrder.TotalCount = count;
+        this.stepsEnabled.step2.enabled = this.currentOrder.TotalCount > 0 ? true : false;
     };
-    QueryCellInfo.prototype.onClick = function (event) {
+    Step1.prototype.onClick = function (event) {
         var args = event.detail;
-        var self = this;
-        var sched = $("#Schedule8").data("ejSchedule");
         if (args.type == "cellClick") {
-            var ts = self.TimeSlots[args.startTime.getTime()];
+            var ts = this.TimeSlots[args.startTime.getTime()];
             if (ts != null) {
-                sched.saveAppointment(Object.assign({}, ts));
-                var appointments = sched.getAppointments();
-                self.gridData = appointments.slice(0);
+                this.mySched.saveAppointment(Object.assign({}, ts));
+                this.refreshTotals(this.mySched.getAppointments());
             }
         }
         else if (args.type == "appointmentClick") { }
     };
-    QueryCellInfo.prototype.onAppointmentClick = function (event) {
+    Step1.prototype.onAppointmentClick = function (event) {
         var args = event.detail;
-        var self = this;
-        var sched = $("#Schedule8").data("ejSchedule");
-        sched.deleteAppointment(args.appointment);
-        var appointments = sched.getAppointments();
-        self.gridData = appointments.slice(0);
+        this.mySched.deleteAppointment(args.appointment);
     };
-    QueryCellInfo.prototype.onAppointmentWindowOpen = function (event) {
+    Step1.prototype.appointmentRemoved = function (event) {
+        this.refreshTotals(this.mySched.getAppointments());
+    };
+    Step1.prototype.onAppointmentWindowOpen = function (event) {
         var args = event.detail;
-        var self = this;
         args.cancel = true;
     };
-    QueryCellInfo.prototype.check = function (event) {
+    Step1.prototype.check = function (event) {
         var args = event.detail;
-        var self = this;
         switch (args.requestType) {
             case 'workcells':
                 var text = void 0;
-                if (ej.isNullOrUndefined(self.TimeSlots)) {
+                if (ej.isNullOrUndefined(this.TimeSlots)) {
                     text = "Not Available";
                     args.element.html("<div class=\"caption\">Loading</div>");
                 }
                 else {
                     var ts = void 0;
                     if (args.cell.startTime != null) {
-                        ts = self.TimeSlots[args.cell.startTime.getTime()];
+                        ts = this.TimeSlots[args.cell.startTime.getTime()];
                     }
                     if (ts != null) {
                         text = ts.Rate;
@@ -131,7 +123,7 @@ var QueryCellInfo = (function () {
                         args.element.addClass('white-background');
                     }
                     else {
-                        args.element.html('<span>   </span>');
+                        args.element.html('');
                         args.element.removeClass('white-background');
                     }
                 }
@@ -148,21 +140,47 @@ var QueryCellInfo = (function () {
                 break;
         }
     };
-    QueryCellInfo.prototype.activate = function () {
+    Step1.prototype.deactivate = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var self, data, myDictionary, sortedValues, error_1;
+            return __generator(this, function (_a) {
+                this.currentOrder.TimeSlots = this.mySched.getAppointments();
+                return [2];
+            });
+        });
+    };
+    Step1.prototype.canDeactivate = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2, this.canSave];
+            });
+        });
+    };
+    Object.defineProperty(Step1.prototype, "canSave", {
+        get: function () {
+            return this.stepsEnabled.step2.enabled;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Step1.prototype.activate = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var myTimeSlots, data, myDictionary, sortedValues, error_1;
+            var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
-                        self = this;
-                        return [4 /*yield*/, self.remoteTS.GetTimeSlotsForThisWeek(self.MinDate, self.MaxDate)];
+                        myTimeSlots = this.currentOrder.TimeSlots.slice(0);
+                        this.AppointmentList.dataSource = myTimeSlots;
+                        this.refreshTotals(myTimeSlots);
+                        return [4, this.remoteTS.GetTimeSlots(this.MinDate, this.MaxDate)];
                     case 1:
                         data = _a.sent();
-                        self.AppointmentList.dataSource = data.filter(function (x) { return x.IsBooked === true; });
-                        myDictionary = data.filter(function (x) { return x.IsBooked === false; });
+                        myDictionary = data.filter(function (x) {
+                            return x.IsBooked === false;
+                        });
                         myDictionary.forEach(function (x) {
-                            self.TimeSlots[new Date(x.BeginDatetime).getTime()] = {
+                            _this.TimeSlots[new Date(x.BeginDatetime).getTime()] = {
                                 BeginDatetime: new Date(x.BeginDatetime),
                                 EndDatetime: new Date(x.EndDatetime),
                                 Rate: x.Rate,
@@ -170,42 +188,25 @@ var QueryCellInfo = (function () {
                                 TimeslotId: x.TimeslotId
                             };
                         });
-                        sortedValues = data.filter(function (x) { return x.IsBooked === false; }).splice(0);
-                        //sort by rate
-                        sortedValues.sort(function (left, right) {
-                            if (left.Rate < right.Rate)
-                                return -1;
-                            if (left.Rate > right.Rate)
-                                return 1;
-                            return 0;
-                        });
-                        sortedValues = sortedValues.splice(0, 3);
-                        //sort by date
-                        sortedValues.sort(function (left, right) {
-                            if (left.BeginDatetime < right.BeginDatetime)
-                                return -1;
-                            if (left.BeginDatetime > right.BeginDatetime)
-                                return 1;
-                            return 0;
-                        });
-                        self.example1 = sortedValues[0];
-                        self.example2 = sortedValues[1];
-                        self.example3 = sortedValues[2];
-                        return [3 /*break*/, 3];
+                        sortedValues = Enumerable.from(data).where(function (x) { return x.IsBooked === false; }).orderBy(function (x) { return x.Rate; }).thenBy(function (y) { return y.BeginDatetime; }).take(3).toArray();
+                        this.example1 = sortedValues[0];
+                        this.example2 = sortedValues[1];
+                        this.example3 = sortedValues[2];
+                        return [3, 3];
                     case 2:
                         error_1 = _a.sent();
                         console.error(error_1);
-                        return [2 /*return*/, null];
-                    case 3: return [2 /*return*/];
+                        return [2, null];
+                    case 3: return [2];
                 }
             });
         });
     };
-    QueryCellInfo = __decorate([
-        aurelia_framework_1.autoinject,
-        __metadata("design:paramtypes", [aurelia_fetch_client_1.HttpClient, TimeSlotFunction_1.TimeSlotFunction])
-    ], QueryCellInfo);
-    return QueryCellInfo;
+    Step1 = __decorate([
+        autoinject,
+        __metadata("design:paramtypes", [stepsEnabledService, HttpClient, RemoteTSService, sessionService])
+    ], Step1);
+    return Step1;
 }());
-exports.QueryCellInfo = QueryCellInfo;
+export { Step1 };
 //# sourceMappingURL=step1.js.map

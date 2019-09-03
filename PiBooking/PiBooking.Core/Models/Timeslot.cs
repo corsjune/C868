@@ -1,14 +1,16 @@
-﻿using System;
+﻿using Dapper.Contrib.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
  
 
-namespace DataStore.Public
+namespace PiBooking.Core.Models
 {
     public class Timeslot
     {
+        [Key]
         public int TimeslotId { get; set; }
 
        // [Column(ForceToUtc = false)]

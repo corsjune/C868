@@ -1,5 +1,5 @@
-﻿import { ValidateResult } from "aurelia-validation/dist/commonjs/aurelia-validation";
-import { RenderInstruction } from "aurelia-validation/dist/commonjs/validation-renderer";
+﻿import { ValidateResult } from "aurelia-validation";
+import { RenderInstruction } from "aurelia-validation";
 
 export class BootstrapFormRenderer {
     render(instruction: RenderInstruction) {

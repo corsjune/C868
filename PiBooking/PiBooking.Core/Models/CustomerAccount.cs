@@ -1,13 +1,15 @@
-﻿using System;
+﻿using Dapper.Contrib.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
- 
+using Dapper.Contrib.Extensions;
 
-namespace DataStore.Public
+namespace PiBooking.Core.Models
 {
     public class CustomerAccount
     {
+        [Key]
         public Guid CustomerAccountId { get; set; }
 
         public string Email { get; set; }

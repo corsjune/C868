@@ -11,7 +11,7 @@
        
          constructor(){
             this.stripePK="";
-           this.remoteSessionUrl ="https://localhost:44364";
+           this.remoteSessionUrl ="https://localhost:44310";
 
         }
 };

@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Dapper.Contrib.Extensions;
 
-namespace DataStore.Public
+namespace PiBooking.Core.Models
 {
     public class Payment
     {
+        [Key]
         public Guid PaymentId { get; set; }
 
         public string PaymentConfirmationId{ get; set; }

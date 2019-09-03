@@ -1,51 +1,71 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var aurelia_framework_1 = require("aurelia-framework");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+import { PLATFORM, autoinject } from 'aurelia-framework';
+import { stepsEnabledService } from "../../services/stepsEnabledService";
 var App = (function () {
-    function App() {
+    function App(stepsEnabled) {
+        this.stepsEnabled = stepsEnabled;
     }
     App.prototype.configureRouter = function (config, router) {
-        config.title = 'Aurelia';
+        config.title = 'Book Now';
         config.map([{
                 route: ['', 'step1'],
                 name: 'step1',
-                settings: { icon: 'home' },
-                moduleId: aurelia_framework_1.PLATFORM.moduleName('../steps/step1/step1'),
+                settings: { icon: 'calendar', enabled: this.stepsEnabled.step1 },
+                moduleId: PLATFORM.moduleName('../steps/step1/step1'),
                 nav: true,
-                title: 'Step 1'
+                title: 'Step 1 - Choose Dates and Times'
             }, {
-                route: 'counter',
-                name: 'counter',
-                settings: { icon: 'education' },
-                moduleId: aurelia_framework_1.PLATFORM.moduleName('../counter/counter'),
+                route: 'step2',
+                name: 'step2',
+                settings: { icon: 'phone-alt', enabled: this.stepsEnabled.step2 },
+                moduleId: PLATFORM.moduleName('../steps/step2/step2'),
                 nav: true,
-                title: 'Counter'
+                title: 'Step 2 - Contact Information'
             }, {
-                route: 'fetch-data',
-                name: 'fetchdata',
-                settings: { icon: 'th-list' },
-                moduleId: aurelia_framework_1.PLATFORM.moduleName('../fetchdata/fetchdata'),
+                route: 'step3',
+                name: 'step3',
+                settings: { icon: 'briefcase', enabled: this.stepsEnabled.step3 },
+                moduleId: PLATFORM.moduleName('../steps/step3/step3'),
                 nav: true,
-                title: 'Fetch data'
+                title: 'Step 3 - Job Details'
             }, {
-                route: 'grid',
-                name: 'grid',
-                settings: { icon: 'th' },
-                moduleId: aurelia_framework_1.PLATFORM.moduleName('../grid/grid'),
+                route: 'step4',
+                name: 'step4',
+                settings: { icon: 'ok', enabled: this.stepsEnabled.step4 },
+                moduleId: PLATFORM.moduleName('../steps/step4/step4'),
                 nav: true,
-                title: 'Grid'
+                title: 'Step 4 - Confirm'
             }, {
-                route: 'schedule',
-                name: 'schedule',
-                settings: { icon: 'th' },
-                moduleId: aurelia_framework_1.PLATFORM.moduleName('../grid/grid'),
+                route: 'step5',
+                name: 'step5',
+                settings: { icon: 'credit-card', enabled: this.stepsEnabled.step5 },
+                moduleId: PLATFORM.moduleName('../steps/step5/step5'),
                 nav: true,
-                title: 'Schedule'
+                title: 'Step 5 - Pay and Submit'
+            }, {
+                route: 'stepfinished',
+                name: 'stepfinished',
+                settings: { icon: 'credit-card' },
+                moduleId: PLATFORM.moduleName('../steps/stepfinished/stepfinished'),
+                nav: false,
+                title: 'Thank you!'
             }
         ]);
         this.router = router;
     };
+    App = __decorate([
+        autoinject,
+        __metadata("design:paramtypes", [stepsEnabledService])
+    ], App);
     return App;
 }());
-exports.App = App;
+export { App };
 //# sourceMappingURL=app.js.map

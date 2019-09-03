@@ -1,13 +1,11 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var moment = require("moment");
-var DateFormatValueConverter = (function () {
-    function DateFormatValueConverter() {
+import * as numeral from 'numeral';
+var CurrencyFormatValueConverter = (function () {
+    function CurrencyFormatValueConverter() {
     }
-    DateFormatValueConverter.prototype.toView = function (value, format) {
-        return moment(value).format(format);
+    CurrencyFormatValueConverter.prototype.toView = function (value) {
+        return numeral(value).format('($0,0.00)');
     };
-    return DateFormatValueConverter;
+    return CurrencyFormatValueConverter;
 }());
-exports.DateFormatValueConverter = DateFormatValueConverter;
-//# sourceMappingURL=date-format.js.map
+export { CurrencyFormatValueConverter };
+//# sourceMappingURL=currency-format.js.map

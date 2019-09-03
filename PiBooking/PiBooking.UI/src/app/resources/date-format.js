@@ -1,6 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var moment = require("moment");
+import * as moment from 'moment';
 var DateFormatValueConverter = (function () {
     function DateFormatValueConverter() {
     }
@@ -9,5 +7,5 @@ var DateFormatValueConverter = (function () {
     };
     return DateFormatValueConverter;
 }());
-exports.DateFormatValueConverter = DateFormatValueConverter;
+export { DateFormatValueConverter };
 //# sourceMappingURL=date-format.js.map

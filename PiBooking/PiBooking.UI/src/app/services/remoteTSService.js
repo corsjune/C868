@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -23,8 +22,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
         while (_) try {
-            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [0, t.value];
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
             switch (op[0]) {
                 case 0: case 1: t = op; break;
                 case 4: _.label++; return { value: op[1], done: false };
@@ -43,38 +42,91 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-var aurelia_fetch_client_1 = require("aurelia-fetch-client");
-var aurelia_framework_1 = require("aurelia-framework");
-var aurelia_path_1 = require("aurelia-path");
-var TimeSlotFunction = (function () {
-    function TimeSlotFunction(http) {
-        this._baseUrl = "http://localhost:7071";
+import { HttpClient, json } from 'aurelia-fetch-client';
+import { inject } from 'aurelia-framework';
+import { buildQueryString } from 'aurelia-path';
+import { environment } from '../environment/environment';
+var RemoteTSService = (function () {
+    function RemoteTSService(http, env) {
+        this.env = env;
+        this._baseUrl = env.remoteSessionUrl;
         this._http = http;
     }
-    TimeSlotFunction.prototype.GetTimeSlotsForThisWeek = function (startDate, endDate) {
+    RemoteTSService.prototype.UpdateProgress = function (myOrderModel) {
+        return __awaiter(this, void 0, void 0, function () {
+            var url, response, returnValue, _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        url = this._baseUrl + '/api/UpdateProgress';
+                        return [4, this._http.fetch(url, {
+                                method: 'post',
+                                body: json(myOrderModel)
+                            })];
+                    case 1:
+                        response = _b.sent();
+                        if (!response.ok) return [3, 3];
+                        return [4, response.json()];
+                    case 2:
+                        returnValue = _b.sent();
+                        myOrderModel.Job.JobID = returnValue;
+                        return [3, 5];
+                    case 3:
+                        _a = Error.bind;
+                        return [4, response.json()];
+                    case 4: throw new (_a.apply(Error, [void 0, (_b.sent()).Message]))();
+                    case 5: return [2];
+                }
+            });
+        });
+    };
+    RemoteTSService.prototype.BookTime = function (myOrderModel) {
+        return __awaiter(this, void 0, void 0, function () {
+            var url, response, _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        url = this._baseUrl + '/api/BookTime';
+                        return [4, this._http.fetch(url, {
+                                method: 'post',
+                                body: json(myOrderModel)
+                            })];
+                    case 1:
+                        response = _b.sent();
+                        if (!response.ok) return [3, 3];
+                        return [4, response.json()];
+                    case 2: return [2, _b.sent()];
+                    case 3:
+                        _a = Error.bind;
+                        return [4, response.json()];
+                    case 4: throw new (_a.apply(Error, [void 0, (_b.sent()).Message]))();
+                }
+            });
+        });
+    };
+    RemoteTSService.prototype.GetTimeSlots = function (startDate, endDate) {
         return __awaiter(this, void 0, void 0, function () {
             var url, params, queryString, result;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        url = this._baseUrl + '/api/GetTimeSlotsForThisWeek';
+                        url = this._baseUrl + '/api/GetTimeSlots';
                         params = { startDate: JSON.stringify(startDate), endDate: JSON.stringify(endDate) };
-                        queryString = aurelia_path_1.buildQueryString(params);
+                        queryString = buildQueryString(params);
                         url += queryString ? "?" + queryString : '';
-                        return [4 /*yield*/, this._http.fetch(url)];
+                        return [4, this._http.fetch(url)];
                     case 1:
                         result = _a.sent();
-                        return [2 /*return*/, result.json()];
+                        return [2, result.json()];
                 }
             });
         });
     };
-    TimeSlotFunction = __decorate([
-        aurelia_framework_1.inject(aurelia_fetch_client_1.HttpClient, aurelia_path_1.buildQueryString),
-        __metadata("design:paramtypes", [aurelia_fetch_client_1.HttpClient])
-    ], TimeSlotFunction);
-    return TimeSlotFunction;
+    RemoteTSService = __decorate([
+        inject(HttpClient, environment),
+        __metadata("design:paramtypes", [HttpClient, environment])
+    ], RemoteTSService);
+    return RemoteTSService;
 }());
-exports.TimeSlotFunction = TimeSlotFunction;
-//# sourceMappingURL=TimeSlotFunction.js.map
+export { RemoteTSService };
+//# sourceMappingURL=RemoteTSService.js.map
