@@ -23,14 +23,19 @@ namespace PiBooking.Core.Repository
             _mapper = mapper;
         }
 
-        public void Add(TimeSlotViewModel item)
-        {
-            throw new NotImplementedException();
+        public TimeSlotViewModel Add(TimeSlotViewModel item)
+        { 
+            var before = _mapper.Map<TimeSlotViewModel, Timeslot> (item);
+
+            var after = _repo.Add(before);
+
+            return _mapper.Map<Timeslot, TimeSlotViewModel>(after);
         }
 
-        public void Delete(TimeSlotViewModel item)
+        public int Delete(int id)
         {
-            throw new NotImplementedException();
+            var data = _repo.GetById(id);
+            return _repo.Delete(data);
         }
 
         public IEnumerable<TimeSlotViewModel> GetAll()
@@ -41,14 +46,26 @@ namespace PiBooking.Core.Repository
             return returnValue;
         }
 
-        public TimeSlotViewModel GetById(Guid id)
+        public TimeSlotViewModel GetById(int id)
         {
-            throw new NotImplementedException();
+            var data = _repo.GetById(id);
+
+            var returnValue = _mapper.Map<Timeslot, TimeSlotViewModel>(data);
+            return returnValue;
         }
 
-        public void Update(TimeSlotViewModel item)
+        public TimeSlotViewModel Update(int id, TimeSlotViewModel item)
         {
-            throw new NotImplementedException();
+            var data = _repo.GetById(id);
+
+            data.BeginDatetime = item.BeginDatetime;
+            data.EndDatetime = item.EndDatetime;
+            data.EngineerID = item.EngineerID;
+            data.Rate = item.Rate;
+            data.Status = item.Status;
+
+            var updateObjected =  _repo.Update(data);
+            return _mapper.Map<Timeslot, TimeSlotViewModel>(updateObjected);
         }
     }
 }

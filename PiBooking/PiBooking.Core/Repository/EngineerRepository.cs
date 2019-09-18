@@ -16,19 +16,25 @@ namespace PiBooking.Core.Repository
 
         }
 
-        public void Add(Engineer item)
+        public Engineer Add(Engineer item)
         {
             using (SqlConnection connection = GetConnection())
             {
-                connection.Insert(item);
+                var id = connection.Insert(item);
+
+                var returnObject = connection.Get<Engineer>(id);
+                return returnObject;
             }
         }
 
-        public void Delete(Engineer item)
+        public int Delete(Engineer item)
         {
             using (SqlConnection connection = GetConnection())
             {
-                connection.Delete(item);
+                if (connection.Delete(item))
+                    return 1;
+                else
+                    return 0;
             }
         }
 
@@ -41,7 +47,7 @@ namespace PiBooking.Core.Repository
             }
         }
 
-        public Engineer GetById(Guid id)
+        public Engineer GetById(int id)
         {
             using (SqlConnection connection = GetConnection())
             {
@@ -50,11 +56,14 @@ namespace PiBooking.Core.Repository
             }
         }
 
-        public void Update(Engineer item)
+        public Engineer Update(Engineer item)
         {
             using (SqlConnection connection = GetConnection())
             {
                 connection.Update(item);
+
+                var returnObject = connection.Get<Engineer>(item.EngineerID);
+                return returnObject;
             }
         }
     }

@@ -6,9 +6,9 @@ namespace PiBooking.Core.ViewModels
 {
     public class PaymentViewModel
     {
-        public Guid PaymentId { get; set; }
+        public int PaymentId { get; set; }
 
-        public Guid JobId { get; set; }
+        public int JobId { get; set; }
 
         public string PaymentConfirmationId { get; set; }
 

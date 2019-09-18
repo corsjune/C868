@@ -162,9 +162,7 @@ export class Step1 {
         this.currentOrder.TimeSlots = this.mySched.getAppointments(); 
     }
 
-    async canDeactivate() { 
-        return this.canSave;
-    }
+  
 
     get canSave() {
         return this.stepsEnabled.step2.enabled;

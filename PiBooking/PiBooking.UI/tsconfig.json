@@ -14,13 +14,16 @@
     ],
     "moduleResolution": "node",
     "baseUrl": "src",
-    "allowJs": true
-  },
-  "include": [
-    "./src/**/*.ts", 
-    "./types/**/*.d.ts"
-  ],
-  "atom": {
-    "rewriteTsconfig": false
+    "paths": {
+      "*": [ "src/*" ]
+    },
+      "allowJs": true
+    },
+    "include": [
+      "./src/**/*.ts",
+      "./types/**/*.d.ts"
+    ],
+    "atom": {
+      "rewriteTsconfig": false
+    }
   }
-}

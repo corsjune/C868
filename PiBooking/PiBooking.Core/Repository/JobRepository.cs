@@ -16,19 +16,25 @@ namespace PiBooking.Core.Repository
 
         }
 
-        public void Add(Job item)
+        public Job Add(Job item)
         {
             using (SqlConnection connection = GetConnection())
             {
-                connection.Insert(item);
+                var id = connection.Insert(item);
+
+                var returnObject = connection.Get<Job>(id);
+                return returnObject;
             }
         }
 
-        public void Delete(Job item)
+        public int Delete(Job item)
         {
             using (SqlConnection connection = GetConnection())
             {
-                connection.Delete(item);
+                if (connection.Delete(item))
+                    return 1;
+                else
+                    return 0;
             }
         }
 
@@ -41,7 +47,7 @@ namespace PiBooking.Core.Repository
             }
         }
 
-        public Job GetById(Guid id)
+        public Job GetById(int id)
         {
             using (SqlConnection connection = GetConnection())
             {
@@ -50,11 +56,14 @@ namespace PiBooking.Core.Repository
             }
         }
 
-        public void Update(Job item)
+        public Job Update(Job item)
         {
             using (SqlConnection connection = GetConnection())
             {
                 connection.Update(item);
+
+                var returnObject = connection.Get<Job>(item.JobId);
+                return returnObject;
             }
         }
     }

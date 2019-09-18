@@ -148,13 +148,6 @@ var Step1 = (function () {
             });
         });
     };
-    Step1.prototype.canDeactivate = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                return [2, this.canSave];
-            });
-        });
-    };
     Object.defineProperty(Step1.prototype, "canSave", {
         get: function () {
             return this.stepsEnabled.step2.enabled;

@@ -16,19 +16,24 @@ namespace PiBooking.Core.Repository
 
         }
 
-        public void Add(Timeslot item)
+        public Timeslot Add(Timeslot item)
         {
             using (SqlConnection connection = GetConnection())
             {
-                connection.Insert(item);
+                var id = connection.Insert(item);
+                var returnObject = connection.Get<Timeslot>(id);
+                return returnObject;
             }
         }
 
-        public void Delete(Timeslot item)
+        public int Delete(Timeslot item)
         {
             using (SqlConnection connection = GetConnection())
             {
-                connection.Delete(item);
+                if (connection.Delete(item))
+                    return 1;
+                else
+                    return 0;
             }
         }
 
@@ -41,7 +46,7 @@ namespace PiBooking.Core.Repository
             }
         }
 
-        public Timeslot GetById(Guid id)
+        public Timeslot GetById(int id)
         {
             using (SqlConnection connection = GetConnection())
             {
@@ -50,11 +55,14 @@ namespace PiBooking.Core.Repository
             }
         }
 
-        public void Update(Timeslot item)
+        public Timeslot Update(Timeslot item)
         {
             using (SqlConnection connection = GetConnection())
             {
                 connection.Update(item);
+
+                var returnObject = connection.Get<Timeslot>(item.TimeslotID);
+                return returnObject;
             }
         }
     }

@@ -18,12 +18,12 @@ namespace PiBooking.Core.Repository
 
         }
 
-        public void Add(JobViewModel item)
+        public JobViewModel Add(JobViewModel item)
         {
             throw new NotImplementedException();
         }
 
-        public void Delete(JobViewModel item)
+        public int Delete(int id)
         {
             throw new NotImplementedException();
         }
@@ -33,12 +33,12 @@ namespace PiBooking.Core.Repository
             throw new NotImplementedException();
         }
 
-        public JobViewModel GetById(Guid id)
+        public JobViewModel GetById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(JobViewModel item)
+        public JobViewModel Update(int id, JobViewModel item)
         {
             throw new NotImplementedException();
         }

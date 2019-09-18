@@ -20,12 +20,12 @@ namespace PiBooking.Core.Repository
 
         }
 
-        public void Add(CustomerViewModel item)
+        public CustomerViewModel Add(CustomerViewModel item)
         {
             throw new NotImplementedException();
         }
 
-        public void Delete(CustomerViewModel item)
+        public int Delete(int customerID)
         {
             throw new NotImplementedException();
         }
@@ -35,12 +35,12 @@ namespace PiBooking.Core.Repository
             throw new NotImplementedException();
         }
 
-        public CustomerViewModel GetById(Guid id)
+        public CustomerViewModel GetById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(CustomerViewModel item)
+        public CustomerViewModel Update(int customerID, CustomerViewModel item)
         {
             throw new NotImplementedException();
         }

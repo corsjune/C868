@@ -12,19 +12,19 @@ namespace PiBooking.Core.Models
     public class Timeslot
     {
         [Key]
-        public Guid TimeslotID { get; set; }
+        public int TimeslotID { get; set; }
 
-        public Guid? EngineerID { get; set; }
-
-       // [Column(ForceToUtc = false)]
-        public DateTime? BeginDatetime { get; set; }
+        public int? EngineerID { get; set; }
 
        // [Column(ForceToUtc = false)]
-        public DateTime? EndDatetime { get; set; }
+        public DateTime BeginDatetime { get; set; }
+
+       // [Column(ForceToUtc = false)]
+        public DateTime EndDatetime { get; set; }
 
         public Decimal? Rate { get; set; }
 
-        public int? Status { get; set; }
+        public int Status { get; set; }
 
         //[Reference(ReferenceType.Foreign, ColumnName = "payment_id", ReferenceMemberName = "payment_id")]
         //[ComplexMapping]

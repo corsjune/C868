@@ -8,9 +8,9 @@ namespace PiBooking.Core.Interfaces.Repository
     public interface IJobRepository
     {
         IEnumerable<Job> GetAll();
-        Job GetById(Guid id);
-        void Add(Job item);
-        void Update(Job item);
-        void Delete(Job item);
+        Job GetById(int id);
+        Job Add(Job item);
+        Job Update(Job item);
+        int Delete(Job item);
     }
 }

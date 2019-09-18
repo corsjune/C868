@@ -8,9 +8,9 @@ namespace PiBooking.Core.Interfaces.Repository
     public interface ITimeSlotRepository
     {
         IEnumerable<Timeslot> GetAll();
-        Timeslot GetById(Guid id);
-        void Add(Timeslot item);
-        void Update(Timeslot item);
-        void Delete(Timeslot item);
+        Timeslot GetById(int id);
+        Timeslot Add(Timeslot item);
+        Timeslot Update(Timeslot item);
+        int Delete(Timeslot item);
     }
 }

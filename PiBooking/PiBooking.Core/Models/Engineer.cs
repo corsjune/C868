@@ -8,7 +8,7 @@ namespace PiBooking.Core.Models
     public class Engineer
     {
         [Key]
-        public Guid EngineerID { get; set; }
+        public int EngineerID { get; set; }
 
         public string FirstName { get; set; }
 

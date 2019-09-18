@@ -6,7 +6,7 @@ namespace PiBooking.Core.ViewModels
 {
     public class JobViewModel
     {
-        public string JobId { get; set; }
+        public int JobId { get; set; }
 
         public string JobName { get; set; }
 

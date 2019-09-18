@@ -9,7 +9,7 @@ namespace PiBooking.Core.Models
     public class Job
     {
         [Key]
-        public Guid  JobId { get; set; }
+        public int  JobId { get; set; }
 
         public string JobName { get; set; }
 

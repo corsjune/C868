@@ -41,7 +41,7 @@ export class Step4 {
         return this.stepsEnabled.step5.enabled;
     }
 
-    async canDeactivate() {  
+    async deactivate() {  
         this.currentOrder.Signature=this.mySignature._canvas[0].toDataURL();
     }
 }

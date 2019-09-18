@@ -8,9 +8,9 @@ namespace PiBooking.Core.Interfaces.Repository
     public interface IOrderRepository
     {
         IEnumerable<Order> GetAll();
-        Order GetById(Guid id);
-        void Add(Order item);
-        void Update(Order item);
-        void Delete(Order item);
+        Order GetById(int id);
+        Order Add(Order item);
+        Order Update(Order item);
+        int Delete(Order item);
     }
 }

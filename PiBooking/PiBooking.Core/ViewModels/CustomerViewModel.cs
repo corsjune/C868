@@ -6,7 +6,7 @@ namespace PiBooking.Core.ViewModels
 {
     public class CustomerViewModel
     {
-        public Guid CustomerAccountId { get; set; }
+        public int CustomerAccountId { get; set; }
 
         public string Email { get; set; }
 

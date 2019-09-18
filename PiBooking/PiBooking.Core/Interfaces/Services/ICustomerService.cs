@@ -9,9 +9,9 @@ namespace PiBooking.Core.Interfaces.Services
     public interface ICustomerService
     {
         IEnumerable<CustomerViewModel> GetAll();
-        CustomerViewModel GetById(Guid id);
-        void Add(CustomerViewModel item);
-        void Update(CustomerViewModel item);
-        void Delete(CustomerViewModel item);
+        CustomerViewModel GetById(int id);
+        CustomerViewModel Add(CustomerViewModel item);
+        CustomerViewModel Update(int customerID , CustomerViewModel item);
+        int Delete(int customerID);
     }
 }

@@ -18,21 +18,29 @@ namespace PiBooking.Core.Repository
 
         }
 
-        public void Add(CustomerAccount item)
+        public CustomerAccount Add(CustomerAccount item)
         {
              
             using (SqlConnection connection = GetConnection())
             { 
-                connection.Insert(item);
+                var id = connection.Insert(item);
+
+                var returnObject = connection.Get<CustomerAccount>(id);
+                return returnObject;
             }
         }
 
-        public void Delete(CustomerAccount item)
+        public int Delete(CustomerAccount item)
         {
             using (SqlConnection connection = GetConnection())
             {
-                connection.Delete(item);
+                if (connection.Delete(item))
+                    return 1;
+                else
+                    return 0;
             }
+
+
         }
 
         public IEnumerable<CustomerAccount> GetAll()
@@ -44,7 +52,7 @@ namespace PiBooking.Core.Repository
             }
         }
 
-        public CustomerAccount GetById(Guid id)
+        public CustomerAccount GetById(int id)
         { 
             using (SqlConnection connection = GetConnection())
             { 
@@ -53,11 +61,14 @@ namespace PiBooking.Core.Repository
             }
         }
 
-        public void Update(CustomerAccount item)
+        public CustomerAccount Update(CustomerAccount item)
         {
             using (SqlConnection connection = GetConnection())
             {
                 connection.Update(item);
+
+                var returnObject = connection.Get<CustomerAccount>(item.CustomerAccountId);
+                return returnObject;
             }
         }
     }

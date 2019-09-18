@@ -9,9 +9,9 @@ namespace PiBooking.Core.Interfaces.Services
     public interface IEngineerService
     {
         IEnumerable<EngineerViewModel> GetAll();
-        EngineerViewModel GetById(Guid id);
-        void Add(EngineerViewModel item);
-        void Update(EngineerViewModel item);
-        void Delete(EngineerViewModel item);
+        EngineerViewModel GetById(int id);
+        EngineerViewModel Add(EngineerViewModel item);
+        EngineerViewModel Update(int engineerID, EngineerViewModel item);
+        int Delete(int engineerID);
     }
 }

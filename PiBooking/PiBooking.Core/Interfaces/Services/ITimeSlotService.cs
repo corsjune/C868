@@ -9,9 +9,9 @@ namespace PiBooking.Core.Interfaces.Services
     public interface ITimeSlotService
     {
         IEnumerable<TimeSlotViewModel> GetAll();
-        TimeSlotViewModel GetById(Guid id);
-        void Add(TimeSlotViewModel item);
-        void Update(TimeSlotViewModel item);
-        void Delete(TimeSlotViewModel item);
+        TimeSlotViewModel GetById(int id);
+        TimeSlotViewModel Add(TimeSlotViewModel item);
+        TimeSlotViewModel Update(int timeSlotID, TimeSlotViewModel item);
+        int Delete(int timeSlotID);
     }
 }

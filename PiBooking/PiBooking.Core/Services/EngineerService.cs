@@ -8,39 +8,64 @@ using Dapper.Contrib.Extensions;
 using System.Data.SqlClient;
 using PiBooking.Core.Interfaces.Services;
 using PiBooking.Core.ViewModels;
+using AutoMapper;
 
 namespace PiBooking.Core.Repository
 {
     public class EngineerService : BaseService, IEngineerService
     {
-        public EngineerService(IEngineerRepository repo) : base()
-        {
+        IEngineerRepository _repo;
+        IMapper _mapper;
 
+        public EngineerService(IEngineerRepository repo, IMapper mapper) : base()
+        {
+            _repo = repo;
+            _mapper = mapper;
         }
 
-        public void Add(EngineerViewModel item)
+        public EngineerViewModel Add(EngineerViewModel item)
         {
-            throw new NotImplementedException();
+            var before = _mapper.Map<EngineerViewModel, Engineer>(item);
+
+            var after = _repo.Add(before);
+
+            return _mapper.Map<Engineer, EngineerViewModel>(after);
         }
 
-        public void Delete(EngineerViewModel item)
+        public int Delete(int id)
         {
-            throw new NotImplementedException();
+            var data = _repo.GetById(id);
+            return _repo.Delete(data);
         }
 
         public IEnumerable<EngineerViewModel> GetAll()
         {
-            throw new NotImplementedException();
+            var data = new List<Engineer>(_repo.GetAll());
+
+            var returnValue = _mapper.Map<List<Engineer>, List<EngineerViewModel>>(data);
+            return returnValue;
         }
 
-        public EngineerViewModel GetById(Guid id)
+        public EngineerViewModel GetById(int id)
         {
-            throw new NotImplementedException();
+            var data = _repo.GetById(id);
+
+            var returnValue = _mapper.Map<Engineer, EngineerViewModel>(data);
+            return returnValue;
         }
 
-        public void Update(EngineerViewModel item)
+        public EngineerViewModel Update(int id, EngineerViewModel item)
         {
-            throw new NotImplementedException();
+            var data = _repo.GetById(id);
+
+            data.Email = item.Email;
+            data.EmployeeID = item.EmployeeID;
+            data.FirstName = item.FirstName;
+            data.LastName = item.LastName;
+            data.Phone = item.Phone; 
+
+            var updateObjected = _repo.Update(data);
+            return _mapper.Map<Engineer, EngineerViewModel>(updateObjected);
         }
     }
 }

@@ -110,7 +110,7 @@ var RemoteTSService = (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        url = this._baseUrl + '/api/GetTimeSlots';
+                        url = this._baseUrl + '/api/TimeSlot';
                         params = { startDate: JSON.stringify(startDate), endDate: JSON.stringify(endDate) };
                         queryString = buildQueryString(params);
                         url += queryString ? "?" + queryString : '';

@@ -20,19 +20,25 @@ namespace PiBooking.Core.Repository
         }
 
 
-        public void Add(Order item)
+        public Order Add(Order item)
         {
             using (SqlConnection connection = GetConnection())
             {
-                connection.Insert(item);
+                var id = connection.Insert(item);
+
+                var returnObject = connection.Get<Order>(id);
+                return returnObject;
             }
         }
 
-        public void Delete(Order item)
+        public int Delete(Order item)
         {
             using (SqlConnection connection = GetConnection())
             {
-                connection.Delete(item);
+                if (connection.Delete(item))
+                    return 1;
+                else
+                    return 0;
             }
         }
 
@@ -45,7 +51,7 @@ namespace PiBooking.Core.Repository
             }
         }
 
-        public Order GetById(Guid id)
+        public Order GetById(int id)
         {
             using (SqlConnection connection = GetConnection())
             {
@@ -54,11 +60,14 @@ namespace PiBooking.Core.Repository
             }
         }
 
-        public void Update(Order item)
+        public Order Update(Order item)
         {
             using (SqlConnection connection = GetConnection())
             {
                 connection.Update(item);
+
+                var returnObject = connection.Get<Order>(item.OrderID);
+                return returnObject;
             }
         }
     }

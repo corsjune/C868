@@ -10,7 +10,7 @@ namespace PiBooking.Core.Models
     public class Payment
     {
         [Key]
-        public Guid PaymentId { get; set; }
+        public int PaymentId { get; set; }
 
         public string PaymentConfirmationId{ get; set; }
 

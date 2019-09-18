@@ -8,11 +8,11 @@ namespace PiBooking.Core.Models
     public class Order
     {
         [Key]
-        public Guid OrderID { get; set; }
+        public int OrderID { get; set; }
 
-        public Guid Customer { get; set; }
-        public Guid Job { get; set; }
-        public Guid Payment { get; set; }
+        public int Customer { get; set; }
+        public int Job { get; set; }
+        public int Payment { get; set; }
         public List<Timeslot> TimeSlots { get; set; }
         public string Signature { get; set; }
     }

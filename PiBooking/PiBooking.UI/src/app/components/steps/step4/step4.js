@@ -81,7 +81,7 @@ var Step4 = (function () {
         enumerable: true,
         configurable: true
     });
-    Step4.prototype.canDeactivate = function () {
+    Step4.prototype.deactivate = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 this.currentOrder.Signature = this.mySignature._canvas[0].toDataURL();

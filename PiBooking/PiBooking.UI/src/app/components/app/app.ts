@@ -1,5 +1,5 @@
 import { Aurelia, PLATFORM, autoinject } from 'aurelia-framework';
-import { Router, RouterConfiguration } from 'aurelia-router';
+import { Redirect, Router, RouterConfiguration } from 'aurelia-router';
 import { stepsEnabledService } from "../../services/stepsEnabledService";
 
 @autoinject
@@ -11,51 +11,47 @@ export class App {
 
     configureRouter(config: RouterConfiguration, router: Router) {
         config.title = 'Book Now';
-        config.map([{
-            route: ['', 'step1'],
-            name: 'step1', 
-            settings: { icon: 'calendar', enabled:this.stepsEnabled.step1 },
-            moduleId: PLATFORM.moduleName('../steps/step1/step1'),
+        config.addPipelineStep('authorize', AuthorizeStep);
+        config.map([
+         { route: '', redirect: 'home' },
+         {
+            route: ['home'],
+            name: 'home', 
+            settings: { icon: 'calendar', enabled:true, roles: [] },
+            moduleId: PLATFORM.moduleName('../steps/steps_root/app'),
             nav: true,
-            title: 'Step 1 - Choose Dates and Times'
+            title: 'Home'
         }, {
-            route: 'step2',
-            name: 'step2',
-            settings: { icon: 'phone-alt', enabled: this.stepsEnabled.step2  },
-            moduleId: PLATFORM.moduleName('../steps/step2/step2'),
+            route: 'admin',
+            name: 'admin',
+            settings: { icon: 'phone-alt', enabled: true, roles: []  },
+            moduleId: PLATFORM.moduleName('../admin/admin_root/app'),
             nav: true,
-            title: 'Step 2 - Contact Information'
+            title: 'Admin'
         }, {
             route: 'step3',
             name: 'step3',
-            settings: { icon: 'briefcase', enabled: this.stepsEnabled.step3  },
+            settings: { icon: 'briefcase', enabled: true, roles: []  },
             moduleId: PLATFORM.moduleName('../steps/step3/step3'),
             nav: true,
-            title: 'Step 3 - Job Details'
-        }, {
-            route: 'step4',
-            name: 'step4',
-            settings: { icon: 'ok', enabled: this.stepsEnabled.step4  },
-            moduleId: PLATFORM.moduleName('../steps/step4/step4'),
-            nav: true,
-            title: 'Step 4 - Confirm'
-        }, {
-            route: 'step5',
-            name: 'step5',
-            settings: { icon: 'credit-card', enabled: this.stepsEnabled.step5  },
-            moduleId: PLATFORM.moduleName('../steps/step5/step5'),
-            nav: true,
-            title: 'Step 5 - Pay and Submit'
-        }, {
-            route: 'stepfinished',
-            name: 'stepfinished',
-            settings: { icon: 'credit-card' },
-            moduleId: PLATFORM.moduleName('../steps/stepfinished/stepfinished'),
-            nav: false,
-            title: 'Thank you!'
-        }
+            title: 'Contact'
+        } 
         ]);
 
         this.router = router;
     }
+
+}
+
+class AuthorizeStep {
+        run(navigationInstruction, next) {
+          if (navigationInstruction.getAllInstructions().some(i => i.config.settings.roles.indexOf('admin') !== -1)) {
+            var isAdmin = /* insert magic here */false;
+            if (!isAdmin) {
+              return next.cancel(new Redirect('step3'));
+            }
+          }
+      
+          return next();
+        }
 }

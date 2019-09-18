@@ -10,7 +10,7 @@ namespace PiBooking.Core.Models
     public class CustomerAccount
     {
         [Key]
-        public Guid CustomerAccountId { get; set; }
+        public int CustomerAccountId { get; set; }
 
         public string Email { get; set; }
 

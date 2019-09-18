@@ -13,7 +13,6 @@ namespace PiBooking.API.Controllers
     {
         // GET api/values
         [HttpGet]
-        [Route("/api/GetTimeSlots")]
         public ActionResult<List<TimeSlotViewModel>> Get()
         {
             var x = new List<TimeSlotViewModel>();

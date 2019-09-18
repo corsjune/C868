@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -20,34 +21,42 @@ namespace PiBooking.API.Controllers
         }
         // GET: api/TimeSlot
         [HttpGet]
-        public IEnumerable<TimeSlotViewModel> Get()
+        public IActionResult Get()
         {
-            return _timeSlots.GetAll();
+            var response = _timeSlots.GetAll();
+            return StatusCode((int)HttpStatusCode.OK, response);
         }
 
         // GET: api/TimeSlot/5
         [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        public IActionResult Get(int id)
         {
-            return "value";
+            var response = _timeSlots.GetById(id);
+            return StatusCode((int)HttpStatusCode.OK, response);
         }
 
         // POST: api/TimeSlot
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Post([FromBody] TimeSlotViewModel value)
         {
+            var response = _timeSlots.Add(value);
+            return StatusCode((int)HttpStatusCode.Created, response);
         }
 
         // PUT: api/TimeSlot/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult Put(int id, [FromBody] TimeSlotViewModel value)
         {
+            var response = _timeSlots.Update(id, value);
+            return StatusCode((int)HttpStatusCode.OK, response);
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            var response = _timeSlots.Delete(id);
+            return StatusCode((int)HttpStatusCode.NoContent);
         }
     }
 }
