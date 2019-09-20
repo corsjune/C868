@@ -18,9 +18,22 @@ export class Engineers {
         this.router.navigateToRoute('engineerdetails', { id: null }); 
     }
 
-    delete(id:number)
+    async delete(id:number)
     {
-        alert('delete' + id);
+        let self = this;
+
+        let result = confirm('Are you sure you wish to delete this engineer ?');
+
+        if (result) {
+
+            let deletedEngineer = await this.apiEndpoint.destroyOne('engineer', id)
+                .catch(
+                    e => {
+                        self.errors = "An error has occurred. The engineer did not save. Please review the data and try again!"
+                    });
+
+            this.engineers = await this.apiEndpoint.find('engineer'); 
+        }
     }
 
     edit(id:number)

@@ -61,17 +61,11 @@ export class EngineerDetails {
  
         if (this.engineer.EngineerID != null) {
 
-            savedEngineer = await this.apiEndpoint.update('engineer', this.engineer.EngineerID, null, this.engineer)
-            .catch ( 
-                e => self.errors= "An error has occurred. The engineer did not save. Please review the data and try again!");
+            savedEngineer = await this.apiEndpoint.update('engineer', this.engineer.EngineerID, this.engineer);
         }
         else {
 
-            savedEngineer = await this.apiEndpoint.post('engineer', this.engineer) 
-            .catch (
-                e => {
-                    self.errors= "An error has occurred. The engineer did not save. Please review the data and try again!"
-                });
+            savedEngineer = await this.apiEndpoint.post('engineer', this.engineer);
         } 
 
         if (savedEngineer!= null) { 
