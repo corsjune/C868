@@ -6,7 +6,7 @@ import { stepsEnabledService } from '../../../services/stepsEnabledService'
 
 import * as Enumerable from 'linq'
 import * as moment from 'moment'
-import { OrderModel } from '../../../models/OrderModel'
+import { OrderViewModel } from '../../../models/OrderModel'
 import { RemoteTSService } from '../../../services/RemoteTSService' 
 import { environment } from '../../../environment/environment'; 
 import { Router } from 'aurelia-router';
@@ -19,7 +19,7 @@ export class Step5 {
 
     private stripe: any;
     private card: any;
-    public currentOrder: OrderModel;
+    public currentOrder: OrderViewModel;
     public showErrors: boolean;
 
     constructor(public stepsEnabled: stepsEnabledService, sess: sessionService, private remote: RemoteTSService, private env:environment,private myrouter:Router) {

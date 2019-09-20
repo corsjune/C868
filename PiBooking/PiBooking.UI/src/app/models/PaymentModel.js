@@ -1,7 +1,7 @@
-var PaymentModel = (function () {
-    function PaymentModel() {
+var PaymentViewModel = (function () {
+    function PaymentViewModel() {
     }
-    return PaymentModel;
+    return PaymentViewModel;
 }());
-export { PaymentModel };
+export { PaymentViewModel };
 //# sourceMappingURL=PaymentModel.js.map

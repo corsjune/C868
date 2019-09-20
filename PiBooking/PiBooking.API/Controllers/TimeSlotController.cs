@@ -28,7 +28,7 @@ namespace PiBooking.API.Controllers
         }
 
         // GET: api/TimeSlot/5
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
             var response = _timeSlots.GetById(id);

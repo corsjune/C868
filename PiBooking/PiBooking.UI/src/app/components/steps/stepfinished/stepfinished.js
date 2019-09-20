@@ -10,18 +10,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { autoinject } from 'aurelia-framework';
 import { sessionService } from '../../../services/sessionService';
 import { ValidationControllerFactory, Validator } from 'aurelia-validation';
-import { OrderModel } from '../../../models/OrderModel';
-import { PaymentModel } from '../../../models/PaymentModel';
+import { OrderViewModel } from '../../../models/OrderModel';
+import { PaymentViewModel } from '../../../models/PaymentModel';
 var StepFinished = (function () {
     function StepFinished(sess, val, validator) {
         this.validator = validator;
         var self = this;
-        this.currentOrder = new OrderModel();
+        this.currentOrder = new OrderViewModel();
         this.currentOrder.Customer = sess.orderValue.Customer;
         this.currentOrder.Job = sess.orderValue.Job;
         this.currentOrder.Job.JobID = "";
         this.currentOrder.TimeSlots = new Array();
-        this.currentOrder.Payment = new PaymentModel();
+        this.currentOrder.Payment = new PaymentViewModel();
         this.currentOrder.TotalCount = 0;
         this.currentOrder.TotalAmount = 0;
         sess.orderValue = this.currentOrder;

@@ -8,6 +8,9 @@ export function configure(aurelia) {
     aurelia.use
         .standardConfiguration()
         .plugin(PLATFORM.moduleName('aurelia-validation'))
+        .plugin(PLATFORM.moduleName('aurelia-api'), function (config) {
+        config.registerEndpoint('api', environment.remoteSessionUrl);
+    })
         .plugin(PLATFORM.moduleName('aurelia-syncfusion-bridge'), function (syncfusion) { return syncfusion.ejGrid().ejSchedule().ejSignature(); })
         .feature(PLATFORM.moduleName('resources/index'));
     aurelia.use.developmentLogging(environment.debug ? 'debug' : 'warn');

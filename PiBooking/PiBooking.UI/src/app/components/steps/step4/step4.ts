@@ -2,7 +2,7 @@
 import * as $ from 'jquery'; 
 import { autoinject } from 'aurelia-framework';
 import { RemoteTSService } from '../../../services/RemoteTSService'
-import { OrderModel } from '../../../models/OrderModel'
+import { OrderViewModel } from '../../../models/OrderModel'
 import { sessionService } from '../../../services/sessionService'
 import { stepsEnabledService } from '../../../services/stepsEnabledService'
 
@@ -11,7 +11,7 @@ export class Step4 {
  
     public gridData: any;
     public gridSort: any; 
-    public currentOrder: OrderModel;
+    public currentOrder: OrderViewModel;
 
     public mySignature: any;
 

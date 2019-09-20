@@ -5,6 +5,7 @@ using Dapper.Contrib.Extensions;
 
 namespace PiBooking.Core.Models
 {
+    [Table("Order")]
     public class Order
     {
         [Key]

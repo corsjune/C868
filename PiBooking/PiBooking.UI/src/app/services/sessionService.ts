@@ -1,14 +1,14 @@
-﻿import { OrderModel } from '../models/OrderModel'
+﻿import { OrderViewModel } from '../models/OrderModel'
 
 export class sessionService {
 
-    public orderValue:  OrderModel;  
+    public orderValue:  OrderViewModel;  
 
 
 
     constructor() { 
 
-        this.orderValue = new OrderModel(); 
+        this.orderValue = new OrderViewModel(); 
  
     }
 }

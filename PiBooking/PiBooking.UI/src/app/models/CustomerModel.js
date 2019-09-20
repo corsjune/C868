@@ -1,7 +1,7 @@
-var CustomerModel = (function () {
-    function CustomerModel() {
+var CustomerViewModel = (function () {
+    function CustomerViewModel() {
     }
-    return CustomerModel;
+    return CustomerViewModel;
 }());
-export { CustomerModel };
+export { CustomerViewModel };
 //# sourceMappingURL=CustomerModel.js.map

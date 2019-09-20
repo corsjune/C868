@@ -7,7 +7,7 @@ import { stepsEnabledService } from '../../../services/stepsEnabledService'
 import * as Enumerable from 'linq'
 import * as moment from 'moment'
  
-import { OrderModel } from '../../../models/OrderModel'
+import { OrderViewModel } from '../../../models/OrderModel'
 import { ValidationController, ValidationControllerFactory, ValidationRules, Validator, validateTrigger } from 'aurelia-validation';
 import { BootstrapFormRenderer } from   '../../customrenderer/customrenderer'
 import { RemoteTSService } from "../../../services/RemoteTSService";
@@ -16,7 +16,7 @@ import { Router } from 'aurelia-router';
 @autoinject 
 export class Step3 {
      
-    public currentOrder: OrderModel;
+    public currentOrder: OrderViewModel;
     public validate: ValidationController; 
 
     constructor(public stepsEnabled: stepsEnabledService, sess: sessionService, private remote: RemoteTSService, val: ValidationControllerFactory, private validator: Validator, private myrouter: Router) {

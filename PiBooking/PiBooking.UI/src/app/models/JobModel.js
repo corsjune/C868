@@ -1,7 +1,7 @@
-var JobModel = (function () {
-    function JobModel() {
+var JobViewModel = (function () {
+    function JobViewModel() {
     }
-    return JobModel;
+    return JobViewModel;
 }());
-export { JobModel };
+export { JobViewModel };
 //# sourceMappingURL=JobModel.js.map

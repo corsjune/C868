@@ -8,8 +8,8 @@ import { stepsEnabledService } from '../../../services/stepsEnabledService'
 import * as Enumerable from 'linq'
 import * as moment from 'moment'
 
-import { TimeSlotModel } from '../../../models/TimeSlotModel'
-import { OrderModel } from '../../../models/OrderModel'
+import { TimeSlotViewModel } from '../../../models/TimeSlotModel'
+import { OrderViewModel } from '../../../models/OrderModel'
 
 @autoinject
 export class Step1 {
@@ -23,15 +23,15 @@ export class Step1 {
     public MinDate: Date;
     public MaxDate: Date;
 
-    public example1: TimeSlotModel;
-    public example2: TimeSlotModel;
-    public example3: TimeSlotModel;
+    public example1: TimeSlotViewModel;
+    public example2: TimeSlotViewModel;
+    public example3: TimeSlotViewModel;
      
     public myWorkWeek: Array<string>;
 
     protected remoteTS: RemoteTSService;
 
-    public currentOrder: OrderModel;
+    public currentOrder: OrderViewModel;
 
     public mySched: any;
 

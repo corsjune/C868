@@ -6,28 +6,28 @@ import { sessionService } from '../../../services/sessionService'
 import * as Enumerable from 'linq'
 import * as moment from 'moment'
 import { ValidationController, ValidationControllerFactory, ValidationRules, Validator } from 'aurelia-validation';
-import { OrderModel } from '../../../models/OrderModel'
+import { OrderViewModel } from '../../../models/OrderModel'
 import { BootstrapFormRenderer } from '../../customrenderer/customrenderer'
-import { TimeSlotModel } from '../../../models/TimeSlotModel'
-import { PaymentModel } from '../../../models/PaymentModel'
+import { TimeSlotViewModel } from '../../../models/TimeSlotModel'
+import { PaymentViewModel } from '../../../models/PaymentModel'
 
 
 @autoinject 
 export class StepFinished {
      
-    public currentOrder: OrderModel;
+    public currentOrder: OrderViewModel;
     public validate: ValidationController;
     public isValid: boolean;
 
 
     constructor(sess: sessionService, val: ValidationControllerFactory, private validator: Validator ) {
         var self = this; 
-        this.currentOrder = new OrderModel();
+        this.currentOrder = new OrderViewModel();
         this.currentOrder.Customer= sess.orderValue.Customer;
         this.currentOrder.Job= sess.orderValue.Job;
         this.currentOrder.Job.JobID= "";
-        this.currentOrder.TimeSlots = new Array<TimeSlotModel>();
-        this.currentOrder.Payment = new PaymentModel();
+        this.currentOrder.TimeSlots = new Array<TimeSlotViewModel>();
+        this.currentOrder.Payment = new PaymentViewModel();
         this.currentOrder.TotalCount = 0;
         this.currentOrder.TotalAmount = 0;
 

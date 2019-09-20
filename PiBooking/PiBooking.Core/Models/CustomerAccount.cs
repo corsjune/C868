@@ -7,6 +7,7 @@ using Dapper.Contrib.Extensions;
 
 namespace PiBooking.Core.Models
 {
+    [Table("Customer")]
     public class CustomerAccount
     {
         [Key]

@@ -6,6 +6,7 @@ using Dapper.Contrib.Extensions;
 
 namespace PiBooking.Core.Models
 {
+    [Table("Job")]
     public class Job
     {
         [Key]

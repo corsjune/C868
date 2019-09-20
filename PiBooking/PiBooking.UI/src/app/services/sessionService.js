@@ -1,7 +1,7 @@
-import { OrderModel } from '../models/OrderModel';
+import { OrderViewModel } from '../models/OrderModel';
 var sessionService = (function () {
     function sessionService() {
-        this.orderValue = new OrderModel();
+        this.orderValue = new OrderViewModel();
     }
     return sessionService;
 }());

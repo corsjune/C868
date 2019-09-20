@@ -4,35 +4,42 @@ import { stepsEnabledService } from "app/services/stepsEnabledService";
 
 @autoinject
 export class App {
-    router: Router; 
+    router: Router;
 
-    constructor(public stepsEnabled: stepsEnabledService) { 
-    }  
+    constructor(public stepsEnabled: stepsEnabledService) {
+    }
 
     configureRouter(config: RouterConfiguration, router: Router) {
-        config.title = 'Book Now'; 
+        config.title = 'Book Now';
         config.map([{
-            route: ['', 'main'],
-            name: 'main', 
+            route: ['', 'bookings'],
+            name: 'bookings',
             settings: { icon: 'calendar', roles: [] },
-            moduleId: PLATFORM.moduleName('../main/main'),
+            moduleId: PLATFORM.moduleName('../bookings/bookings'),
             nav: true,
-            title: 'Admin 1 - Choose Dates and Times'
+            title: 'View/Search Bookings'
         }, {
-            route: 'main1',
-                name: 'main1',
-            settings: { icon: 'phone-alt', roles: []  },
-                moduleId: PLATFORM.moduleName('../main1/main'),
+            route: 'engineers',
+            name: 'engineers',
+            settings: { icon: 'phone-alt', roles: [] },
+            moduleId: PLATFORM.moduleName('../engineers/engineers'),
             nav: true,
-                title: 'Admin 2 - Contact Information'
+            title: 'Add/Edit Engineers'
         }, {
-                route: 'main2',
-                name: 'main2',
-            settings: { icon: 'briefcase', enabled: this.stepsEnabled.step3, roles: []  },
-                moduleId: PLATFORM.moduleName('../main2/main'),
+            route: 'engineerdetails',
+            name: 'engineerdetails',
+            settings: { icon: 'phone-alt', roles: [] },
+            moduleId: PLATFORM.moduleName('../engineers/engineerdetails'),
+            nav: false,
+            title: 'Add/Edit Engineers'
+        }, {
+            route: 'timeslots',
+            name: 'timeslots',
+            settings: { icon: 'briefcase', roles: [] },
+            moduleId: PLATFORM.moduleName('../timeslots/timeslots'),
             nav: true,
-                title: 'Admin 3 - Job Details'
-        } 
+            title: 'Add/Edit Timeslots'
+        }
         ]);
 
         this.router = router;

@@ -19,7 +19,7 @@ namespace PiBooking.API.Controllers
         {
             _engineers = engineers;
         }
-        // GET: api/TimeSlot
+        // GET: api/Engineer
         [HttpGet]
         public IActionResult Get()
         {
@@ -27,15 +27,15 @@ namespace PiBooking.API.Controllers
             return StatusCode((int)HttpStatusCode.OK, response);
         }
 
-        // GET: api/TimeSlot/5
-        [HttpGet("{id}", Name = "Get")]
+        // GET: api/Engineer/5
+        [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
             var response = _engineers.GetById(id);
             return StatusCode((int)HttpStatusCode.OK, response);
         }
 
-        // POST: api/TimeSlot
+        // POST: api/Engineer
         [HttpPost]
         public IActionResult Post([FromBody] EngineerViewModel value)
         {
@@ -43,7 +43,7 @@ namespace PiBooking.API.Controllers
             return StatusCode((int)HttpStatusCode.Created, response);
         }
 
-        // PUT: api/TimeSlot/5
+        // PUT: api/Engineer/5
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] EngineerViewModel value)
         {

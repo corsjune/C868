@@ -16,6 +16,9 @@ namespace PiBooking.Core
         {
             CreateMap<Timeslot, TimeSlotViewModel>();
             CreateMap< TimeSlotViewModel, Timeslot>();
+
+            CreateMap<EngineerViewModel, Engineer>();
+            CreateMap<Engineer, EngineerViewModel>();
         }
     }
 }

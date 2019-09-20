@@ -1,7 +1,7 @@
 ﻿
 
  
-export class CustomerModel { 
+export class CustomerViewModel { 
         public Email: string;
         public FirstName: string;
         public LastName: string;

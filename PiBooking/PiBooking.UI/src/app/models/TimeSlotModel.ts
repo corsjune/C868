@@ -1,7 +1,7 @@
 ﻿
 
  
-    export class TimeSlotModel { 
+    export class TimeSlotViewModel { 
         public TimeslotId: number;
         public BeginDatetime: Date;
         public EndDatetime: Date;

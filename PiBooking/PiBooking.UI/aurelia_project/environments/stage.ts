@@ -1,4 +1,5 @@
 export default {
   debug: true,
-  testing: false
+    testing: false,
+    remoteSessionUrl: "https://localhost:44310"
 };

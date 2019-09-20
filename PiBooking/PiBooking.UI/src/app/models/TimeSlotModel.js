@@ -1,7 +1,7 @@
-var TimeSlotModel = (function () {
-    function TimeSlotModel() {
+var TimeSlotViewModel = (function () {
+    function TimeSlotViewModel() {
     }
-    return TimeSlotModel;
+    return TimeSlotViewModel;
 }());
-export { TimeSlotModel };
+export { TimeSlotViewModel };
 //# sourceMappingURL=TimeSlotModel.js.map

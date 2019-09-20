@@ -3,8 +3,8 @@ import { HttpClient,json } from 'aurelia-fetch-client';
 import { inject } from 'aurelia-framework';
 import { buildQueryString } from 'aurelia-path';
 
-import { TimeSlotModel } from '../models/TimeSlotModel';
-import { OrderModel } from '../models/OrderModel'; 
+import { TimeSlotViewModel } from '../models/TimeSlotModel';
+import { OrderViewModel } from '../models/OrderModel'; 
 import { environment } from '../environment/environment'; 
 
 
@@ -22,7 +22,7 @@ export class RemoteTSService {
 
     }
 
-    public async  UpdateProgress(myOrderModel: OrderModel)  {
+    public async  UpdateProgress(myOrderModel: OrderViewModel)  {
 
         let url = this._baseUrl + '/api/UpdateProgress';
 
@@ -40,7 +40,7 @@ export class RemoteTSService {
         }
     }
 
-    public async  BookTime(myOrderModel: OrderModel): Promise<number> {
+    public async  BookTime(myOrderModel: OrderViewModel): Promise<number> {
 
         let url = this._baseUrl + '/api/BookTime';  
 
@@ -54,7 +54,7 @@ export class RemoteTSService {
 
     }
 
-    public async  GetTimeSlots(startDate:Date, endDate:Date): Promise<TimeSlotModel[]> {
+    public async  GetTimeSlots(startDate:Date, endDate:Date): Promise<TimeSlotViewModel[]> {
 
         let url = this._baseUrl + '/api/TimeSlot';
         let params = { startDate: JSON.stringify(startDate), endDate: JSON.stringify(endDate) };
@@ -66,6 +66,6 @@ export class RemoteTSService {
 
         let result = await this._http.fetch(url); 
 
-        return result.json() as Promise<TimeSlotModel[]>;
+        return result.json() as Promise<TimeSlotViewModel[]>;
     }
 }

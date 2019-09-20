@@ -15,7 +15,8 @@
     "moduleResolution": "node",
     "baseUrl": "src",
     "paths": {
-      "*": [ "src/*" ]
+      "*": [ "src/*" ],
+      "@app/*": [ "src/app/*" ]
     },
       "allowJs": true
     },
