@@ -43,5 +43,6 @@ export class Timeslots {
 
     async activate() {
         this.timeslot = await this.apiEndpoint.find('timeslot'); 
+
     }
 }

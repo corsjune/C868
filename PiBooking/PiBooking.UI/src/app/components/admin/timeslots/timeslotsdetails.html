@@ -11,7 +11,13 @@
         </div>  
         <div class="form-group">
             <label class="control-label" for="Engineer">Engineer</label>
-            <input value.bind="engineer.EngineerID & validate & debounce" type="text" class="form-control" id="Engineer" placeholder="Select an Engineer">
+            <select value.bind="engineer.EngineerID & validate & debounce"  class="form-control" id="Engineer">
+                <option model.bind="null">Select an Engineer...</option>
+                <option repeat.for="engineer of engineers"
+                        model.bind="engineer.id">
+                    ${engineer.FirstName} - ${engineer.LastName}
+                </option>
+            </select>
         </div>
         <div class="form-group">
             <label class="control-label" for="StartDateTime">Start Date Time</label>

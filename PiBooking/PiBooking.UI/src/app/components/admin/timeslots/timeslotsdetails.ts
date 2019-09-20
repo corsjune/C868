@@ -1,6 +1,6 @@
 import { inject, autoinject } from 'aurelia-framework';
 import { Endpoint, Rest } from 'aurelia-api';
-import { TimeSlotViewModel } from 'app/models';
+import { EngineerViewModel, TimeSlotViewModel } from 'app/models';
 import { ValidationControllerFactory, Validator, ValidationController, ValidationRules, validateTrigger } from 'aurelia-validation';
 import { Router } from 'aurelia-router';
 import { BootstrapFormRenderer } from '../../customrenderer/customrenderer';
@@ -14,6 +14,7 @@ export class TimeslotsDetails {
     errors: string = null;
     message: string = null; 
 
+    engineers: EngineerViewModel[];
     timeslot: TimeSlotViewModel;
     public validate: ValidationController;
 
@@ -95,6 +96,8 @@ export class TimeslotsDetails {
         else  {
             this.timeslot = new TimeSlotViewModel();
         }
+
+        this.engineers = await this.apiEndpoint.find('engineer'); 
 
     }
 }
