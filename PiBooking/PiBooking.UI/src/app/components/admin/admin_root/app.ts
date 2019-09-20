@@ -19,6 +19,13 @@ export class App {
             nav: true,
             title: 'View/Search Bookings'
         }, {
+            route: 'bookingdetails',
+            name: 'bookingdetails',
+            settings: { icon: 'phone-alt', roles: [] },
+            moduleId: PLATFORM.moduleName('../bookings/bookingsdetails'),
+            nav: false,
+            title: 'Add/Edit Engineers'
+        }, {
             route: 'engineers',
             name: 'engineers',
             settings: { icon: 'phone-alt', roles: [] },
@@ -38,6 +45,13 @@ export class App {
             settings: { icon: 'briefcase', roles: [] },
             moduleId: PLATFORM.moduleName('../timeslots/timeslots'),
             nav: true,
+            title: 'Add/Edit Timeslots'
+        }, {
+            route: 'timeslotdetails',
+            name: 'timeslotdetails',
+            settings: { icon: 'briefcase', roles: [] },
+            moduleId: PLATFORM.moduleName('../timeslots/timeslotsdetails'),
+            nav: false,
             title: 'Add/Edit Timeslots'
         }
         ]);

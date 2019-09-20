@@ -1,0 +1,39 @@
+<template>
+    <require from="../../gotoroute/gotoroute"></require>
+    <br />
+    <div class="alert alert-info" role="alert">Please complete the timeslot information below. </div>
+    <div if.bind="errors"  id="errors" role="alert" class="alert alert-danger">${errors}</div>
+    <div if.bind="message" class="alert alert-success" role="alert">${message}</div>
+    <form role="form">
+        <div class="form-group">
+            <label class="control-label" for="TimeslotID">Timeslot ID</label>
+            <input value.bind="engineer.TimeslotID & validate & debounce" type="text" class="form-control" id="TimeslotID" readonly>
+        </div>  
+        <div class="form-group">
+            <label class="control-label" for="Engineer">Engineer</label>
+            <input value.bind="engineer.EngineerID & validate & debounce" type="text" class="form-control" id="Engineer" placeholder="Select an Engineer">
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="StartDateTime">Start Date Time</label>
+            <input value.bind="engineer.StartDateTime & validate & debounce" type="text" class="form-control" id="StartDateTime" placeholder="Enter start date time">
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="EndDateTime">End Date Time</label>
+            <input value.bind="engineer.EndDateTime & validate & debounce" type="text" class="form-control" id="EndDateTime" placeholder="Enter end date time">
+        </div> 
+        <div class="form-group">
+            <label class="control-label" for="Phone">Rate</label>
+            <input value.bind="engineer.Rate & validate & debounce" type="tel" class="form-control" id="Rate" placeholder="Enter Rate">
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="Status">Status</label>
+            <input value.bind="engineer.Status & validate & debounce" type="email" class="form-control" id="Status" placeholder="Enter Status">
+        </div>
+    </form>
+    <div id="navigation" class="row paddingtop10">
+        <div class="col-sm-12  btn-group">
+            <button go-to-route="route: engineers" class="btn btn-default minimumwidth15em "><span class="glyphicon glyphicon-arrow-left"></span>Back</button>
+            <button click.delegate="Save()" class="btn btn-default minimumwidth15em" disabled.bind="!canSave"><i class="fas fa-save"></i>Save</button>
+        </div>
+    </div>
+</template>
