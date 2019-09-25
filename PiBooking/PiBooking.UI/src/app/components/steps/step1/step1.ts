@@ -8,9 +8,8 @@ import { stepsEnabledService } from '../../../services/stepsEnabledService'
 import * as Enumerable from 'linq'
 import * as moment from 'moment'
 
-import { TimeSlotViewModel } from '../../../models/TimeSlotModel'
-import { OrderViewModel } from '../../../models/OrderModel'
-
+import { TimeSlotViewModel, OrderViewModel } from 'app/models'
+ 
 @autoinject
 export class Step1 {
 

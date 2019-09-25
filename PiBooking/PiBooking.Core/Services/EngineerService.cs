@@ -10,7 +10,7 @@ using PiBooking.Core.Interfaces.Services;
 using PiBooking.Core.ViewModels;
 using AutoMapper;
 
-namespace PiBooking.Core.Repository
+namespace PiBooking.Core.Services
 {
     public class EngineerService : BaseService, IEngineerService
     {
@@ -23,13 +23,9 @@ namespace PiBooking.Core.Repository
             _mapper = mapper;
         }
 
-        public EngineerViewModel Add(EngineerViewModel item)
+        public Engineer Add(Engineer item)
         {
-            var before = _mapper.Map<EngineerViewModel, Engineer>(item);
-
-            var after = _repo.Add(before);
-
-            return _mapper.Map<Engineer, EngineerViewModel>(after);
+            return _repo.Add(item);
         }
 
         public int Delete(int id)
@@ -38,23 +34,17 @@ namespace PiBooking.Core.Repository
             return _repo.Delete(data);
         }
 
-        public IEnumerable<EngineerViewModel> GetAll()
+        public IEnumerable<Engineer> GetAll()
         {
-            var data = new List<Engineer>(_repo.GetAll());
-
-            var returnValue = _mapper.Map<List<Engineer>, List<EngineerViewModel>>(data);
-            return returnValue;
+            return _repo.GetAll();
         }
 
-        public EngineerViewModel GetById(int id)
+        public Engineer GetById(int id)
         {
-            var data = _repo.GetById(id);
-
-            var returnValue = _mapper.Map<Engineer, EngineerViewModel>(data);
-            return returnValue;
+            return _repo.GetById(id);
         }
 
-        public EngineerViewModel Update(int id, EngineerViewModel item)
+        public Engineer Update(int id, Engineer item)
         {
             var data = _repo.GetById(id);
 
@@ -62,10 +52,14 @@ namespace PiBooking.Core.Repository
             data.EmployeeID = item.EmployeeID;
             data.FirstName = item.FirstName;
             data.LastName = item.LastName;
-            data.Phone = item.Phone; 
+            data.Phone = item.Phone;
+            data.Rate = item.Rate;
+            data.WorkDayBeginTime = item.WorkDayBeginTime;
+            data.WorkDayEndTime = item.WorkDayEndTime;
+            data.AvailableEndDate = item.AvailableEndDate;
+            data.AvailableStartDate = item.AvailableStartDate;
 
-            var updateObjected = _repo.Update(data);
-            return _mapper.Map<Engineer, EngineerViewModel>(updateObjected);
+            return _repo.Update(data);
         }
     }
 }

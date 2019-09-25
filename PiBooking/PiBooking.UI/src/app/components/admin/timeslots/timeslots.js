@@ -11,10 +11,11 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -47,37 +48,66 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 import { inject, autoinject } from 'aurelia-framework';
 import { Endpoint, Rest } from 'aurelia-api';
-var Engineers = (function () {
-    function Engineers(apiEndpoint) {
+import { Router } from 'aurelia-router';
+var Timeslots = (function () {
+    function Timeslots(apiEndpoint, router) {
         this.apiEndpoint = apiEndpoint;
-        this.message = 'engineers';
-        this.filter = "Filter";
+        this.router = router;
+        this.errors = null;
+        this.message = null;
     }
-    Engineers.prototype.add = function () {
+    Timeslots.prototype.add = function () {
+        this.router.navigateToRoute('timeslotdetails', { id: null });
     };
-    Engineers.prototype.activate = function () {
+    Timeslots.prototype.delete = function (id) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, x;
+            var self, result, deletedEngineer, _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        self = this;
+                        result = confirm('Are you sure you wish to delete this timeslot ?');
+                        if (!result) return [3, 3];
+                        return [4, this.apiEndpoint.destroyOne('timeslot', id)
+                                .catch(function (e) {
+                                self.errors = "An error has occurred. The timeslot did not save. Please review the data and try again!";
+                            })];
+                    case 1:
+                        deletedEngineer = _b.sent();
+                        _a = this;
+                        return [4, this.apiEndpoint.find('timeslot')];
+                    case 2:
+                        _a.timeslot = _b.sent();
+                        _b.label = 3;
+                    case 3: return [2];
+                }
+            });
+        });
+    };
+    Timeslots.prototype.edit = function (id) {
+        this.router.navigateToRoute('timeslotdetails', { id: id });
+    };
+    Timeslots.prototype.activate = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
                         _a = this;
-                        return [4, this.apiEndpoint.find('engineer')];
+                        return [4, this.apiEndpoint.find('timeslot')];
                     case 1:
-                        _a.engineers = _b.sent();
-                        x = 1;
-                        x++;
+                        _a.timeslot = _b.sent();
                         return [2];
                 }
             });
         });
     };
-    Engineers = __decorate([
+    Timeslots = __decorate([
         autoinject(),
         __param(0, inject(Endpoint.of('api'))),
-        __metadata("design:paramtypes", [Rest])
-    ], Engineers);
-    return Engineers;
+        __metadata("design:paramtypes", [Rest, Router])
+    ], Timeslots);
+    return Timeslots;
 }());
-export { Engineers };
-//# sourceMappingURL=engineers.js.map
+export { Timeslots };
+//# sourceMappingURL=timeslots.js.map

@@ -16,6 +16,7 @@ using PiBooking.Core.Repository;
 using PiBooking.Core.Interfaces.Repository;
 using PiBooking.Core.Interfaces.Services;
 using PiBooking.Core;
+using PiBooking.Core.Services;
 
 namespace PiBooking.API
 {
@@ -54,13 +55,14 @@ namespace PiBooking.API
             services.AddScoped<IJobRepository, JobRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<ITimeSlotRepository, TimeSlotRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<IEngineerService, EngineerService>();
             services.AddScoped<IJobService, JobService>();
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<ITimeSlotService, TimeSlotService>();
-
+            services.AddScoped<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

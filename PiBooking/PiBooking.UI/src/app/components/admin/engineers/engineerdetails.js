@@ -11,10 +11,11 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -47,28 +48,95 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 import { inject, autoinject } from 'aurelia-framework';
 import { Endpoint, Rest } from 'aurelia-api';
+import { EngineerViewModel } from 'app/models';
+import { ValidationControllerFactory, Validator, ValidationRules, validateTrigger } from 'aurelia-validation';
+import { Router } from 'aurelia-router';
+import { BootstrapFormRenderer } from '../../customrenderer/customrenderer';
 var EngineerDetails = (function () {
-    function EngineerDetails(apiEndpoint) {
+    function EngineerDetails(apiEndpoint, val, validator, myrouter) {
+        var _this = this;
         this.apiEndpoint = apiEndpoint;
-        this.message = 'engineers';
-        this.filter = "Filter";
+        this.validator = validator;
+        this.myrouter = myrouter;
+        this.errors = null;
+        this.message = null;
+        var self = this;
+        self.validate = val.createForCurrentScope();
+        self.validate.addRenderer(new BootstrapFormRenderer());
+        self.validate.subscribe(function (event) { return _this.validateWhole(); });
+        self.validate.validateTrigger = validateTrigger.changeOrBlur;
+        ValidationRules.customRule('integerRange', function (value, obj, min, max) {
+            var num = Number.parseInt(value);
+            return num === null || num === undefined || (Number.isInteger(num) && num >= min && num <= max);
+        }, "${$displayName} must be an integer between ${$config.min} and ${$config.max}.", function (min, max) { return ({ min: min, max: max }); });
     }
-    EngineerDetails.prototype.add = function () {
-        alert('hi');
+    EngineerDetails.prototype.bind = function () {
+        ValidationRules
+            .ensure('Email').required().email()
+            .ensure('FirstName').required()
+            .ensure('LastName').required()
+            .ensure('Phone').required()
+            .ensure('Rate').required().range(0, 20000)
+            .ensure('EmployeeID').required().satisfiesRule('integerRange', 1, 75000)
+            .on(this.engineer);
     };
-    EngineerDetails.prototype.activate = function () {
+    EngineerDetails.prototype.Save = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, x;
+            var self, savedEngineer;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        this.errors = null;
+                        this.message = null;
+                        self = this;
+                        if (!(this.engineer.EngineerID != null)) return [3, 2];
+                        return [4, this.apiEndpoint.update('engineer', this.engineer.EngineerID, this.engineer)];
+                    case 1:
+                        savedEngineer = _a.sent();
+                        return [3, 4];
+                    case 2: return [4, this.apiEndpoint.post('engineer', this.engineer)];
+                    case 3:
+                        savedEngineer = _a.sent();
+                        _a.label = 4;
+                    case 4:
+                        if (savedEngineer != null) {
+                            this.engineer = savedEngineer;
+                            this.message = "Engineer has been saved.";
+                            this.cansave = false;
+                        }
+                        return [2];
+                }
+            });
+        });
+    };
+    EngineerDetails.prototype.validateWhole = function () {
+        var _this = this;
+        this.validator.validateObject(this.engineer)
+            .then(function (results) { return _this.cansave = results.every(function (result) { return result.valid; }); });
+    };
+    Object.defineProperty(EngineerDetails.prototype, "canSave", {
+        get: function () {
+            return this.cansave;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    EngineerDetails.prototype.activate = function (params) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
+                        if (!params.id) return [3, 2];
                         _a = this;
-                        return [4, this.apiEndpoint.find('engineer')];
+                        return [4, this.apiEndpoint.find('engineer', params.id)];
                     case 1:
-                        _a.engineers = _b.sent();
-                        x = 1;
-                        x++;
-                        return [2];
+                        _a.engineer = _b.sent();
+                        return [3, 3];
+                    case 2:
+                        this.engineer = new EngineerViewModel();
+                        _b.label = 3;
+                    case 3: return [2];
                 }
             });
         });
@@ -76,7 +144,7 @@ var EngineerDetails = (function () {
     EngineerDetails = __decorate([
         autoinject(),
         __param(0, inject(Endpoint.of('api'))),
-        __metadata("design:paramtypes", [Rest])
+        __metadata("design:paramtypes", [Rest, ValidationControllerFactory, Validator, Router])
     ], EngineerDetails);
     return EngineerDetails;
 }());

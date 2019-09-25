@@ -1,4 +1,4 @@
-﻿import { OrderViewModel } from '../models/OrderModel'
+﻿import { OrderViewModel } from 'app/models'
 
 export class sessionService {
 

@@ -1,4 +1,4 @@
-import { OrderViewModel } from '../models/OrderModel';
+import { OrderViewModel } from 'app/models';
 var sessionService = (function () {
     function sessionService() {
         this.orderValue = new OrderViewModel();

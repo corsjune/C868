@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace PiBooking.Core.Models
 {
     [Table("Timeslot")]
-    public class Timeslot
+    public class TimeSlot
     {
         [Key]
         public int TimeslotID { get; set; }

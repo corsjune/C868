@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PiBooking.Core.Interfaces.Services;
+using PiBooking.Core.Models;
 using PiBooking.Core.ViewModels;
 
 namespace PiBooking.API.Controllers
@@ -15,23 +17,25 @@ namespace PiBooking.API.Controllers
     public class TimeSlotController : ControllerBase
     {
         private ITimeSlotService _timeSlots;
-        public TimeSlotController(ITimeSlotService timeSlots)
+        IMapper _mapper;
+        public TimeSlotController(ITimeSlotService timeSlots, IMapper mappers)
         {
             _timeSlots = timeSlots;
+            _mapper = mappers;
         }
         // GET: api/TimeSlot
         [HttpGet]
         public IActionResult Get()
         {
-            var response = _timeSlots.GetAll();
+            var response = _mapper.Map<List<TimeSlot>, List<TimeSlotViewModel>>((List<TimeSlot>)_timeSlots.GetAll());   
             return StatusCode((int)HttpStatusCode.OK, response);
         }
 
         // GET: api/TimeSlot/5
         [HttpGet("{id}")]
         public IActionResult Get(int id)
-        {
-            var response = _timeSlots.GetById(id);
+        { 
+            var response =  _mapper.Map<TimeSlot, TimeSlotViewModel>(_timeSlots.GetById(id));  
             return StatusCode((int)HttpStatusCode.OK, response);
         }
 
@@ -39,16 +43,18 @@ namespace PiBooking.API.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] TimeSlotViewModel value)
         {
-            var response = _timeSlots.Add(value);
-            return StatusCode((int)HttpStatusCode.Created, response);
+            var added = _mapper.Map<TimeSlotViewModel, TimeSlot>(value); 
+            return StatusCode((int)HttpStatusCode.Created, _timeSlots.Add(added));
         }
 
         // PUT: api/TimeSlot/5
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] TimeSlotViewModel value)
         {
-            var response = _timeSlots.Update(id, value);
-            return StatusCode((int)HttpStatusCode.OK, response);
+            var updated = _mapper.Map<TimeSlotViewModel, TimeSlot>(value);
+            var response = _timeSlots.Update(id, updated);
+
+            return StatusCode((int)HttpStatusCode.OK, _mapper.Map<TimeSlot, TimeSlotViewModel>(response)); 
         }
 
         // DELETE: api/ApiWithActions/5

@@ -47,6 +47,7 @@ export class EngineerDetails {
             .ensure('FirstName').required()
             .ensure('LastName').required()
             .ensure('Phone').required()
+            .ensure('Rate').required().range(0, 20000)
             .ensure('EmployeeID').required().satisfiesRule('integerRange', 1, 75000)
             .on(this.engineer);
     }

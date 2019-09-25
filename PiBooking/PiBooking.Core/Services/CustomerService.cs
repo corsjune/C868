@@ -11,7 +11,7 @@ using System.Data.SqlClient;
 using PiBooking.Core.Interfaces.Services;
 using PiBooking.Core.ViewModels;
 
-namespace PiBooking.Core.Repository
+namespace PiBooking.Core.Services
 {
     public class CustomerService : BaseService, ICustomerService
     {
@@ -20,7 +20,7 @@ namespace PiBooking.Core.Repository
 
         }
 
-        public CustomerViewModel Add(CustomerViewModel item)
+        public CustomerAccount Add(CustomerAccount item)
         {
             throw new NotImplementedException();
         }
@@ -30,17 +30,17 @@ namespace PiBooking.Core.Repository
             throw new NotImplementedException();
         }
 
-        public IEnumerable<CustomerViewModel> GetAll()
+        public IEnumerable<CustomerAccount> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public CustomerViewModel GetById(int id)
+        public CustomerAccount GetById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public CustomerViewModel Update(int customerID, CustomerViewModel item)
+        public CustomerAccount Update(int customerID, CustomerAccount item)
         {
             throw new NotImplementedException();
         }

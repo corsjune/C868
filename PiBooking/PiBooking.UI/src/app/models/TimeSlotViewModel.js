@@ -4,4 +4,4 @@ var TimeSlotViewModel = (function () {
     return TimeSlotViewModel;
 }());
 export { TimeSlotViewModel };
-//# sourceMappingURL=TimeSlotModel.js.map
+//# sourceMappingURL=TimeSlotViewModel.js.map

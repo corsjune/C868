@@ -8,10 +8,10 @@ namespace PiBooking.Core.Interfaces.Services
 {
     public interface IJobService
     {
-        IEnumerable<JobViewModel> GetAll();
-        JobViewModel GetById(int id);
-        JobViewModel Add(JobViewModel item);
-        JobViewModel Update(int jobID, JobViewModel item);
+        IEnumerable<Job> GetAll();
+        Job GetById(int id);
+        Job Add(Job item);
+        Job Update(int jobID, Job item);
         int Delete(int jobID);
     }
 }

@@ -1,8 +1,8 @@
 ﻿
-import { CustomerViewModel } from '../models/CustomerModel'
-import { JobViewModel } from '../models/JobModel'
-import { TimeSlotViewModel } from '../models/TimeSlotModel'
-import { PaymentViewModel } from '../models/PaymentModel'
+import { CustomerViewModel } from './CustomerViewModel'
+import { JobViewModel } from './JobViewModel'
+import { TimeSlotViewModel } from './TimeSlotViewModel'
+import { PaymentViewModel } from './PaymentViewModel'
 
     export class OrderViewModel { 
         public Customer: CustomerViewModel;

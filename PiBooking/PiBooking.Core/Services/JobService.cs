@@ -9,7 +9,7 @@ using System.Data.SqlClient;
 using PiBooking.Core.Interfaces.Services;
 using PiBooking.Core.ViewModels;
 
-namespace PiBooking.Core.Repository
+namespace PiBooking.Core.Services
 {
     public class JobService : BaseService, IJobService
     {
@@ -18,7 +18,7 @@ namespace PiBooking.Core.Repository
 
         }
 
-        public JobViewModel Add(JobViewModel item)
+        public Job Add(Job item)
         {
             throw new NotImplementedException();
         }
@@ -28,17 +28,17 @@ namespace PiBooking.Core.Repository
             throw new NotImplementedException();
         }
 
-        public IEnumerable<JobViewModel> GetAll()
+        public IEnumerable<Job> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public JobViewModel GetById(int id)
+        public Job GetById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public JobViewModel Update(int id, JobViewModel item)
+        public Job Update(int id, Job item)
         {
             throw new NotImplementedException();
         }

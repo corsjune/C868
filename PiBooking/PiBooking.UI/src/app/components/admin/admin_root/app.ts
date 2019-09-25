@@ -53,6 +53,20 @@ export class App {
             moduleId: PLATFORM.moduleName('../timeslots/timeslotsdetails'),
             nav: false,
             title: 'Add/Edit Timeslots'
+        }, {
+            route: 'users',
+            name: 'users',
+            settings: { icon: 'briefcase', roles: [] },
+                moduleId: PLATFORM.moduleName('../users/users'),
+            nav: true,
+            title: 'Add/Edit Users'
+        }, {
+            route: 'userdetails',
+                name: 'userdetails',
+            settings: { icon: 'briefcase', roles: [] },
+                moduleId: PLATFORM.moduleName('../users/userdetails'),
+            nav: false,
+            title: 'Add/Edit Users'
         }
         ]);
 

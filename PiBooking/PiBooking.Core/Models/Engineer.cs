@@ -21,5 +21,15 @@ namespace PiBooking.Core.Models
 
         public int EmployeeID { get; set; }
 
+        public decimal Rate { get; set; }
+
+        public DateTime AvailableStartDate { get; set; }
+
+        public DateTime AvailableEndDate { get; set; }
+
+        public DateTime WorkDayBeginTime { get; set; }
+
+        public DateTime WorkDayEndTime { get; set; }
+
     }
 }

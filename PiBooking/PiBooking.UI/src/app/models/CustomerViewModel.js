@@ -4,4 +4,4 @@ var CustomerViewModel = (function () {
     return CustomerViewModel;
 }());
 export { CustomerViewModel };
-//# sourceMappingURL=CustomerModel.js.map
+//# sourceMappingURL=CustomerViewModel.js.map

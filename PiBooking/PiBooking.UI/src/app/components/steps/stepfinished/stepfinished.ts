@@ -6,10 +6,9 @@ import { sessionService } from '../../../services/sessionService'
 import * as Enumerable from 'linq'
 import * as moment from 'moment'
 import { ValidationController, ValidationControllerFactory, ValidationRules, Validator } from 'aurelia-validation';
-import { OrderViewModel } from '../../../models/OrderModel'
+import { OrderViewModel, PaymentViewModel, TimeSlotViewModel } from 'app/models'
 import { BootstrapFormRenderer } from '../../customrenderer/customrenderer'
-import { TimeSlotViewModel } from '../../../models/TimeSlotModel'
-import { PaymentViewModel } from '../../../models/PaymentModel'
+ 
 
 
 @autoinject 

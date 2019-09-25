@@ -6,7 +6,7 @@ using System.Data;
 using Dapper;
 using System.Data.SqlClient;
 
-namespace PiBooking.Core.Repository
+namespace PiBooking.Core.Services
 {
     public class BaseService
     { 

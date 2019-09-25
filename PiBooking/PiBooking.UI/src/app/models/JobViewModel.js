@@ -4,4 +4,4 @@ var JobViewModel = (function () {
     return JobViewModel;
 }());
 export { JobViewModel };
-//# sourceMappingURL=JobModel.js.map
+//# sourceMappingURL=JobViewModel.js.map

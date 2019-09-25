@@ -10,26 +10,21 @@ using PiBooking.Core.Interfaces.Services;
 using PiBooking.Core.Models;
 using PiBooking.Core.ViewModels;
 
-namespace PiBooking.Core.Repository
+namespace PiBooking.Core.Services
 {
     public class TimeSlotService : BaseService, ITimeSlotService
     {
         ITimeSlotRepository _repo;
-        IMapper _mapper;
 
-        public TimeSlotService(ITimeSlotRepository repo, IMapper mapper) : base()
+
+        public TimeSlotService(ITimeSlotRepository repo) : base()
         {
-            _repo = repo;
-            _mapper = mapper;
+            _repo = repo; 
         }
 
-        public TimeSlotViewModel Add(TimeSlotViewModel item)
-        { 
-            var before = _mapper.Map<TimeSlotViewModel, Timeslot> (item);
-
-            var after = _repo.Add(before);
-
-            return _mapper.Map<Timeslot, TimeSlotViewModel>(after);
+        public TimeSlot Add(TimeSlot item)
+        {
+            return _repo.Add(item); 
         }
 
         public int Delete(int id)
@@ -38,23 +33,17 @@ namespace PiBooking.Core.Repository
             return _repo.Delete(data);
         }
 
-        public IEnumerable<TimeSlotViewModel> GetAll()
-        {
-            var data = new List<Timeslot>(_repo.GetAll());
-
-            var returnValue = _mapper.Map<List<Timeslot>, List<TimeSlotViewModel>>(data);
-            return returnValue;
+        public IEnumerable<TimeSlot> GetAll()
+        { 
+            return _repo.GetAll();
         }
 
-        public TimeSlotViewModel GetById(int id)
+        public TimeSlot GetById(int id)
         {
-            var data = _repo.GetById(id);
-
-            var returnValue = _mapper.Map<Timeslot, TimeSlotViewModel>(data);
-            return returnValue;
+            return _repo.GetById(id); 
         }
 
-        public TimeSlotViewModel Update(int id, TimeSlotViewModel item)
+        public TimeSlot Update(int id, TimeSlot item)
         {
             var data = _repo.GetById(id);
 
@@ -64,8 +53,7 @@ namespace PiBooking.Core.Repository
             data.Rate = item.Rate;
             data.Status = item.Status;
 
-            var updateObjected =  _repo.Update(data);
-            return _mapper.Map<Timeslot, TimeSlotViewModel>(updateObjected);
+            return _repo.Update(data);
         }
     }
 }

@@ -1,6 +1,6 @@
-import { CustomerViewModel } from '../models/CustomerModel';
-import { JobViewModel } from '../models/JobModel';
-import { PaymentViewModel } from '../models/PaymentModel';
+import { CustomerViewModel } from './CustomerViewModel';
+import { JobViewModel } from './JobViewModel';
+import { PaymentViewModel } from './PaymentViewModel';
 var OrderViewModel = (function () {
     function OrderViewModel() {
         this.Customer = new CustomerViewModel();
@@ -13,4 +13,4 @@ var OrderViewModel = (function () {
     return OrderViewModel;
 }());
 export { OrderViewModel };
-//# sourceMappingURL=OrderModel.js.map
+//# sourceMappingURL=OrderViewModel.js.map

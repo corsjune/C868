@@ -61,10 +61,9 @@ var App = (function () {
         ]);
         this.router = router;
     };
-    var _a;
     App = __decorate([
         autoinject,
-        __metadata("design:paramtypes", [typeof (_a = typeof stepsEnabledService !== "undefined" && stepsEnabledService) === "function" ? _a : Object])
+        __metadata("design:paramtypes", [stepsEnabledService])
     ], App);
     return App;
 }());

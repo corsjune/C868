@@ -11,7 +11,7 @@ using System.Data.SqlClient;
 using PiBooking.Core.ViewModels;
 using PiBooking.Core.Interfaces.Repository;
 
-namespace PiBooking.Core.Repository
+namespace PiBooking.Core.Services
 {
     public class OrderService : BaseService, IOrderService
     {
@@ -21,7 +21,7 @@ namespace PiBooking.Core.Repository
 
         }
 
-        public OrderViewModel Add(OrderViewModel item)
+        public Order Add(Order item)
         {
             throw new NotImplementedException();
         }
@@ -31,17 +31,17 @@ namespace PiBooking.Core.Repository
             throw new NotImplementedException();
         }
 
-        public IEnumerable<OrderViewModel> GetAll()
+        public IEnumerable<Order> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public OrderViewModel GetById(int id)
+        public Order GetById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public OrderViewModel Update(int orderID, OrderViewModel item)
+        public Order Update(int orderID, Order item)
         {
             throw new NotImplementedException();
         }

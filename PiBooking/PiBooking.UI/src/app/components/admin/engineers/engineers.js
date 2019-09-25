@@ -11,10 +11,11 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -47,17 +48,48 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 import { inject, autoinject } from 'aurelia-framework';
 import { Endpoint, Rest } from 'aurelia-api';
+import { Router } from 'aurelia-router';
 var Engineers = (function () {
-    function Engineers(apiEndpoint) {
+    function Engineers(apiEndpoint, router) {
         this.apiEndpoint = apiEndpoint;
-        this.message = 'engineers';
-        this.filter = "Filter";
+        this.router = router;
+        this.errors = null;
+        this.message = null;
     }
     Engineers.prototype.add = function () {
+        this.router.navigateToRoute('engineerdetails', { id: null });
+    };
+    Engineers.prototype.delete = function (id) {
+        return __awaiter(this, void 0, void 0, function () {
+            var self, result, deletedEngineer, _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        self = this;
+                        result = confirm('Are you sure you wish to delete this engineer ?');
+                        if (!result) return [3, 3];
+                        return [4, this.apiEndpoint.destroyOne('engineer', id)
+                                .catch(function (e) {
+                                self.errors = "An error has occurred. The engineer did not save. Please review the data and try again!";
+                            })];
+                    case 1:
+                        deletedEngineer = _b.sent();
+                        _a = this;
+                        return [4, this.apiEndpoint.find('engineer')];
+                    case 2:
+                        _a.engineers = _b.sent();
+                        _b.label = 3;
+                    case 3: return [2];
+                }
+            });
+        });
+    };
+    Engineers.prototype.edit = function (id) {
+        this.router.navigateToRoute('engineerdetails', { id: id });
     };
     Engineers.prototype.activate = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, x;
+            var _a;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
@@ -65,8 +97,6 @@ var Engineers = (function () {
                         return [4, this.apiEndpoint.find('engineer')];
                     case 1:
                         _a.engineers = _b.sent();
-                        x = 1;
-                        x++;
                         return [2];
                 }
             });
@@ -75,7 +105,7 @@ var Engineers = (function () {
     Engineers = __decorate([
         autoinject(),
         __param(0, inject(Endpoint.of('api'))),
-        __metadata("design:paramtypes", [Rest])
+        __metadata("design:paramtypes", [Rest, Router])
     ], Engineers);
     return Engineers;
 }());

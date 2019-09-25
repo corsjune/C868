@@ -8,10 +8,10 @@ namespace PiBooking.Core.Interfaces.Services
 {
     public interface ICustomerService
     {
-        IEnumerable<CustomerViewModel> GetAll();
-        CustomerViewModel GetById(int id);
-        CustomerViewModel Add(CustomerViewModel item);
-        CustomerViewModel Update(int customerID , CustomerViewModel item);
+        IEnumerable<CustomerAccount> GetAll();
+        CustomerAccount GetById(int id);
+        CustomerAccount Add(CustomerAccount item);
+        CustomerAccount Update(int customerID , CustomerAccount item);
         int Delete(int customerID);
     }
 }

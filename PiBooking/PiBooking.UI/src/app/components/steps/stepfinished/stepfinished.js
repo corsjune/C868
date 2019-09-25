@@ -10,8 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { autoinject } from 'aurelia-framework';
 import { sessionService } from '../../../services/sessionService';
 import { ValidationControllerFactory, Validator } from 'aurelia-validation';
-import { OrderViewModel } from '../../../models/OrderModel';
-import { PaymentViewModel } from '../../../models/PaymentModel';
+import { OrderViewModel, PaymentViewModel } from 'app/models';
 var StepFinished = (function () {
     function StepFinished(sess, val, validator) {
         this.validator = validator;

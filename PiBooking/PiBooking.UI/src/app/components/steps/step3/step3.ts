@@ -7,7 +7,7 @@ import { stepsEnabledService } from '../../../services/stepsEnabledService'
 import * as Enumerable from 'linq'
 import * as moment from 'moment'
  
-import { OrderViewModel } from '../../../models/OrderModel'
+import { OrderViewModel } from 'app/models'
 import { ValidationController, ValidationControllerFactory, ValidationRules, Validator, validateTrigger } from 'aurelia-validation';
 import { BootstrapFormRenderer } from   '../../customrenderer/customrenderer'
 import { RemoteTSService } from "../../../services/RemoteTSService";

@@ -16,17 +16,17 @@ namespace PiBooking.Core.Repository
 
         }
 
-        public Timeslot Add(Timeslot item)
+        public TimeSlot Add(TimeSlot item)
         {
             using (SqlConnection connection = GetConnection())
             {
                 var id = connection.Insert(item);
-                var returnObject = connection.Get<Timeslot>(id);
+                var returnObject = connection.Get<TimeSlot>(id);
                 return returnObject;
             }
         }
 
-        public int Delete(Timeslot item)
+        public int Delete(TimeSlot item)
         {
             using (SqlConnection connection = GetConnection())
             {
@@ -37,31 +37,31 @@ namespace PiBooking.Core.Repository
             }
         }
 
-        public IEnumerable<Timeslot> GetAll()
+        public IEnumerable<TimeSlot> GetAll()
         {
             using (SqlConnection connection = GetConnection())
             {
-                var returnObject = connection.GetAll<Timeslot>();
+                var returnObject = connection.GetAll<TimeSlot>();
                 return returnObject;
             }
         }
 
-        public Timeslot GetById(int id)
+        public TimeSlot GetById(int id)
         {
             using (SqlConnection connection = GetConnection())
             {
-                var returnObject = connection.Get<Timeslot>(id);
+                var returnObject = connection.Get<TimeSlot>(id);
                 return returnObject;
             }
         }
 
-        public Timeslot Update(Timeslot item)
+        public TimeSlot Update(TimeSlot item)
         {
             using (SqlConnection connection = GetConnection())
             {
                 connection.Update(item);
 
-                var returnObject = connection.Get<Timeslot>(item.TimeslotID);
+                var returnObject = connection.Get<TimeSlot>(item.TimeslotID);
                 return returnObject;
             }
         }

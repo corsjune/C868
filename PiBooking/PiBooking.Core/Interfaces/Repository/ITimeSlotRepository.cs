@@ -7,10 +7,10 @@ namespace PiBooking.Core.Interfaces.Repository
 {
     public interface ITimeSlotRepository
     {
-        IEnumerable<Timeslot> GetAll();
-        Timeslot GetById(int id);
-        Timeslot Add(Timeslot item);
-        Timeslot Update(Timeslot item);
-        int Delete(Timeslot item);
+        IEnumerable<TimeSlot> GetAll();
+        TimeSlot GetById(int id);
+        TimeSlot Add(TimeSlot item);
+        TimeSlot Update(TimeSlot item);
+        int Delete(TimeSlot item);
     }
 }

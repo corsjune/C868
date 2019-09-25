@@ -3,8 +3,7 @@ import { HttpClient,json } from 'aurelia-fetch-client';
 import { inject } from 'aurelia-framework';
 import { buildQueryString } from 'aurelia-path';
 
-import { TimeSlotViewModel } from '../models/TimeSlotModel';
-import { OrderViewModel } from '../models/OrderModel'; 
+import { TimeSlotViewModel, OrderViewModel } from 'app/models'; 
 import { environment } from '../environment/environment'; 
 
 

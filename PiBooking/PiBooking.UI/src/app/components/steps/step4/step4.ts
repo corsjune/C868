@@ -2,7 +2,7 @@
 import * as $ from 'jquery'; 
 import { autoinject } from 'aurelia-framework';
 import { RemoteTSService } from '../../../services/RemoteTSService'
-import { OrderViewModel } from '../../../models/OrderModel'
+import { OrderViewModel } from 'app/models'
 import { sessionService } from '../../../services/sessionService'
 import { stepsEnabledService } from '../../../services/stepsEnabledService'
 

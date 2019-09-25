@@ -14,7 +14,7 @@ namespace PiBooking.Core.Models
         public int Customer { get; set; }
         public int Job { get; set; }
         public int Payment { get; set; }
-        public List<Timeslot> TimeSlots { get; set; }
+        //public List<Timeslot> TimeSlots { get; set; }
         public string Signature { get; set; }
     }
 }

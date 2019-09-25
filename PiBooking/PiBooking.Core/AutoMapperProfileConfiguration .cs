@@ -14,11 +14,14 @@ namespace PiBooking.Core
         protected AutoMapperProfileConfiguration(string profileName)
         : base(profileName)
         {
-            CreateMap<Timeslot, TimeSlotViewModel>();
-            CreateMap< TimeSlotViewModel, Timeslot>();
+            CreateMap<TimeSlot, TimeSlotViewModel>();
+            CreateMap< TimeSlotViewModel, TimeSlot>();
 
             CreateMap<EngineerViewModel, Engineer>();
             CreateMap<Engineer, EngineerViewModel>();
+
+            CreateMap<UserViewModel, User>();
+            CreateMap<User, UserViewModel>();
         }
     }
 }

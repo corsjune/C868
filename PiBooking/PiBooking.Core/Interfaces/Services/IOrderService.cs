@@ -8,10 +8,10 @@ namespace PiBooking.Core.Interfaces.Services
 {
     public interface IOrderService
     {
-        IEnumerable<OrderViewModel> GetAll();
-        OrderViewModel GetById(int id);
-        OrderViewModel Add(OrderViewModel item);
-        OrderViewModel Update(int orderID, OrderViewModel item);
+        IEnumerable<Order> GetAll();
+        Order GetById(int id);
+        Order Add(Order item);
+        Order Update(int orderID, Order item);
         int Delete(int orderID );
     }
 }

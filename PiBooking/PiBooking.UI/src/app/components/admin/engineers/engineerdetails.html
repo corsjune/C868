@@ -1,14 +1,15 @@
 <template>
-    <require from="../../gotoroute/gotoroute"></require>
+    <require from="app/components/gotoroute/gotoroute"></require>
+    <require from="app/resources/currency-format"></require>
     <br />
     <div class="alert alert-info" role="alert">Please enter the engineer information below. </div>
-    <div if.bind="errors"  id="errors" role="alert" class="alert alert-danger">${errors}</div>
+    <div if.bind="errors" id="errors" role="alert" class="alert alert-danger">${errors}</div>
     <div if.bind="message" class="alert alert-success" role="alert">${message}</div>
     <form role="form">
         <div class="form-group">
             <label class="control-label" for="EngineerID">Engineer ID</label>
             <input value.bind="engineer.EngineerID & validate & debounce" type="text" class="form-control" id="EngineerID" readonly>
-        </div>  
+        </div>
         <div class="form-group">
             <label class="control-label" for="FirstName">First Name</label>
             <input value.bind="engineer.FirstName & validate & debounce" type="text" class="form-control" id="FirstName" placeholder="Enter first name">
@@ -20,7 +21,7 @@
         <div class="form-group">
             <label class="control-label" for="EmployeeID">Employee ID</label>
             <input value.bind="engineer.EmployeeID & validate & debounce" type="text" class="form-control" id="EmployeeID" placeholder="Enter employee id">
-        </div> 
+        </div>
         <div class="form-group">
             <label class="control-label" for="Phone">Phone</label>
             <input value.bind="engineer.Phone & validate & debounce" type="tel" class="form-control" id="Phone" placeholder="Enter phone">
@@ -28,6 +29,26 @@
         <div class="form-group">
             <label class="control-label" for="Email">Email address</label>
             <input value.bind="engineer.Email & validate & debounce" type="email" class="form-control" id="Email" placeholder="Enter email">
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="Rate">Rate</label>
+            <input value.bind="engineer.Rate  & validate & debounce" type="number" class="form-control" id="Rate" placeholder="Enter rate">
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="AvailableStartDate">Engineer's Start Date</label>
+            <input value.bind="engineer.AvailableStartDate  & validate & debounce" type="date" class="form-control" id="Rate" placeholder="When was this engineer's first day?">
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="AvailableEndDate">Engineers Termination Date</label>
+            <input value.bind="engineer.AvailableEndDate  & validate & debounce" type="date" class="form-control" id="AvailableEndDate" placeholder="When is this engineer's last day?">
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="WorkDayBeginTime">Daily Workday Start Time</label>
+            <input value.bind="engineer.WorkDayBeginTime  & validate & debounce" type="time" class="form-control" id="WorkDayBeginTime" placeholder="Enter the daily start time for this engineer">
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="WorkDayEndTime">Daily Workday End Time</label>
+            <input value.bind="engineer.WorkDayEndTime  & validate & debounce" type="time" class="form-control" id="WorkDayEndTime" placeholder="Enter the daily end time for this engineer">
         </div>
     </form>
     <div id="navigation" class="row paddingtop10">

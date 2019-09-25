@@ -1,0 +1,50 @@
+<template>
+
+    <h1>Users</h1>
+    <p>Below are the available users. </p>
+
+    <div show.bind="errors" id="errors" role="alert" class="alert alert-danger">{{errors}}</div>
+    <div if.bind="message" class="alert alert-success" role="alert">{{message}}</div>
+    <div class="row control-box">
+        <div class="input-append col-sm-6 search">
+            <input type="text"
+                   placeholder="Search"
+                   class="round"
+                   [ngTableFiltering]="config.filtering"
+                   (tableChanged)="onChangeTable(config)" />
+            <button type="submit" class="corner">
+                <span class="fas fa-search"></span>
+            </button>
+        </div>
+        <div class="col-sm-6">
+            <ul class="nav justify-content-end">
+                <li class="nav-item toolbaritem">
+                    <a class="btn btn-default" click.delegate="add()"><i class="fa fa-plus"></i>Add</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div>
+        <ej-grid e-enable-responsive-row=true e-is-responsive=true e-data-source.bind="users" e-allow-paging=true e-allow-sorting=true>
+            <ej-column e-width="7em" e-field="Id" e-header-text="ID" e-text-align="right"></ej-column>
+            <ej-column e-field="FirstName" e-header-text="First Name" e-text-align="right"></ej-column>
+            <ej-column e-field="LastName" e-header-text="Last Name" e-text-align="right"></ej-column>
+            <ej-column e-field="Username" e-header-text="UserName" e-text-align="right"></ej-column>
+            <ej-column e-width="7em" e-header-text="Edit" e-text-align="right">
+                <ej-template>
+                    <a click.delegate="edit(Id)" class="btn btn-default "><i class="fas fa-edit"></i>Edit</a>
+                </ej-template>
+            </ej-column>
+            <ej-column e-width="7em" e-header-text="Delete" e-text-align="right">
+                <ej-template>
+                    <a click.delegate="delete(Id)" class="btn btn-default "><i class="far fa-trash-alt"></i>Delete</a>
+                </ej-template>
+            </ej-column>
+
+        </ej-grid>
+    </div>
+
+</template>
+
+

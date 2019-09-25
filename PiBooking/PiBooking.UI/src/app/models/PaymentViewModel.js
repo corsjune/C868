@@ -4,4 +4,4 @@ var PaymentViewModel = (function () {
     return PaymentViewModel;
 }());
 export { PaymentViewModel };
-//# sourceMappingURL=PaymentModel.js.map
+//# sourceMappingURL=PaymentViewModel.js.map

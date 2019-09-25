@@ -23,11 +23,25 @@ var App = (function () {
                 nav: true,
                 title: 'View/Search Bookings'
             }, {
+                route: 'bookingdetails',
+                name: 'bookingdetails',
+                settings: { icon: 'phone-alt', roles: [] },
+                moduleId: PLATFORM.moduleName('../bookings/bookingsdetails'),
+                nav: false,
+                title: 'Add/Edit Engineers'
+            }, {
                 route: 'engineers',
                 name: 'engineers',
                 settings: { icon: 'phone-alt', roles: [] },
                 moduleId: PLATFORM.moduleName('../engineers/engineers'),
                 nav: true,
+                title: 'Add/Edit Engineers'
+            }, {
+                route: 'engineerdetails',
+                name: 'engineerdetails',
+                settings: { icon: 'phone-alt', roles: [] },
+                moduleId: PLATFORM.moduleName('../engineers/engineerdetails'),
+                nav: false,
                 title: 'Add/Edit Engineers'
             }, {
                 route: 'timeslots',
@@ -36,14 +50,34 @@ var App = (function () {
                 moduleId: PLATFORM.moduleName('../timeslots/timeslots'),
                 nav: true,
                 title: 'Add/Edit Timeslots'
+            }, {
+                route: 'timeslotdetails',
+                name: 'timeslotdetails',
+                settings: { icon: 'briefcase', roles: [] },
+                moduleId: PLATFORM.moduleName('../timeslots/timeslotsdetails'),
+                nav: false,
+                title: 'Add/Edit Timeslots'
+            }, {
+                route: 'users',
+                name: 'users',
+                settings: { icon: 'briefcase', roles: [] },
+                moduleId: PLATFORM.moduleName('../users/users'),
+                nav: true,
+                title: 'Add/Edit Users'
+            }, {
+                route: 'userdetails',
+                name: 'userdetails',
+                settings: { icon: 'briefcase', roles: [] },
+                moduleId: PLATFORM.moduleName('../users/userdetails'),
+                nav: false,
+                title: 'Add/Edit Users'
             }
         ]);
         this.router = router;
     };
-    var _a;
     App = __decorate([
         autoinject,
-        __metadata("design:paramtypes", [typeof (_a = typeof stepsEnabledService !== "undefined" && stepsEnabledService) === "function" ? _a : Object])
+        __metadata("design:paramtypes", [stepsEnabledService])
     ], App);
     return App;
 }());
