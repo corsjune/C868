@@ -12,6 +12,6 @@ export class EngineerViewModel {
     public Rate: number;
     public AvailableStartDate: Date;
     public AvailableEndDate: Date;
-    public WorkDayBeginTime: Date;
-    public WorkDayEndTime: Date;
+    public WorkDayBeginTime: any;
+    public WorkDayEndTime: any;
 }

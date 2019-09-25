@@ -24,8 +24,8 @@ namespace PiBooking.Core.ViewModels
 
         public DateTime AvailableEndDate { get; set; }
 
-        public DateTime WorkDayBeginTime { get; set; }
+        public TimeSpan WorkDayBeginTime { get; set; }
 
-        public DateTime WorkDayEndTime { get; set; }
+        public TimeSpan WorkDayEndTime { get; set; }
     }
 }

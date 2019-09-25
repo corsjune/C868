@@ -36,19 +36,19 @@
         </div>
         <div class="form-group">
             <label class="control-label" for="AvailableStartDate">Engineer's Start Date</label>
-            <input value.bind="engineer.AvailableStartDate  & validate & debounce" type="date" class="form-control" id="Rate" placeholder="When was this engineer's first day?">
+            <input ej-date-time-picker="e-value.two-way:engineer.AvailableStartDate  & validate & debounce;e-width.bind:'100%'"   class="form-control" id="Rate" placeholder="When was this engineer's first day?">
         </div>
         <div class="form-group">
             <label class="control-label" for="AvailableEndDate">Engineers Termination Date</label>
-            <input value.bind="engineer.AvailableEndDate  & validate & debounce" type="date" class="form-control" id="AvailableEndDate" placeholder="When is this engineer's last day?">
+            <input ej-date-time-picker="e-value.two-way:engineer.AvailableEndDate  & validate & debounce;e-width.bind:'100%'"   class="form-control" id="AvailableEndDate" placeholder="When is this engineer's last day?">
         </div>
         <div class="form-group">
             <label class="control-label" for="WorkDayBeginTime">Daily Workday Start Time</label>
-            <input value.bind="engineer.WorkDayBeginTime  & validate & debounce" type="time" class="form-control" id="WorkDayBeginTime" placeholder="Enter the daily start time for this engineer">
+            <input ej-time-picker="e-value.two-way:engineer.WorkDayBeginTime & validate & debounce;e-width.bind:'100%';e-time-format.bind: 'HH:mm:00'"  type="time"    class="form-control" id="WorkDayBeginTime" placeholder="Enter the daily start time for this engineer">
         </div>
         <div class="form-group">
             <label class="control-label" for="WorkDayEndTime">Daily Workday End Time</label>
-            <input value.bind="engineer.WorkDayEndTime  & validate & debounce" type="time" class="form-control" id="WorkDayEndTime" placeholder="Enter the daily end time for this engineer">
+            <input ej-time-picker="e-value.two-way:engineer.WorkDayEndTime & validate & debounce;e-width.bind:'100%';e-time-format.bind: 'HH:mm:00';e-allow-edit.bind:false" class="form-control" id="WorkDayEndTime" placeholder="Enter the daily end time for this engineer">
         </div>
     </form>
     <div id="navigation" class="row paddingtop10">
