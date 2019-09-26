@@ -20,6 +20,8 @@ namespace PiBooking.Core.Repository
 
         public TimeSlot Add(TimeSlot item)
         {
+            this.SetBaseFields((BaseModel)item);
+
             using (SqlConnection connection = GetConnection())
             {
                 var id = connection.Insert(item);
@@ -61,6 +63,8 @@ namespace PiBooking.Core.Repository
 
         public TimeSlot Update(TimeSlot item)
         {
+            this.SetBaseFields((BaseModel)item);
+
             using (SqlConnection connection = GetConnection())
             {
                 connection.Update(item);

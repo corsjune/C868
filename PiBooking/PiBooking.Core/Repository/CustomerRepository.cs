@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using System.Text;
 using Dapper.Contrib.Extensions;
 using System.Data.SqlClient;
+using Dapper;
 
 namespace PiBooking.Core.Repository
 {
@@ -20,7 +21,8 @@ namespace PiBooking.Core.Repository
 
         public CustomerAccount Add(CustomerAccount item)
         {
-             
+            this.SetBaseFields((BaseModel)item);
+
             using (SqlConnection connection = GetConnection())
             { 
                 var id = connection.Insert(item);
@@ -61,13 +63,26 @@ namespace PiBooking.Core.Repository
             }
         }
 
+        public CustomerAccount GetByPersonFields(string lastName, string firstName, string email)
+        {
+            string sql = "SELECT * FROM [Customer] WHERE Email = @email and LastName = @lastName and FirstName = @firstName;";
+
+            using (SqlConnection connection = GetConnection())
+            {
+                var returnObject = connection.QueryFirstOrDefault<CustomerAccount>(sql, new { lastName, firstName , email });
+                return returnObject;
+            }
+        }
+
         public CustomerAccount Update(CustomerAccount item)
         {
+            this.SetBaseFields((BaseModel)item);
+
             using (SqlConnection connection = GetConnection())
             {
                 connection.Update(item);
 
-                var returnObject = connection.Get<CustomerAccount>(item.CustomerAccountId);
+                var returnObject = connection.Get<CustomerAccount>(item.CustomerId);
                 return returnObject;
             }
         }

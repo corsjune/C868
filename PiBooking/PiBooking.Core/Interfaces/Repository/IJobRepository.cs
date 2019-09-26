@@ -9,6 +9,9 @@ namespace PiBooking.Core.Interfaces.Repository
     {
         IEnumerable<Job> GetAll();
         Job GetById(int id);
+
+        Job GetByCustomerAndJobName(int customerID, string jobName);
+
         Job Add(Job item);
         Job Update(Job item);
         int Delete(Job item);

@@ -16,6 +16,8 @@ namespace PiBooking.Core.Services
     public class OrderService : BaseService, IOrderService
     {
         IOrderRepository _repo;
+        ICustomerRepository _customerRepo;
+        IJobRepository _jobRepo;
 
         public OrderService(IOrderRepository repo) : base()
         {

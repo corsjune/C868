@@ -79,7 +79,7 @@ var Step5 = (function () {
         else
             return false;
     };
-    Step5.prototype.BookTime = function () {
+    Step5.prototype.BookTimeO = function () {
         return __awaiter(this, void 0, void 0, function () {
             var _a, token, error, errorElement, returnValue, ex_1;
             return __generator(this, function (_b) {
@@ -110,6 +110,28 @@ var Step5 = (function () {
                         this.showErrors = true;
                         return [3, 6];
                     case 6: return [2];
+                }
+            });
+        });
+    };
+    Step5.prototype.BookTime = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var returnValue, ex_2;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4, this.remote.BookTime(this.currentOrder)];
+                    case 1:
+                        returnValue = _a.sent();
+                        this.myrouter.navigateToRoute("stepfinished");
+                        return [3, 3];
+                    case 2:
+                        ex_2 = _a.sent();
+                        console.log(ex_2);
+                        this.showErrors = true;
+                        return [3, 3];
+                    case 3: return [2];
                 }
             });
         });

@@ -25,7 +25,11 @@ namespace PiBooking.Core.Services
 
         public CustomerAccount Add(CustomerAccount item)
         {
-            return _repo.Add(item);
+            var foundCustomer = _repo.GetByPersonFields(item.LastName, item.FirstName, item.Email);
+            if (foundCustomer != null)
+                return foundCustomer;
+            else
+                return _repo.Add(item);
         }
 
         public int Delete(int customerID)

@@ -23,7 +23,11 @@ namespace PiBooking.Core.Services
 
         public Job Add(Job item)
         {
-            return _repo.Add(item);
+            var foundJob = _repo.GetByCustomerAndJobName(item.CustomerId, item.JobName);
+            if (foundJob != null)
+                return foundJob;
+            else
+                return _repo.Add(item); 
         }
 
         public int Delete(int id)

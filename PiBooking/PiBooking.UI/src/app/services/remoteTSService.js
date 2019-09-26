@@ -87,7 +87,7 @@ var RemoteTSService = (function () {
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        url = this._baseUrl + '/api/BookTime';
+                        url = this._baseUrl + '/api/Order';
                         return [4, this._http.fetch(url, {
                                 method: 'post',
                                 body: json(myOrderModel)

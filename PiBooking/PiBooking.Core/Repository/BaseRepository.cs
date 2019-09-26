@@ -5,6 +5,7 @@ using System.Text;
 using System.Data;
 using Dapper;
 using System.Data.SqlClient;
+using PiBooking.Core.Models;
 
 namespace PiBooking.Core.Repository
 {
@@ -16,6 +17,13 @@ namespace PiBooking.Core.Repository
             _connection = settings.Value.PersistanceConnectionString;
         }
          
+        public void SetBaseFields(BaseModel value)
+        {
+            if (!value.CreateDate.HasValue)
+                value.CreateDate = DateTime.UtcNow;
+
+            value.UpdateDate = DateTime.UtcNow;
+        }
    
 
         public SqlConnection GetConnection()

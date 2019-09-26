@@ -18,6 +18,8 @@ namespace PiBooking.Core.Repository
 
         public Engineer Add(Engineer item)
         {
+            this.SetBaseFields((BaseModel)item);
+
             using (SqlConnection connection = GetConnection())
             {
                 var id = connection.Insert(item);
@@ -58,6 +60,8 @@ namespace PiBooking.Core.Repository
 
         public Engineer Update(Engineer item)
         {
+            this.SetBaseFields((BaseModel)item);
+
             using (SqlConnection connection = GetConnection())
             {
                 connection.Update(item);

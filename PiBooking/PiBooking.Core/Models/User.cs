@@ -6,7 +6,7 @@ using System.Text;
 namespace PiBooking.Core.Models
 {
     [Table("[User]")]
-    public class User
+    public class User : BaseModel
     {
         public int Id { get; set; }
         public string FirstName { get; set; }

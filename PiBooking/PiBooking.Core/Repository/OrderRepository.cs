@@ -22,6 +22,8 @@ namespace PiBooking.Core.Repository
 
         public Order Add(Order item)
         {
+            this.SetBaseFields((BaseModel)item);
+
             using (SqlConnection connection = GetConnection())
             {
                 var id = connection.Insert(item);
@@ -62,6 +64,8 @@ namespace PiBooking.Core.Repository
 
         public Order Update(Order item)
         {
+            this.SetBaseFields((BaseModel)item);
+
             using (SqlConnection connection = GetConnection())
             {
                 connection.Update(item);

@@ -5,16 +5,15 @@ using Dapper.Contrib.Extensions;
 
 namespace PiBooking.Core.Models
 {
-    [Table("Order")]
-    public class Order
+    [Table("[Order]")]
+    public class Order : BaseModel
     {
         [Key]
         public int OrderID { get; set; }
-
-        public int Customer { get; set; }
-        public int Job { get; set; }
-        public int Payment { get; set; }
-        //public List<Timeslot> TimeSlots { get; set; }
+ 
+        public int JobID { get; set; }
+        public bool HasPaid { get; set; }
+        public List<TimeSlot> TimeSlots { get; set; }
         public string Signature { get; set; }
     }
 }

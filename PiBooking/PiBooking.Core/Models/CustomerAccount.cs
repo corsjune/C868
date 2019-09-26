@@ -8,10 +8,10 @@ using Dapper.Contrib.Extensions;
 namespace PiBooking.Core.Models
 {
     [Table("Customer")]
-    public class CustomerAccount
+    public class CustomerAccount : BaseModel
     {
         [Key]
-        public int CustomerAccountId { get; set; }
+        public int CustomerId { get; set; }
 
         public string Email { get; set; }
 
@@ -26,6 +26,8 @@ namespace PiBooking.Core.Models
         public string City { get; set; }
 
         public string State { get; set; }
+
+        public string ZipCode { get; set; }
 
         public string Company { get; set; }
 

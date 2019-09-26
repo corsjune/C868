@@ -22,6 +22,20 @@ namespace PiBooking.Core
 
             CreateMap<UserViewModel, User>();
             CreateMap<User, UserViewModel>();
+
+            CreateMap<OrderViewModel, Order>();
+            CreateMap<Order, OrderViewModel>();
+
+
+            CreateMap<JobViewModel, Job>();
+            CreateMap<Job, JobViewModel>();
+
+
+            CreateMap<CustomerViewModel, CustomerAccount>()
+                  .ForMember(dest => dest.CustomerId, opt => opt.MapFrom(src => src.CustomerAccountId));
+ 
+            CreateMap<CustomerAccount, CustomerViewModel>()
+                  .ForMember(dest => dest.CustomerAccountId, opt => opt.MapFrom(src => src.CustomerId));
         }
     }
 }

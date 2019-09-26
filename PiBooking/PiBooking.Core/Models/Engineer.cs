@@ -6,7 +6,7 @@ using Dapper.Contrib.Extensions;
 namespace PiBooking.Core.Models
 {
     [Table("Engineer")]
-    public class Engineer
+    public class Engineer : BaseModel
     {
         [Key]
         public int EngineerID { get; set; }

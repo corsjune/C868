@@ -27,6 +27,7 @@ namespace PiBooking.Core.ViewModels
         public string Company { get; set; }
 
         public string CompanyTitle { get; set; }
+
  
     }
 }

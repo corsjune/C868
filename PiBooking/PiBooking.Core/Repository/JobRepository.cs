@@ -6,6 +6,7 @@ using PiBooking.Core.Interfaces.Repository;
 using PiBooking.Core.Models;
 using Dapper.Contrib.Extensions;
 using System.Data.SqlClient;
+using Dapper;
 
 namespace PiBooking.Core.Repository
 {
@@ -18,6 +19,8 @@ namespace PiBooking.Core.Repository
 
         public Job Add(Job item)
         {
+            this.SetBaseFields((BaseModel)item);
+
             using (SqlConnection connection = GetConnection())
             {
                 var id = connection.Insert(item);
@@ -66,5 +69,18 @@ namespace PiBooking.Core.Repository
                 return returnObject;
             }
         }
+
+  
+        public Job GetByCustomerAndJobName(int customerID, string jobName)
+        {
+            string sql = "SELECT * FROM [Job] WHERE JobName = @jobName and CustomerID = @customerID;";
+
+            using (SqlConnection connection = GetConnection())
+            {
+                var returnObject = connection.QueryFirstOrDefault<Job>(sql, new { customerID, jobName });
+                return returnObject;
+            }
+        }
+ 
     }
 }

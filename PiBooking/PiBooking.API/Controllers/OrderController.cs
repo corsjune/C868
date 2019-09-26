@@ -17,11 +17,15 @@ namespace PiBooking.API.Controllers
     public class OrderController : ControllerBase
     {
         private IOrderService _orders;
+        private ICustomerService _customers;
+        private IJobService _jobs;
         IMapper _mapper;
-        public OrderController(IOrderService orders, IMapper mappers)
+        public OrderController(IOrderService orders, ICustomerService customers, IJobService jobs , IMapper mappers)
         {
             _orders = orders;
             _mapper = mappers;
+            _customers = customers;
+            _jobs = jobs;
         }
         //// GET: api/TimeSlot
         //[HttpGet]
@@ -47,8 +51,23 @@ namespace PiBooking.API.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] OrderViewModel value)
         {
-            var added = _mapper.Map<OrderViewModel, Order>(value); 
-            return StatusCode((int)HttpStatusCode.Created, _orders.Add(added));
+            var customer = _mapper.Map<CustomerViewModel, CustomerAccount>(value.Customer);
+            var job = _mapper.Map<JobViewModel, Job>(value.Job);
+
+            customer = _customers.Add(customer);
+
+            job.CustomerId = customer.CustomerId;
+            job = _jobs.Add(job);
+
+
+            var order = new Order();
+            order.JobID = job.JobId;
+            order.HasPaid =false;
+            order.Signature = value.Signature; 
+
+            var added = _orders.Add(order);
+
+            return StatusCode((int)HttpStatusCode.Created, added);
         }
 
         //// PUT: api/TimeSlot/5

@@ -9,6 +9,9 @@ namespace PiBooking.Core.Interfaces.Repository
     {
         IEnumerable<CustomerAccount> GetAll();
         CustomerAccount GetById(int id);
+
+        CustomerAccount GetByPersonFields(String lastName, String firstName, String email );
+
         CustomerAccount Add(CustomerAccount item);
         CustomerAccount Update(CustomerAccount item);
         int Delete(CustomerAccount item);
