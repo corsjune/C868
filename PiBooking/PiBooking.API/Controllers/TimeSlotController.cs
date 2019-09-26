@@ -27,7 +27,11 @@ namespace PiBooking.API.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var response = _mapper.Map<List<TimeSlot>, List<TimeSlotViewModel>>((List<TimeSlot>)_timeSlots.GetAll());   
+            int engineerID = 1;
+            DateTime startDateRange = Convert.ToDateTime("2019-08-25");
+            DateTime endDateRange = Convert.ToDateTime("2019-09-30");
+
+            var response = _mapper.Map<List<TimeSlot>, List<TimeSlotViewModel>>((List<TimeSlot>)_timeSlots.GetAll(engineerID, startDateRange, endDateRange));   
             return StatusCode((int)HttpStatusCode.OK, response);
         }
 

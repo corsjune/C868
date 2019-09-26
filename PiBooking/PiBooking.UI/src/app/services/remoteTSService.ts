@@ -41,7 +41,7 @@ export class RemoteTSService {
 
     public async  BookTime(myOrderModel: OrderViewModel): Promise<number> {
 
-        let url = this._baseUrl + '/api/BookTime';  
+        let url = this._baseUrl + '/api/Order';  
 
         let response = await this._http.fetch(url, {
                 method: 'post',

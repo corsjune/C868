@@ -43,14 +43,14 @@ export class App {
         }, {
             route: 'step5',
             name: 'step5',
-            settings: { icon: 'credit-card', enabled: this.stepsEnabled.step5, roles: ['admin']  },
+            settings: { icon: 'credit-card', enabled: this.stepsEnabled.step5, roles: []  },
             moduleId: PLATFORM.moduleName('../step5/step5'),
             nav: true,
             title: 'Step 5 - Pay and Submit'
         }, {
             route: 'stepfinished',
             name: 'stepfinished',
-            settings: { icon: 'credit-card',  roles: ['admin']  },
+            settings: { icon: 'credit-card',  roles: []  },
             moduleId: PLATFORM.moduleName('../stepfinished/stepfinished'),
             nav: false,
             title: 'Thank you!'

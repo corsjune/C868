@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Text;
+using Dapper;
 using Dapper.Contrib.Extensions;
 using Microsoft.Extensions.Options;
 using PiBooking.Core.Interfaces.Repository;
@@ -37,11 +39,13 @@ namespace PiBooking.Core.Repository
             }
         }
 
-        public IEnumerable<TimeSlot> GetAll()
+        public IEnumerable<TimeSlot> GetAll(int engineerID, DateTime startDateRange, DateTime endDateRange)
         {
             using (SqlConnection connection = GetConnection())
             {
-                var returnObject = connection.GetAll<TimeSlot>();
+                var returnObject = connection.Query<TimeSlot>("dbo.getAvailableTimeSlotsForEngineer", new { engineerID, startDateRange, endDateRange },
+            commandType: CommandType.StoredProcedure);
+
                 return returnObject;
             }
         }

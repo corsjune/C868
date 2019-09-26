@@ -58,7 +58,8 @@ export class Step5 {
     }
 
 
-    async BookTime() {
+    /* future CC processing */
+    async BookTimeO() {
 
         const { token, error } = await this.stripe.createToken(this.card);
         const errorElement = document.getElementById('errors');
@@ -86,4 +87,15 @@ export class Step5 {
         }
 
     }
+
+    async BookTime() { 
+            try {
+                let returnValue = await this.remote.BookTime(this.currentOrder);
+                this.myrouter.navigateToRoute("stepfinished"); 
+            } catch ( ex) {  
+                console.log(ex);
+                this.showErrors = true;
+            }
+         
+        } 
 }

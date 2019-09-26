@@ -15,29 +15,33 @@ namespace PiBooking.Core.Services
 {
     public class CustomerService : BaseService, ICustomerService
     {
+
+        ICustomerRepository _repo;
+
         public CustomerService(ICustomerRepository repo) :base()
         {
-
+            _repo = repo;
         }
 
         public CustomerAccount Add(CustomerAccount item)
         {
-            throw new NotImplementedException();
+            return _repo.Add(item);
         }
 
         public int Delete(int customerID)
         {
-            throw new NotImplementedException();
+            var data = _repo.GetById(customerID);
+            return _repo.Delete(data);
         }
 
         public IEnumerable<CustomerAccount> GetAll()
         {
-            throw new NotImplementedException();
+            return _repo.GetAll();
         }
 
         public CustomerAccount GetById(int id)
         {
-            throw new NotImplementedException();
+            return _repo.GetById(id);
         }
 
         public CustomerAccount Update(int customerID, CustomerAccount item)

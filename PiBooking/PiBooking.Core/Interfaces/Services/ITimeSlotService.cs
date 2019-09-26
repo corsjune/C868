@@ -8,7 +8,7 @@ namespace PiBooking.Core.Interfaces.Services
 {
     public interface ITimeSlotService
     {
-        IEnumerable<TimeSlot> GetAll();
+        IEnumerable<TimeSlot> GetAll(int engineerID, DateTime startDateRange, DateTime endDateRange);
         TimeSlot GetById(int id);
         TimeSlot Add(TimeSlot item);
         TimeSlot Update(int timeSlotID, TimeSlot item);

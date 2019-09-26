@@ -13,29 +13,33 @@ namespace PiBooking.Core.Services
 {
     public class JobService : BaseService, IJobService
     {
+
+        IJobRepository _repo;
+
         public JobService(IJobRepository repo) : base()
         {
-
+            _repo = repo;
         }
 
         public Job Add(Job item)
         {
-            throw new NotImplementedException();
+            return _repo.Add(item);
         }
 
         public int Delete(int id)
         {
-            throw new NotImplementedException();
+            var data = _repo.GetById(id);
+            return _repo.Delete(data);
         }
 
         public IEnumerable<Job> GetAll()
         {
-            throw new NotImplementedException();
+            return _repo.GetAll();
         }
 
         public Job GetById(int id)
         {
-            throw new NotImplementedException();
+            return _repo.GetById(id);
         }
 
         public Job Update(int id, Job item)

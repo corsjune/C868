@@ -15,30 +15,32 @@ namespace PiBooking.Core.Services
 {
     public class OrderService : BaseService, IOrderService
     {
+        IOrderRepository _repo;
 
         public OrderService(IOrderRepository repo) : base()
         {
-
+            _repo = repo;
         }
 
         public Order Add(Order item)
         {
-            throw new NotImplementedException();
+            return _repo.Add(item);
         }
 
         public int Delete(int orderID)
         {
-            throw new NotImplementedException();
+            var data = _repo.GetById(orderID);
+            return _repo.Delete(data);
         }
 
         public IEnumerable<Order> GetAll()
         {
-            throw new NotImplementedException();
+            return _repo.GetAll();
         }
 
         public Order GetById(int id)
         {
-            throw new NotImplementedException();
+            return _repo.GetById(id);
         }
 
         public Order Update(int orderID, Order item)
