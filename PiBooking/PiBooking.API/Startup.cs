@@ -17,6 +17,8 @@ using PiBooking.Core.Interfaces.Repository;
 using PiBooking.Core.Interfaces.Services;
 using PiBooking.Core;
 using PiBooking.Core.Services;
+using Mvc.RenderViewToString;
+using PiBooking.Core.Other;
 
 namespace PiBooking.API
 {
@@ -63,6 +65,9 @@ namespace PiBooking.API
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<ITimeSlotService, TimeSlotService>();
             services.AddScoped<IUserService, UserService>();
+ 
+            services.AddScoped<IEmailService, EmailService>();
+            services.AddScoped<IRazorViewToStringRenderer, RazorViewToStringRenderer>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

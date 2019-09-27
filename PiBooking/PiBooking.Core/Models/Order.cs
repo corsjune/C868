@@ -13,7 +13,11 @@ namespace PiBooking.Core.Models
  
         public int JobID { get; set; }
         public bool HasPaid { get; set; }
+
+        [Computed]
         public List<TimeSlot> TimeSlots { get; set; }
         public string Signature { get; set; }
+
+        public Decimal Total { get; set; }
     }
 }

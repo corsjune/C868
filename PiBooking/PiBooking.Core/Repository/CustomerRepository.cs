@@ -1,13 +1,9 @@
 ﻿using Dapper.Contrib.Extensions;
 using Microsoft.Extensions.Options;
 using PiBooking.Core.Interfaces.Repository;
-using PiBooking.Core.Models;
-using System;
+using PiBooking.Core.Models; 
 using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Text;
-using Dapper.Contrib.Extensions;
-using System.Data.SqlClient;
+using System.Data.SqlClient; 
 using Dapper;
 
 namespace PiBooking.Core.Repository

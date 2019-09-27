@@ -2,6 +2,7 @@
 
  
 export class CustomerViewModel { 
+        public CustomerAccountId: number;
         public Email: string;
         public FirstName: string;
         public LastName: string;

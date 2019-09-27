@@ -61,6 +61,20 @@ namespace PiBooking.Core.Repository
             }
         }
 
+        public IEnumerable<TimeSlot> GetByOrder(int OrderId)
+        {
+            string sql = @"SELECT *
+                          FROM  [dbo].[Timeslot]
+                          Where OrderID = @OrderID";
+             
+            using (SqlConnection connection = GetConnection())
+            {
+                var returnObject = connection.Query<TimeSlot>(sql, new { OrderId }); 
+                return returnObject;
+            }
+
+        }
+
         public TimeSlot Update(TimeSlot item)
         {
             this.SetBaseFields((BaseModel)item);

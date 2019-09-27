@@ -8,15 +8,21 @@ using PiBooking.Core.Models;
 using PiBooking.Core.Repository;
 using Dapper.Contrib.Extensions;
 using System.Data.SqlClient;
+using Dapper;
+using System.Data;
+using System.Linq;
+using System.Collections;
+using PiBooking.Core.Extensions;
 
 namespace PiBooking.Core.Repository
 {
     public class OrderRepository : BaseRepository, IOrderRepository
     {
+        ITimeSlotRepository _timeslots;
 
-        public OrderRepository(IOptions<AppSettings.AppSettings> settings) : base(settings)
+        public OrderRepository(IOptions<AppSettings.AppSettings> settings, ITimeSlotRepository timeslots) : base(settings)
         {
-
+            _timeslots = timeslots;
         }
 
 
@@ -26,9 +32,19 @@ namespace PiBooking.Core.Repository
 
             using (SqlConnection connection = GetConnection())
             {
-                var id = connection.Insert(item);
+                var data = connection.Query<int>("[dbo].[CreateOrder]",
+                    new
+                    {
+                        JobId = item.JobID,
+                        Signature = item.Signature,
+                        TimeSlots = item.TimeSlots.AsTvp<TimeSlot>("[dbo].[PurchasedTimeSlots]")
+                    },
+                    commandType: CommandType.StoredProcedure
+                ); ; 
 
-                var returnObject = connection.Get<Order>(id);
+                var returnObject = connection.Get<Order>(data);
+                returnObject.TimeSlots =(List<TimeSlot>) _timeslots.GetByOrder(returnObject.OrderID);
+
                 return returnObject;
             }
         }
@@ -58,6 +74,8 @@ namespace PiBooking.Core.Repository
             using (SqlConnection connection = GetConnection())
             {
                 var returnObject = connection.Get<Order>(id);
+                returnObject.TimeSlots = (List<TimeSlot>)_timeslots.GetByOrder(Convert.ToInt32(id));
+
                 return returnObject;
             }
         }

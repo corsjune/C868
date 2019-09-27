@@ -4,5 +4,5 @@
     export class JobViewModel { 
         public JobName: string;
         public JobDescription: string;
-        public JobID: string;
+        public JobID: number;
     }

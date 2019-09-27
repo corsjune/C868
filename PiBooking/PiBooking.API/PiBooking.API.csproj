@@ -3,7 +3,12 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+    <UserSecretsId>b66e81a2-149d-4071-8e4e-b8957e3c4830</UserSecretsId>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="Email\Templates\Invoice.cshtml" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
@@ -15,6 +20,10 @@
   <ItemGroup>
     <ProjectReference Include="..\PiBooking.Core\PiBooking.Core.csproj" />
     <ProjectReference Include="..\PIBooking.Infrastructure\PIBooking.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Email\Templates\Invoice.cshtml" />
   </ItemGroup>
 
 </Project>

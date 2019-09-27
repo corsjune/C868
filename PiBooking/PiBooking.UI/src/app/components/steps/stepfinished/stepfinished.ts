@@ -24,7 +24,7 @@ export class StepFinished {
         this.currentOrder = new OrderViewModel();
         this.currentOrder.Customer= sess.orderValue.Customer;
         this.currentOrder.Job= sess.orderValue.Job;
-        this.currentOrder.Job.JobID= "";
+        this.currentOrder.Job.JobID= 0;
         this.currentOrder.TimeSlots = new Array<TimeSlotViewModel>();
         this.currentOrder.Payment = new PaymentViewModel();
         this.currentOrder.TotalCount = 0;

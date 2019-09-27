@@ -7,6 +7,7 @@ namespace PiBooking.Core.Interfaces.Repository
 {
     public interface ITimeSlotRepository
     {
+        IEnumerable<TimeSlot> GetByOrder(int OrderId);
         IEnumerable<TimeSlot> GetAll(int engineerID, DateTime startDateRange, DateTime endDateRange);
         TimeSlot GetById(int id);
         TimeSlot Add(TimeSlot item);
