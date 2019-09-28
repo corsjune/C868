@@ -22,18 +22,20 @@ namespace PiBooking.API.Controllers
     {
         private IOrderService _orders;
         private ICustomerService _customers;
+        private IEngineerService _engineers;
         private IJobService _jobs;
         private IRazorViewToStringRenderer _razor;
         private IEmailService _email;
         private string _invoiceSubject;
         private string _BccEmail;
         IMapper _mapper;
-        public OrderController(IOrderService orders, ICustomerService customers, IJobService jobs , IMapper mappers,
+        public OrderController(IOrderService orders, ICustomerService customers, IEngineerService engineers, IJobService jobs , IMapper mappers,
                         IRazorViewToStringRenderer razor, IEmailService email, IOptions<AppSettings> settings)
         {
             _orders = orders;
             _mapper = mappers;
             _customers = customers;
+            _engineers = engineers;
             _jobs = jobs;
 
             _razor = razor;
@@ -65,47 +67,71 @@ namespace PiBooking.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] OrderViewModel value)
         {
-      
+            try
+            {
+                var customer = _mapper.Map<CustomerAccount>(value.Customer);
+                var job = _mapper.Map<Job>(value.Job);
 
-            var customer = _mapper.Map<CustomerAccount>(value.Customer);
-            var job = _mapper.Map<Job>(value.Job);
-            var timeslots = _mapper.Map<List<TimeSlot>>(value.TimeSlots);
+                var tz = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
 
-            //create or return existing customer
-            customer = _customers.Add(customer);
+                //adjust from UTC to EST
+                value.TimeSlots.ForEach(
+                   x =>
+                   {
+                       x.BeginDatetime = TimeZoneInfo.ConvertTimeFromUtc(x.BeginDatetime, tz);
+                       x.EndDatetime = TimeZoneInfo.ConvertTimeFromUtc(x.EndDatetime, tz);
+                   }
+                   );
 
-            //create or return job
-            job.CustomerId = customer.CustomerId;
-            job = _jobs.Add(job);
+                var timeslots = _mapper.Map<List<TimeSlot>>(value.TimeSlots);
 
-            //create the order entity
-            var order = new Order();
-            order.JobID = job.JobId;
-            order.HasPaid =false;
-            order.Signature = value.Signature;
-            order.TimeSlots = timeslots;
+                //create or return existing customer
+                customer = _customers.Add(customer);
 
-            //add to persistance store
-            //convert return model into viewmodel for further processing
-            var added = RefreshViewModel(
-                _orders.Add(order)
-                );
-             
-             //TODO: Port the emails to a queue based solution
-            //create and send invoice
-             string body = await _razor.RenderViewToStringAsync("/Email/Templates/Invoice.cshtml", added);
-            _email.SendMail(new List<string>() { customer.Email }, new List<string>(), new List<string>() { _BccEmail },
-                _invoiceSubject, body);
+                //create or return job
+                job.CustomerId = customer.CustomerId;
+                job = _jobs.Add(job);
+
+                //create the order entity
+                var order = new Order();
+                order.JobID = job.JobId;
+                order.HasPaid = false;
+                order.Signature = value.Signature;
+                order.TimeSlots = timeslots;
+
+                //add to persistance store
+                //convert return model into viewmodel for further processing
+                var added = RefreshViewModel(
+                    _orders.Add(order)
+                    );
+
+                //TODO: Port the emails to a queue based solution
+                //create and send invoice
+                string body = await _razor.RenderViewToStringAsync("/Email/Templates/Invoice.cshtml", added);
+                _email.SendMail(new List<string>() { customer.Email }, new List<string>(), new List<string>() { _BccEmail },
+                    _invoiceSubject, body);
 
 
-            return StatusCode((int)HttpStatusCode.Created, added);
+                return StatusCode((int)HttpStatusCode.Created, added);
+            }
+            catch (AppException ex)
+            {
+                return StatusCode((int)HttpStatusCode.UnprocessableEntity, new AppException(ex.Message));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.BadRequest, new AppException(ex.Message));
+
+            }
         }
 
         private OrderViewModel RefreshViewModel(Order order)
         {
             var returnObject = new OrderViewModel();
             var job = _jobs.GetById(order.JobID);
+            var engineer = this._engineers.GetById(order.TimeSlots.First().EngineerID);
 
+            returnObject.Engineer = _mapper.Map<EngineerViewModel>(engineer);
             returnObject.Job = _mapper.Map<JobViewModel>(job);
             returnObject.Customer = _mapper.Map<CustomerViewModel>(_customers.GetById(job.CustomerId));
             returnObject.TimeSlots = _mapper.Map<List<TimeSlotViewModel>>(order.TimeSlots);

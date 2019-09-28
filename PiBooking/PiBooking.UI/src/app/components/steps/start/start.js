@@ -77,6 +77,10 @@ var Step0 = (function () {
                     this.engineerID = this.currentOrder.Engineer.EngineerID;
                 }
             }
+            else {
+                this.currentOrder.Engineer = this.engineers.filter(function (x) { return x.EngineerID === _this.engineerID; }).pop();
+                this.currentOrder.TimeSlots = new Array();
+            }
         }
         this.stepsEnabled.step1.enabled = !!this.currentOrder.Engineer;
     };

@@ -197,7 +197,9 @@ export class Step1 {
                     EndDatetime: new Date(x.EndDatetime),
                     Rate: x.Rate,
                     IsBooked: x.IsBooked,
-                    TimeslotId: x.TimeslotId
+                    TimeslotId: x.TimeslotId,
+                    EngineerID: x.EngineerID,
+                    Status: x.Status
                 };
 
             });

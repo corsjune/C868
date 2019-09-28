@@ -14,6 +14,7 @@ import { EngineerViewModel } from './EngineerViewModel'
         public TotalCount: number;
         public Signature: string;
         public Engineer: EngineerViewModel = null;
+        public OrderID: number;
 
         constructor() {
 

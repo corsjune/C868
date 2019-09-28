@@ -105,14 +105,14 @@ var RemoteTSService = (function () {
             });
         });
     };
-    RemoteTSService.prototype.GetTimeSlots = function (startDate, endDate) {
+    RemoteTSService.prototype.GetTimeSlots = function (engineerID, startDate, endDate) {
         return __awaiter(this, void 0, void 0, function () {
             var url, params, queryString, result;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        url = this._baseUrl + '/api/TimeSlot';
-                        params = { startDate: JSON.stringify(startDate), endDate: JSON.stringify(endDate) };
+                        url = this._baseUrl + '/api/TimeSlot/GetAllAvailableByEngineer';
+                        params = { startDateRangeJson: JSON.stringify(startDate), endDateRangeJson: JSON.stringify(endDate) };
                         queryString = buildQueryString(params);
                         url += queryString ? "?" + queryString : '';
                         return [4, this._http.fetch(url)];

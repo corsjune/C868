@@ -84,50 +84,58 @@ var Step5 = (function () {
     };
     Step5.prototype.BookTimeO = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, token, error, errorElement, returnValue, ex_1;
+            var _a, token, error, errorElement;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0: return [4, this.stripe.createToken(this.card)];
                     case 1:
                         _a = _b.sent(), token = _a.token, error = _a.error;
                         errorElement = document.getElementById('errors');
-                        if (!error) return [3, 2];
-                        console.log(error);
-                        errorElement.textContent = error.message;
-                        this.showErrors = true;
-                        return [3, 6];
-                    case 2:
-                        this.currentOrder.Payment.PaymentConfirmationId = token.id;
-                        _b.label = 3;
-                    case 3:
-                        _b.trys.push([3, 5, , 6]);
-                        return [4, this.apiEndpoint.post('order', this.currentOrder)];
-                    case 4:
-                        returnValue = _b.sent();
-                        this.myrouter.navigateToRoute("stepfinished");
-                        return [3, 6];
-                    case 5:
-                        ex_1 = _b.sent();
-                        errorElement.textContent = ex_1.message;
-                        console.log(ex_1);
-                        this.showErrors = true;
-                        return [3, 6];
-                    case 6: return [2];
+                        if (error) {
+                            console.log(error);
+                            errorElement.textContent = error.message;
+                            this.showErrors = true;
+                        }
+                        else {
+                            this.currentOrder.Payment.PaymentConfirmationId = token.id;
+                            try {
+                                this.myrouter.navigateToRoute("stepfinished");
+                            }
+                            catch (ex) {
+                                errorElement.textContent = ex.message;
+                                console.log(ex);
+                                this.showErrors = true;
+                            }
+                        }
+                        return [2];
                 }
             });
         });
     };
     Step5.prototype.BookTime = function () {
         return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                try {
-                    this.myrouter.navigateToRoute("stepfinished");
+            var errorElement, response_1, _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        errorElement = document.getElementById('errors');
+                        _b.label = 1;
+                    case 1:
+                        _b.trys.push([1, 3, , 5]);
+                        return [4, this.apiEndpoint.post('order', this.currentOrder)];
+                    case 2:
+                        _b.sent();
+                        return [3, 5];
+                    case 3:
+                        response_1 = _b.sent();
+                        _a = errorElement;
+                        return [4, response_1.json()];
+                    case 4:
+                        _a.textContent = (_b.sent()).Message;
+                        this.showErrors = true;
+                        return [3, 5];
+                    case 5: return [2];
                 }
-                catch (ex) {
-                    console.log(ex);
-                    this.showErrors = true;
-                }
-                return [2];
             });
         });
     };

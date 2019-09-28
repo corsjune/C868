@@ -176,7 +176,11 @@ var Step1 = (function () {
                         myTimeSlots = this.currentOrder.TimeSlots.slice(0);
                         this.AppointmentList.dataSource = myTimeSlots;
                         this.refreshTotals(myTimeSlots);
-                        return [4, this.apiEndpoint.find('timeslot')];
+                        return [4, this.apiEndpoint.find('timeslot/GetAllAvailableByEngineer', {
+                                engineerID: this.currentOrder.Engineer.EngineerID,
+                                startDateRangeJson: JSON.stringify(this.MinDate),
+                                endDateRangeJson: JSON.stringify(this.MaxDate)
+                            })];
                     case 1:
                         data = _a.sent();
                         myDictionary = data.filter(function (x) {
@@ -188,7 +192,9 @@ var Step1 = (function () {
                                 EndDatetime: new Date(x.EndDatetime),
                                 Rate: x.Rate,
                                 IsBooked: x.IsBooked,
-                                TimeslotId: x.TimeslotId
+                                TimeslotId: x.TimeslotId,
+                                EngineerID: x.EngineerID,
+                                Status: x.Status
                             };
                         });
                         sortedValues = Enumerable.from(data).where(function (x) { return x.IsBooked === false; }).orderBy(function (x) { return x.Rate; }).thenBy(function (y) { return y.BeginDatetime; }).take(3).toArray();

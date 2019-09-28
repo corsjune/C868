@@ -8,7 +8,8 @@ namespace PiBooking.Core.ViewModels
     {
         public int OrderID { get; set; }
         public CustomerViewModel Customer { get; set; }
-        public JobViewModel Job { get; set; }
+        public JobViewModel Job { get; set; } 
+        public EngineerViewModel Engineer { get; set; }
         public bool HasPaid { get; set; }
         public List<TimeSlotViewModel> TimeSlots { get; set; }
         public string Signature { get; set; }

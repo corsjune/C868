@@ -45,7 +45,16 @@ namespace PiBooking.API.Controllers
             startDateRange = startDateRange.HasValue? startDateRange :DateTime.Now;
             endDateRange =  endDateRange.HasValue ? endDateRange: DateTime.Now.AddDays(8) ;
 
-            var response = _mapper.Map<List<TimeSlot>, List<TimeSlotViewModel>>((List<TimeSlot>)_timeSlots.GetAllAvailableByEngineerAndDateRange(engineerID, startDateRange.Value, endDateRange.Value));   
+            var response = _mapper.Map<List<TimeSlot>, List<TimeSlotViewModel>>((List<TimeSlot>)_timeSlots.GetAllAvailableByEngineerAndDateRange(engineerID, startDateRange.Value, endDateRange.Value));
+
+            //var tz = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+            //response.ForEach(x =>
+            //{
+            //    x.BeginDatetime = TimeZoneInfo.ConvertTimeFromUtc(x.BeginDatetime, tz);
+            //    x.EndDatetime = TimeZoneInfo.ConvertTimeFromUtc(x.EndDatetime, tz);
+            //    x.IsBooked = x.Status != 1;
+            //}
+            //);
             return StatusCode((int)HttpStatusCode.OK, response);
         }
 

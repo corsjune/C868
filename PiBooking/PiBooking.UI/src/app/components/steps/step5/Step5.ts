@@ -1,4 +1,5 @@
-﻿/// <reference types="ej.web.all" />
+﻿import { json } from 'aurelia-fetch-client';
+/// <reference types="ej.web.all" />
 import * as $ from 'jquery';
 import { autoinject, inject } from 'aurelia-framework';
 import { sessionService } from '../../../services/sessionService'
@@ -89,11 +90,19 @@ export class Step5 {
     }
 
     async BookTime() { 
-        try { 
-            let returnValue = await this.apiEndpoint.post('order', this.currentOrder); 
-                this.myrouter.navigateToRoute("stepfinished"); 
-            } catch ( ex) {  
-                console.log(ex);
+            const errorElement = document.getElementById('errors');
+
+        try {
+            let response: OrderViewModel = await this.apiEndpoint.post('order', this.currentOrder);
+
+            if (response.OrderID>0) {
+                    this.myrouter.navigateToRoute("stepfinished"); 
+             }
+
+            }
+            catch (response)
+            {
+                errorElement.textContent = (await response.json()).Message;
                 this.showErrors = true;
             }
          

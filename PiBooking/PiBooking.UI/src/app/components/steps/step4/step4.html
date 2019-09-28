@@ -8,6 +8,7 @@
 
     <table class="table table-user-information" with.bind="currentOrder">
         <tbody>
+
             <tr>
                 <td>Name:</td>
                 <td>${Customer.FirstName} ${Customer.LastName}</td>
@@ -39,7 +40,12 @@
                     ${Job.JobDescription}
                 </td>
             </tr>
-
+            <tr>
+                <td>Engineer:</td>
+                <td>
+                    ${Engineer.FirstName} ${Engineer.LastName}
+                </td>
+            </tr>
         </tbody>
     </table>
 
