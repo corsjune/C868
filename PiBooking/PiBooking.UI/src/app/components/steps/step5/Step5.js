@@ -7,6 +7,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -43,16 +46,16 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-import { autoinject } from 'aurelia-framework';
+import { autoinject, inject } from 'aurelia-framework';
 import { sessionService } from '../../../services/sessionService';
 import { stepsEnabledService } from '../../../services/stepsEnabledService';
-import { RemoteTSService } from '../../../services/RemoteTSService';
 import { environment } from '../../../environment/environment';
 import { Router } from 'aurelia-router';
+import { Endpoint, Rest } from 'aurelia-api';
 var Step5 = (function () {
-    function Step5(stepsEnabled, sess, remote, env, myrouter) {
+    function Step5(apiEndpoint, stepsEnabled, sess, env, myrouter) {
+        this.apiEndpoint = apiEndpoint;
         this.stepsEnabled = stepsEnabled;
-        this.remote = remote;
         this.env = env;
         this.myrouter = myrouter;
         this.showErrors = false;
@@ -98,7 +101,7 @@ var Step5 = (function () {
                         _b.label = 3;
                     case 3:
                         _b.trys.push([3, 5, , 6]);
-                        return [4, this.remote.BookTime(this.currentOrder)];
+                        return [4, this.apiEndpoint.post('order', this.currentOrder)];
                     case 4:
                         returnValue = _b.sent();
                         this.myrouter.navigateToRoute("stepfinished");
@@ -116,29 +119,22 @@ var Step5 = (function () {
     };
     Step5.prototype.BookTime = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var returnValue, ex_2;
             return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        _a.trys.push([0, 2, , 3]);
-                        return [4, this.remote.BookTime(this.currentOrder)];
-                    case 1:
-                        returnValue = _a.sent();
-                        this.myrouter.navigateToRoute("stepfinished");
-                        return [3, 3];
-                    case 2:
-                        ex_2 = _a.sent();
-                        console.log(ex_2);
-                        this.showErrors = true;
-                        return [3, 3];
-                    case 3: return [2];
+                try {
+                    this.myrouter.navigateToRoute("stepfinished");
                 }
+                catch (ex) {
+                    console.log(ex);
+                    this.showErrors = true;
+                }
+                return [2];
             });
         });
     };
     Step5 = __decorate([
         autoinject,
-        __metadata("design:paramtypes", [stepsEnabledService, sessionService, RemoteTSService, environment, Router])
+        __param(0, inject(Endpoint.of('api'))),
+        __metadata("design:paramtypes", [Rest, stepsEnabledService, sessionService, environment, Router])
     ], Step5);
     return Step5;
 }());

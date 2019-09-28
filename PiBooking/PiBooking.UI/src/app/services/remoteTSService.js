@@ -130,4 +130,4 @@ var RemoteTSService = (function () {
     return RemoteTSService;
 }());
 export { RemoteTSService };
-//# sourceMappingURL=RemoteTSService.js.map
+//# sourceMappingURL=remoteTSService.js.map

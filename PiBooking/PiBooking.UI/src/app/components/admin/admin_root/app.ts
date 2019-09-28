@@ -1,5 +1,5 @@
 import { Aurelia, PLATFORM, autoinject } from 'aurelia-framework';
-import { Redirect, Router, RouterConfiguration } from 'aurelia-router';
+import { Redirect, Router, RouterConfiguration, activationStrategy } from 'aurelia-router';
 import { stepsEnabledService } from "app/services/stepsEnabledService";
 
 @autoinject
@@ -16,6 +16,7 @@ export class App {
             name: 'bookings',
             settings: { icon: 'calendar', roles: [] },
             moduleId: PLATFORM.moduleName('../bookings/bookings'),
+            activationStrategy: activationStrategy.invokeLifecycle,
             nav: true,
             title: 'View/Search Bookings'
         }, {

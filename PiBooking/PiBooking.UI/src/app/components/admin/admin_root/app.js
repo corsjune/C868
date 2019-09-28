@@ -8,6 +8,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { PLATFORM, autoinject } from 'aurelia-framework';
+import { activationStrategy } from 'aurelia-router';
 import { stepsEnabledService } from "app/services/stepsEnabledService";
 var App = (function () {
     function App(stepsEnabled) {
@@ -20,6 +21,7 @@ var App = (function () {
                 name: 'bookings',
                 settings: { icon: 'calendar', roles: [] },
                 moduleId: PLATFORM.moduleName('../bookings/bookings'),
+                activationStrategy: activationStrategy.invokeLifecycle,
                 nav: true,
                 title: 'View/Search Bookings'
             }, {

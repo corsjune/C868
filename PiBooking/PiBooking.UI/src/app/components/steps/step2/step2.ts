@@ -1,6 +1,6 @@
 /// <reference types="ej.web.all" />
 import * as $ from 'jquery';
-import { autoinject } from 'aurelia-framework';
+import { autoinject, inject } from 'aurelia-framework';
 import { sessionService } from '../../../services/sessionService'
 import { stepsEnabledService } from '../../../services/stepsEnabledService'
 
@@ -8,9 +8,9 @@ import * as Enumerable from 'linq'
 import * as moment from 'moment'
 import { ValidationController, ValidationControllerFactory, ValidationRules, Validator, validateTrigger } from 'aurelia-validation';
 import { OrderViewModel } from 'app/models'
-import { BootstrapFormRenderer } from '../../customrenderer/customrenderer'
-import { RemoteTSService } from "../../../services/RemoteTSService";
+import { BootstrapFormRenderer } from '../../customrenderer/customrenderer' 
 import { Router } from 'aurelia-router';
+import { Endpoint, Rest } from 'aurelia-api';
 
 @autoinject
 export class Step2 {
@@ -19,7 +19,7 @@ export class Step2 {
     public validate: ValidationController; 
  
 
-    constructor(public stepsEnabled: stepsEnabledService, sess: sessionService, private remote: RemoteTSService, val: ValidationControllerFactory, private validator: Validator, private myrouter: Router) {
+    constructor(public stepsEnabled: stepsEnabledService, sess: sessionService,  val: ValidationControllerFactory, private validator: Validator, private myrouter: Router) {
         var self = this;
  
         self.currentOrder = sess.orderValue;
@@ -57,8 +57,7 @@ export class Step2 {
 
     async Step3() { 
 
-        try {
-            await this.remote.UpdateProgress(this.currentOrder);
+        try { 
             this.myrouter.navigateToRoute("step3");
         } catch (ex) {
             console.log(ex); //eat any errors

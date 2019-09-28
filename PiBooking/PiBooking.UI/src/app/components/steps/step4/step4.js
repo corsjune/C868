@@ -44,13 +44,11 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 import { autoinject } from 'aurelia-framework';
-import { RemoteTSService } from '../../../services/RemoteTSService';
 import { sessionService } from '../../../services/sessionService';
 import { stepsEnabledService } from '../../../services/stepsEnabledService';
 var Step4 = (function () {
-    function Step4(stepsEnabled, sess, remote) {
+    function Step4(stepsEnabled, sess) {
         this.stepsEnabled = stepsEnabled;
-        this.remote = remote;
         var self = this;
         self.currentOrder = sess.orderValue;
         this.gridData = [];
@@ -92,7 +90,7 @@ var Step4 = (function () {
     };
     Step4 = __decorate([
         autoinject,
-        __metadata("design:paramtypes", [stepsEnabledService, sessionService, RemoteTSService])
+        __metadata("design:paramtypes", [stepsEnabledService, sessionService])
     ], Step4);
     return Step4;
 }());

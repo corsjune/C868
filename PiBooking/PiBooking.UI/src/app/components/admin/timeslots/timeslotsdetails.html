@@ -14,8 +14,8 @@
             <select value.bind="engineer.EngineerID & validate & debounce"  class="form-control" id="Engineer">
                 <option model.bind="null">Select an Engineer...</option>
                 <option repeat.for="engineer of engineers"
-                        model.bind="engineer.id">
-                    ${engineer.FirstName} - ${engineer.LastName}
+                        model.bind="engineer.EngineerID">
+                    ${engineer.FirstName} ${engineer.LastName}
                 </option>
             </select>
         </div>

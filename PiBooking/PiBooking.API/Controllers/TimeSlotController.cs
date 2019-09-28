@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using PiBooking.Core.Interfaces.Services;
 using PiBooking.Core.Models;
 using PiBooking.Core.ViewModels;
@@ -23,15 +24,28 @@ namespace PiBooking.API.Controllers
             _timeSlots = timeSlots;
             _mapper = mappers;
         }
+
         // GET: api/TimeSlot
         [HttpGet]
         public IActionResult Get()
         {
-            int engineerID = 1;
-            DateTime startDateRange = Convert.ToDateTime("2019-08-25");
-            DateTime endDateRange = Convert.ToDateTime("2019-09-30");
+            var response = _mapper.Map<List<TimeSlot>, List<TimeSlotViewModel>>((List<TimeSlot>)_timeSlots.GetAll());
+            return StatusCode((int)HttpStatusCode.OK, response);
+        }
 
-            var response = _mapper.Map<List<TimeSlot>, List<TimeSlotViewModel>>((List<TimeSlot>)_timeSlots.GetAll(engineerID, startDateRange, endDateRange));   
+        // GET: api/TimeSlot
+        [HttpGet]
+        [Route("GetAllAvailableByEngineer")]
+        public IActionResult GetAllAvailableByEngineerAndDateRange(int engineerID, string startDateRangeJson, string endDateRangeJson)
+        {
+
+            DateTime? startDateRange = JsonConvert.DeserializeObject<DateTime>(startDateRangeJson);
+            DateTime? endDateRange = JsonConvert.DeserializeObject<DateTime>(endDateRangeJson);
+
+            startDateRange = startDateRange.HasValue? startDateRange :DateTime.Now;
+            endDateRange =  endDateRange.HasValue ? endDateRange: DateTime.Now.AddDays(8) ;
+
+            var response = _mapper.Map<List<TimeSlot>, List<TimeSlotViewModel>>((List<TimeSlot>)_timeSlots.GetAllAvailableByEngineerAndDateRange(engineerID, startDateRange.Value, endDateRange.Value));   
             return StatusCode((int)HttpStatusCode.OK, response);
         }
 

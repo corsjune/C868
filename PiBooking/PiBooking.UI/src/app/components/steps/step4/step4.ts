@@ -1,7 +1,6 @@
 /// <reference types="ej.web.all" />
 import * as $ from 'jquery'; 
-import { autoinject } from 'aurelia-framework';
-import { RemoteTSService } from '../../../services/RemoteTSService'
+import { autoinject } from 'aurelia-framework'; 
 import { OrderViewModel } from 'app/models'
 import { sessionService } from '../../../services/sessionService'
 import { stepsEnabledService } from '../../../services/stepsEnabledService'
@@ -15,7 +14,7 @@ export class Step4 {
 
     public mySignature: any;
 
-    constructor(public stepsEnabled: stepsEnabledService, sess: sessionService, private remote: RemoteTSService) {
+    constructor(public stepsEnabled: stepsEnabledService, sess: sessionService) {
         var self = this;
         self.currentOrder = sess.orderValue;
 

@@ -2,13 +2,9 @@
 
 export class sessionService {
 
-    public orderValue:  OrderViewModel;  
+    public orderValue: OrderViewModel;
 
-
-
-    constructor() { 
-
-        this.orderValue = new OrderViewModel(); 
- 
+    constructor() {
+        this.orderValue = new OrderViewModel();
     }
 }

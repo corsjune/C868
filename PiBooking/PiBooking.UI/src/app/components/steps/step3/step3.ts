@@ -9,8 +9,7 @@ import * as moment from 'moment'
  
 import { OrderViewModel } from 'app/models'
 import { ValidationController, ValidationControllerFactory, ValidationRules, Validator, validateTrigger } from 'aurelia-validation';
-import { BootstrapFormRenderer } from   '../../customrenderer/customrenderer'
-import { RemoteTSService } from "../../../services/RemoteTSService";
+import { BootstrapFormRenderer } from   '../../customrenderer/customrenderer' 
 import { Router } from 'aurelia-router';
 
 @autoinject 
@@ -19,7 +18,7 @@ export class Step3 {
     public currentOrder: OrderViewModel;
     public validate: ValidationController; 
 
-    constructor(public stepsEnabled: stepsEnabledService, sess: sessionService, private remote: RemoteTSService, val: ValidationControllerFactory, private validator: Validator, private myrouter: Router) {
+    constructor(public stepsEnabled: stepsEnabledService, sess: sessionService, val: ValidationControllerFactory, private validator: Validator, private myrouter: Router) {
         var self = this; 
         self.currentOrder = sess.orderValue;
         self.validate = val.createForCurrentScope();
@@ -52,8 +51,7 @@ export class Step3 {
     async Step4() {
 
 
-        try {
-            await this.remote.UpdateProgress(this.currentOrder);
+        try { 
             this.myrouter.navigateToRoute("step4");
         } catch (ex) {
             console.log(ex); //eat any errors

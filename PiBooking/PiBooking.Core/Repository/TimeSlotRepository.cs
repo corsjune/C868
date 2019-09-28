@@ -41,7 +41,7 @@ namespace PiBooking.Core.Repository
             }
         }
 
-        public IEnumerable<TimeSlot> GetAll(int engineerID, DateTime startDateRange, DateTime endDateRange)
+        public IEnumerable<TimeSlot> GetAllAvailableByEngineerAndDateRange(int engineerID, DateTime startDateRange, DateTime endDateRange)
         {
             using (SqlConnection connection = GetConnection())
             {
@@ -51,6 +51,16 @@ namespace PiBooking.Core.Repository
                 return returnObject;
             }
         }
+
+        public IEnumerable<TimeSlot> GetAll()
+        {
+            using (SqlConnection connection = GetConnection())
+            {
+                var returnObject = connection.GetAll<TimeSlot>(); 
+                return returnObject;
+            }
+        }
+ 
 
         public TimeSlot GetById(int id)
         {

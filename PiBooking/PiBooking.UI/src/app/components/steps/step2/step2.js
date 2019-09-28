@@ -48,13 +48,11 @@ import { sessionService } from '../../../services/sessionService';
 import { stepsEnabledService } from '../../../services/stepsEnabledService';
 import { ValidationControllerFactory, ValidationRules, Validator, validateTrigger } from 'aurelia-validation';
 import { BootstrapFormRenderer } from '../../customrenderer/customrenderer';
-import { RemoteTSService } from "../../../services/RemoteTSService";
 import { Router } from 'aurelia-router';
 var Step2 = (function () {
-    function Step2(stepsEnabled, sess, remote, val, validator, myrouter) {
+    function Step2(stepsEnabled, sess, val, validator, myrouter) {
         var _this = this;
         this.stepsEnabled = stepsEnabled;
-        this.remote = remote;
         this.validator = validator;
         this.myrouter = myrouter;
         var self = this;
@@ -95,28 +93,20 @@ var Step2 = (function () {
     };
     Step2.prototype.Step3 = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var ex_1;
             return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        _a.trys.push([0, 2, , 3]);
-                        return [4, this.remote.UpdateProgress(this.currentOrder)];
-                    case 1:
-                        _a.sent();
-                        this.myrouter.navigateToRoute("step3");
-                        return [3, 3];
-                    case 2:
-                        ex_1 = _a.sent();
-                        console.log(ex_1);
-                        return [3, 3];
-                    case 3: return [2];
+                try {
+                    this.myrouter.navigateToRoute("step3");
                 }
+                catch (ex) {
+                    console.log(ex);
+                }
+                return [2];
             });
         });
     };
     Step2 = __decorate([
         autoinject,
-        __metadata("design:paramtypes", [stepsEnabledService, sessionService, RemoteTSService, ValidationControllerFactory, Validator, Router])
+        __metadata("design:paramtypes", [stepsEnabledService, sessionService, ValidationControllerFactory, Validator, Router])
     ], Step2);
     return Step2;
 }());

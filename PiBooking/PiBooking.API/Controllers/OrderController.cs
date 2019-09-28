@@ -91,8 +91,7 @@ namespace PiBooking.API.Controllers
                 _orders.Add(order)
                 );
              
-              //TODO: Port the emails to a queue based solution
-
+             //TODO: Port the emails to a queue based solution
             //create and send invoice
              string body = await _razor.RenderViewToStringAsync("/Email/Templates/Invoice.cshtml", added);
             _email.SendMail(new List<string>() { customer.Email }, new List<string>(), new List<string>() { _BccEmail },

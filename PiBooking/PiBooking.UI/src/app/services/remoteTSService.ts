@@ -53,10 +53,10 @@ export class RemoteTSService {
 
     }
 
-    public async  GetTimeSlots(startDate:Date, endDate:Date): Promise<TimeSlotViewModel[]> {
+    public async  GetTimeSlots(engineerID:number, startDate:Date, endDate:Date): Promise<TimeSlotViewModel[]> {
 
-        let url = this._baseUrl + '/api/TimeSlot';
-        let params = { startDate: JSON.stringify(startDate), endDate: JSON.stringify(endDate) };
+        let url = this._baseUrl + '/api/TimeSlot/GetAllAvailableByEngineer';
+        let params = { startDateRangeJson: JSON.stringify(startDate), endDateRangeJson: JSON.stringify(endDate) };
 
         //Object.keys(params).forEach(key => url.params.append(key, params[key]))
 

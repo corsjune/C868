@@ -1,14 +1,14 @@
 ﻿/// <reference types="ej.web.all" />
 import * as $ from 'jquery';
 import { HttpClient } from 'aurelia-fetch-client';
-import { autoinject } from 'aurelia-framework';
-import { RemoteTSService } from '../../../services/RemoteTSService'
+import { autoinject, inject } from 'aurelia-framework'; 
 import { sessionService } from '../../../services/sessionService' 
 import { stepsEnabledService } from '../../../services/stepsEnabledService'
 import * as Enumerable from 'linq'
 import * as moment from 'moment'
 
 import { TimeSlotViewModel, OrderViewModel } from 'app/models'
+import { Endpoint, Rest } from 'aurelia-api';
  
 @autoinject
 export class Step1 {
@@ -27,9 +27,7 @@ export class Step1 {
     public example3: TimeSlotViewModel;
      
     public myWorkWeek: Array<string>;
-
-    protected remoteTS: RemoteTSService;
-
+  
     public currentOrder: OrderViewModel;
 
     public mySched: any;
@@ -127,12 +125,11 @@ export class Step1 {
                 break;
         }
     }
-    constructor(public stepsEnabled: stepsEnabledService, http: HttpClient, x: RemoteTSService, sess: sessionService) {
+    constructor(@inject(Endpoint.of('api')) public apiEndpoint: Rest, public stepsEnabled: stepsEnabledService, sess: sessionService) {
     
 
         this.currentOrder = sess.orderValue;
-        this.remoteTS = x;
-
+ 
 
         this.TimeSlots = new Object();
 
@@ -161,6 +158,11 @@ export class Step1 {
         this.currentOrder.TimeSlots = this.mySched.getAppointments(); 
     }
 
+    canActivate() {
+        if (this.stepsEnabled.step1.enabled) {
+            return true;
+        } else return false;
+    }
   
 
     get canSave() {
@@ -173,8 +175,16 @@ export class Step1 {
 
             this.AppointmentList.dataSource = myTimeSlots;
             this.refreshTotals(myTimeSlots);
-
-            let data = await this.remoteTS.GetTimeSlots(this.MinDate, this.MaxDate);
+ 
+            let data: TimeSlotViewModel[] = await this.apiEndpoint.find(
+                'timeslot/GetAllAvailableByEngineer',
+                {
+                    engineerID: this.currentOrder.Engineer.EngineerID,
+                    startDateRangeJson: JSON.stringify(this.MinDate) ,
+                    endDateRangeJson: JSON.stringify(this.MaxDate)
+                }
+            );
+           // let data = await this.remoteTS.GetTimeSlots(this.MinDate, this.MaxDate);
 
             let myDictionary = data.filter(
                 x => {

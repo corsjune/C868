@@ -1,15 +1,15 @@
 ﻿/// <reference types="ej.web.all" />
 import * as $ from 'jquery';
-import { autoinject } from 'aurelia-framework';
+import { autoinject, inject } from 'aurelia-framework';
 import { sessionService } from '../../../services/sessionService'
 import { stepsEnabledService } from '../../../services/stepsEnabledService'
 
 import * as Enumerable from 'linq'
 import * as moment from 'moment'
-import { OrderViewModel } from 'app/models'
-import { RemoteTSService } from '../../../services/RemoteTSService' 
+import { OrderViewModel } from 'app/models' 
 import { environment } from '../../../environment/environment'; 
 import { Router } from 'aurelia-router';
+import { Endpoint, Rest } from 'aurelia-api';
 declare var Stripe: any; 
 
 
@@ -22,7 +22,7 @@ export class Step5 {
     public currentOrder: OrderViewModel;
     public showErrors: boolean;
 
-    constructor(public stepsEnabled: stepsEnabledService, sess: sessionService, private remote: RemoteTSService, private env:environment,private myrouter:Router) {
+    constructor(@inject(Endpoint.of('api')) public apiEndpoint: Rest, public stepsEnabled: stepsEnabledService, sess: sessionService, private env:environment,private myrouter:Router) {
 
         this.showErrors = false;
         this.currentOrder = sess.orderValue;
@@ -75,8 +75,8 @@ export class Step5 {
         {
             this.currentOrder.Payment.PaymentConfirmationId = token.id;
 
-            try {
-                let returnValue = await this.remote.BookTime(this.currentOrder);
+            try { 
+ 
                 this.myrouter.navigateToRoute("stepfinished"); 
             } catch ( ex) { 
                 errorElement.textContent = ex.message;
@@ -89,8 +89,8 @@ export class Step5 {
     }
 
     async BookTime() { 
-            try {
-                let returnValue = await this.remote.BookTime(this.currentOrder);
+        try { 
+            let returnValue = await this.apiEndpoint.post('order', this.currentOrder); 
                 this.myrouter.navigateToRoute("stepfinished"); 
             } catch ( ex) {  
                 console.log(ex);

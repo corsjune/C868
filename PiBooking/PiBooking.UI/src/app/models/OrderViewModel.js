@@ -3,6 +3,7 @@ import { JobViewModel } from './JobViewModel';
 import { PaymentViewModel } from './PaymentViewModel';
 var OrderViewModel = (function () {
     function OrderViewModel() {
+        this.Engineer = null;
         this.Customer = new CustomerViewModel();
         this.Job = new JobViewModel();
         this.TimeSlots = new Array();

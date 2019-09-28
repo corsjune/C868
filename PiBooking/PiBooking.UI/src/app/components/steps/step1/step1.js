@@ -7,6 +7,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -43,18 +46,17 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-import { HttpClient } from 'aurelia-fetch-client';
-import { autoinject } from 'aurelia-framework';
-import { RemoteTSService } from '../../../services/RemoteTSService';
+import { autoinject, inject } from 'aurelia-framework';
 import { sessionService } from '../../../services/sessionService';
 import { stepsEnabledService } from '../../../services/stepsEnabledService';
 import * as Enumerable from 'linq';
 import * as moment from 'moment';
+import { Endpoint, Rest } from 'aurelia-api';
 var Step1 = (function () {
-    function Step1(stepsEnabled, http, x, sess) {
+    function Step1(apiEndpoint, stepsEnabled, sess) {
+        this.apiEndpoint = apiEndpoint;
         this.stepsEnabled = stepsEnabled;
         this.currentOrder = sess.orderValue;
-        this.remoteTS = x;
         this.TimeSlots = new Object();
         this.TimeInterval = {
             minorSlotCount: 1,
@@ -149,6 +151,13 @@ var Step1 = (function () {
             });
         });
     };
+    Step1.prototype.canActivate = function () {
+        if (this.stepsEnabled.step1.enabled) {
+            return true;
+        }
+        else
+            return false;
+    };
     Object.defineProperty(Step1.prototype, "canSave", {
         get: function () {
             return this.stepsEnabled.step2.enabled;
@@ -167,7 +176,7 @@ var Step1 = (function () {
                         myTimeSlots = this.currentOrder.TimeSlots.slice(0);
                         this.AppointmentList.dataSource = myTimeSlots;
                         this.refreshTotals(myTimeSlots);
-                        return [4, this.remoteTS.GetTimeSlots(this.MinDate, this.MaxDate)];
+                        return [4, this.apiEndpoint.find('timeslot')];
                     case 1:
                         data = _a.sent();
                         myDictionary = data.filter(function (x) {
@@ -198,7 +207,8 @@ var Step1 = (function () {
     };
     Step1 = __decorate([
         autoinject,
-        __metadata("design:paramtypes", [stepsEnabledService, HttpClient, RemoteTSService, sessionService])
+        __param(0, inject(Endpoint.of('api'))),
+        __metadata("design:paramtypes", [Rest, stepsEnabledService, sessionService])
     ], Step1);
     return Step1;
 }());

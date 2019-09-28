@@ -3,6 +3,7 @@ import { CustomerViewModel } from './CustomerViewModel'
 import { JobViewModel } from './JobViewModel'
 import { TimeSlotViewModel } from './TimeSlotViewModel'
 import { PaymentViewModel } from './PaymentViewModel'
+import { EngineerViewModel } from './EngineerViewModel'
 
     export class OrderViewModel { 
         public Customer: CustomerViewModel;
@@ -11,7 +12,8 @@ import { PaymentViewModel } from './PaymentViewModel'
         public Payment: PaymentViewModel;
         public TotalAmount: number;
         public TotalCount: number;
-        public Signature:string;
+        public Signature: string;
+        public Engineer: EngineerViewModel = null;
 
         constructor() {
 

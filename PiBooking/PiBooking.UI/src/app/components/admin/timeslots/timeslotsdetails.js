@@ -122,20 +122,25 @@ var TimeslotsDetails = (function () {
     });
     TimeslotsDetails.prototype.activate = function (params) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var _a, _b;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
                     case 0:
                         if (!params.id) return [3, 2];
                         _a = this;
                         return [4, this.apiEndpoint.find('timeslot', params.id)];
                     case 1:
-                        _a.timeslot = _b.sent();
+                        _a.timeslot = _c.sent();
                         return [3, 3];
                     case 2:
                         this.timeslot = new TimeSlotViewModel();
-                        _b.label = 3;
-                    case 3: return [2];
+                        _c.label = 3;
+                    case 3:
+                        _b = this;
+                        return [4, this.apiEndpoint.find('engineer')];
+                    case 4:
+                        _b.engineers = _c.sent();
+                        return [2];
                 }
             });
         });

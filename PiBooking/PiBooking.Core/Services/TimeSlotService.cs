@@ -32,12 +32,16 @@ namespace PiBooking.Core.Services
             var data = _repo.GetById(id);
             return _repo.Delete(data);
         }
-
-        public IEnumerable<TimeSlot> GetAll(int engineerID, DateTime startDateRange, DateTime endDateRange)
-        { 
  
-            return _repo.GetAll(engineerID, startDateRange, endDateRange);
 
+        public IEnumerable<TimeSlot> GetAll()
+        {
+            return _repo.GetAll();
+        }
+
+        public IEnumerable<TimeSlot> GetAllAvailableByEngineerAndDateRange(int engineerID, DateTime startDateRange, DateTime endDateRange)
+        {
+            return _repo.GetAllAvailableByEngineerAndDateRange(engineerID, startDateRange, endDateRange);
         }
 
         public TimeSlot GetById(int id)
