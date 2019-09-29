@@ -114,7 +114,7 @@ var Step5 = (function () {
     };
     Step5.prototype.BookTime = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var errorElement, response_1, _a;
+            var errorElement, response, response_1, _a;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
@@ -124,7 +124,10 @@ var Step5 = (function () {
                         _b.trys.push([1, 3, , 5]);
                         return [4, this.apiEndpoint.post('order', this.currentOrder)];
                     case 2:
-                        _b.sent();
+                        response = _b.sent();
+                        if (response.OrderID > 0) {
+                            this.myrouter.navigateToRoute("stepfinished");
+                        }
                         return [3, 5];
                     case 3:
                         response_1 = _b.sent();

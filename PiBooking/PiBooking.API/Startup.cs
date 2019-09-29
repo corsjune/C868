@@ -101,6 +101,13 @@ namespace PiBooking.API
 
             app.UseHttpsRedirection();
             app.UseMvc();
+
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "api/{controller=ReportApi}/ {action=Index}/{id?}");
+            });
         }
     }
 }

@@ -16,6 +16,7 @@ var StepFinished = (function () {
         this.validator = validator;
         var self = this;
         this.currentOrder = new OrderViewModel();
+        this.currentOrder.Engineer = sess.orderValue.Engineer;
         this.currentOrder.Customer = sess.orderValue.Customer;
         this.currentOrder.Job = sess.orderValue.Job;
         this.currentOrder.Job.JobID = 0;

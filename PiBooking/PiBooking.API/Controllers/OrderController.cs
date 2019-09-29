@@ -69,11 +69,18 @@ namespace PiBooking.API.Controllers
         {
             try
             {
+                if (value.TimeSlots==null || value.TimeSlots.Count<1)
+                {
+                    throw new AppException("You have not chosen any timesheets to book. " +
+                        "Please go back and select timeslots for this engineer");
+
+                }
+
                 var customer = _mapper.Map<CustomerAccount>(value.Customer);
                 var job = _mapper.Map<Job>(value.Job);
 
                 var tz = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
-
+                 
                 //adjust from UTC to EST
                 value.TimeSlots.ForEach(
                    x =>

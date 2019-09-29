@@ -19,7 +19,7 @@ var App = (function () {
             {
                 route: ['', 'start'],
                 name: 'start',
-                settings: { icon: 'calendar', enabled: this.stepsEnabled.step0, roles: [] },
+                settings: { icon: 'user-tie', enabled: this.stepsEnabled.step0, roles: [] },
                 moduleId: PLATFORM.moduleName('../start/start'),
                 nav: true,
                 title: 'Select an Engineer'
@@ -47,7 +47,7 @@ var App = (function () {
             }, {
                 route: 'step4',
                 name: 'step4',
-                settings: { icon: 'ok', enabled: this.stepsEnabled.step4, roles: [] },
+                settings: { icon: 'check-circle', enabled: this.stepsEnabled.step4, roles: [] },
                 moduleId: PLATFORM.moduleName('../step4/step4'),
                 nav: true,
                 title: 'Confirm'

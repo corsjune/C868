@@ -5,6 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="PIBookingDataSet.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="PIBookingDataSet.xsc" />
+    <None Remove="PIBookingDataSet.xsd" />
+    <None Remove="PIBookingDataSet.xss" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="9.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Dapper.Contrib" Version="2.0.4" />
@@ -17,10 +27,6 @@
     <Reference Include="Microsoft.Extensions.Options">
       <HintPath>C:\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.extensions.options\2.1.1\lib\netstandard2.0\Microsoft.Extensions.Options.dll</HintPath>
     </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Reports\" />
   </ItemGroup>
 
 </Project>
