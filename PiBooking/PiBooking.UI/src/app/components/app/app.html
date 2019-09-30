@@ -28,6 +28,16 @@
                                         <span class="glyphicon glyphicon-${ row.settings.icon }"></span> ${ row.title }
                                     </a>
                                 </li>
+                                <li if.bind="authenticated" style="height: 76px;width:10rem; line-height: 75px;">
+                                    <a href="#" click.trigger='logout()'>
+                                        <span class="fas fa-sign-out-alt"></span>LOGOUT
+                                    </a>
+                                </li>
+                                <li if.bind="!authenticated" style="height: 76px;width:10rem; line-height: 75px;">
+                                    <a href="#" click.trigger='logout()'>
+                           
+                                    </a>
+                                </li>
                             </ul>
  
 

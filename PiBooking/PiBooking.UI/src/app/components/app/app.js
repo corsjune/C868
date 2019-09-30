@@ -8,15 +8,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { PLATFORM, autoinject } from 'aurelia-framework';
-import { Redirect } from 'aurelia-router';
 import { stepsEnabledService } from "../../services/stepsEnabledService";
+import { AuthenticateStep } from 'aurelia-authentication';
 var App = (function () {
     function App(stepsEnabled) {
         this.stepsEnabled = stepsEnabled;
     }
     App.prototype.configureRouter = function (config, router) {
         config.title = 'Book Now';
-        config.addPipelineStep('authorize', AuthorizeStep);
+        config.addAuthorizeStep(AuthenticateStep);
         config.map([
             { route: '', redirect: 'home' },
             {
@@ -29,10 +29,19 @@ var App = (function () {
             }, {
                 route: 'admin',
                 name: 'admin',
-                settings: { icon: 'phone-alt', enabled: true, roles: [] },
+                settings: { icon: 'phone-alt', enabled: true },
                 moduleId: PLATFORM.moduleName('../admin/admin_root/app'),
                 nav: true,
+                auth: true,
                 title: 'Admin'
+            },
+            {
+                route: 'login',
+                name: 'login',
+                settings: { icon: 'key', enabled: true, roles: [] },
+                moduleId: PLATFORM.moduleName('../admin/login/login'),
+                nav: true,
+                title: 'Login'
             }
         ]);
         this.router = router;
@@ -44,18 +53,4 @@ var App = (function () {
     return App;
 }());
 export { App };
-var AuthorizeStep = (function () {
-    function AuthorizeStep() {
-    }
-    AuthorizeStep.prototype.run = function (navigationInstruction, next) {
-        if (navigationInstruction.getAllInstructions().some(function (i) { return i.config.settings.roles.indexOf('admin') !== -1; })) {
-            var isAdmin = false;
-            if (!isAdmin) {
-                return next.cancel(new Redirect('step3'));
-            }
-        }
-        return next();
-    };
-    return AuthorizeStep;
-}());
 //# sourceMappingURL=app.js.map

@@ -56,6 +56,31 @@ var Bookings = (function () {
         this.errors = null;
         this.message = null;
     }
+    Bookings.prototype.filterChanged = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, _b;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
+                    case 0:
+                        if (!this.filtercustomerID) return [3, 2];
+                        _a = this;
+                        return [4, this.apiEndpoint.find('order/GetByCustomer', {
+                                customerID: this.filtercustomerID
+                            })];
+                    case 1:
+                        _a.orders = _c.sent();
+                        return [3, 4];
+                    case 2:
+                        _b = this;
+                        return [4, this.apiEndpoint.find('order')];
+                    case 3:
+                        _b.orders = _c.sent();
+                        _c.label = 4;
+                    case 4: return [2];
+                }
+            });
+        });
+    };
     Bookings.prototype.delete = function (id) {
         return __awaiter(this, void 0, void 0, function () {
             var self, result, deletedEngineer, _a;
@@ -86,14 +111,18 @@ var Bookings = (function () {
     };
     Bookings.prototype.activate = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var _a, _b;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
                     case 0:
                         _a = this;
                         return [4, this.apiEndpoint.find('order')];
                     case 1:
-                        _a.orders = _b.sent();
+                        _a.orders = _c.sent();
+                        _b = this;
+                        return [4, this.apiEndpoint.find('order/GetAllCustomers')];
+                    case 2:
+                        _b.allcustomers = _c.sent();
                         return [2];
                 }
             });

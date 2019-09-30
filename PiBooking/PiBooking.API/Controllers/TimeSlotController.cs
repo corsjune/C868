@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -15,6 +16,7 @@ namespace PiBooking.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class TimeSlotController : ControllerBase
     {
         private ITimeSlotService _timeSlots;
@@ -35,6 +37,7 @@ namespace PiBooking.API.Controllers
 
         // GET: api/TimeSlot
         [HttpGet]
+        [AllowAnonymous]
         [Route("GetAllAvailableByEngineer")]
         public IActionResult GetAllAvailableByEngineerAndDateRange(int engineerID, string startDateRangeJson, string endDateRangeJson)
         {

@@ -1,18 +1,28 @@
-import { Aurelia, PLATFORM, autoinject } from 'aurelia-framework';
+import { Aurelia, PLATFORM, autoinject, computedFrom } from 'aurelia-framework';
 import { Redirect, Router, RouterConfiguration } from 'aurelia-router';
 import { stepsEnabledService } from "../../services/stepsEnabledService";
-import { AuthenticateStep } from 'aurelia-authentication';
+import { AuthenticateStep, AuthService} from 'aurelia-authentication';
 
 @autoinject
 export class App {
     router: Router; 
 
-    constructor(public stepsEnabled: stepsEnabledService) { 
+    constructor(public stepsEnabled: stepsEnabledService, private authService: AuthService) { 
     }  
+
+    logout() {
+        return this.authService.logout();
+    }
+
+    @computedFrom('authService.authenticated')
+    get authenticated() {
+        return this.authService.authenticated;
+    }
 
     configureRouter(config: RouterConfiguration, router: Router) {
         config.title = 'Book Now';
-        config.addPipelineStep('authorize', AuthenticateStep); 
+        config.addAuthorizeStep(AuthenticateStep);
+        //config.addPipelineStep('authorize', AuthenticateStep); 
         config.map([
          { route: '', redirect: 'home' },
          {
@@ -25,11 +35,20 @@ export class App {
         }, {
             route: 'admin',
             name: 'admin',
-            settings: { icon: 'phone-alt', enabled: true, roles: []  },
+             settings: { icon: 'phone-alt', enabled: true },
             moduleId: PLATFORM.moduleName('../admin/admin_root/app'),
-            nav: true,
+             nav: true,
+            auth: true,
             title: 'Admin'
-        } 
+            },
+            {
+                route: 'login',
+                name: 'login',
+                settings: { icon: 'key', enabled: true, roles: [] },
+                moduleId: PLATFORM.moduleName('../admin/login/login'),
+                nav: false,
+                title: 'Login'
+            } 
         ]);
 
         this.router = router;

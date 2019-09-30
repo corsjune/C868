@@ -1,1 +1,1 @@
-{"version":3,"file":"sessionService.js","sourceRoot":"","sources":["sessionService.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,cAAc,EAAE,MAAM,YAAY,CAAA;AAE3C;IAII;QACI,IAAI,CAAC,UAAU,GAAG,IAAI,cAAc,EAAE,CAAC;IAC3C,CAAC;IACL,qBAAC;AAAD,CAAC,AAPD,IAOC"}
+{"version":3,"file":"sessionService.js","sourceRoot":"","sources":["sessionService.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,cAAc,EAAiB,MAAM,YAAY,CAAA;AAE1D;IAKI;QACI,IAAI,CAAC,UAAU,GAAG,IAAI,cAAc,EAAE,CAAC;IAE3C,CAAC;IACL,qBAAC;AAAD,CAAC,AATD,IASC"}

@@ -2,8 +2,9 @@
 // login.js
 
 import { AuthService } from 'aurelia-authentication';
-import { inject, computedFrom } from 'aurelia-framework';
-@inject(AuthService)
+import { inject, computedFrom, autoinject } from 'aurelia-framework';
+import { sessionService } from '../../../services/sessionService';
+@autoinject()
 
 export class Login {
 
@@ -12,7 +13,7 @@ export class Login {
 
     authService: AuthService;
 
-    constructor(authService) {
+    constructor(authService: AuthService, private sess: sessionService) {
         this.authService = authService;
     };
 
@@ -28,19 +29,19 @@ export class Login {
         return this.authService.authenticated;
     }
 
-    login() {
-        return this.authService.login(this.Username, this.password)
-            .then(response => {
-                this.message = "Login Successful " + response;
-            })
-            .catch(
-                err => 
-                {  
-                    console.error(err);
-                    this.errors = "Login Failed";
-                }
-            );
-    };
+    async login() {
+        var returnValue;
+        try {
+            var response = await this.authService.login(this.Username, this.password);
+            this.message = "Login Successful.";
+        }
+        catch (err) {
+            let mess = await (err.json());
+            console.error(mess);
+            this.errors = mess.Message;
+  
+        }
+    }
 
     authenticate(name) {
         return this.authService.authenticate(name)

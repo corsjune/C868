@@ -28,6 +28,7 @@ namespace PiBooking.API.Controllers
    // [Authorize]
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class UserController : ControllerBase
     {
         private IUserService _userService;
@@ -60,7 +61,7 @@ namespace PiBooking.API.Controllers
             var user = _userService.Authenticate(userDto.email, userDto.password);
 
             if (user == null)
-                return BadRequest(new { message = "Username or password is incorrect" });
+                return BadRequest(new { Message = "Username or password is incorrect" });
 
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_settings.Value.Secret);
@@ -86,8 +87,7 @@ namespace PiBooking.API.Controllers
                 Token = tokenString
             });
         }
-
-        [AllowAnonymous]
+ 
         [HttpPost()]
         public IActionResult Post([FromBody]UserViewModel userDto)
         {

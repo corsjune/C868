@@ -8,7 +8,7 @@
     <form role="form">
         <div class="form-group">
             <label class="control-label" for="EngineerID">Engineer ID</label>
-            <input value.bind="engineer.EngineerID & validate & debounce" type="text" class="form-control" id="EngineerID" readonly>
+            <input value.bind="engineer.EngineerID & validate & debounce" type="text" class="form-control" id="EngineerID" placeholder="(new)" disabled>
         </div>
         <div class="form-group">
             <label class="control-label" for="FirstName">First Name</label>
@@ -44,7 +44,7 @@
         </div>
         <div class="form-group">
             <label class="control-label" for="WorkDayBeginTime">Daily Workday Start Time</label>
-            <input ej-time-picker="e-value.two-way:engineer.WorkDayBeginTime & validate & debounce;e-width.bind:'100%';e-time-format.bind: 'HH:00:00'"  type="time"    class="form-control" id="WorkDayBeginTime" placeholder="Enter the daily start time for this engineer">
+            <input ej-time-picker="e-value.two-way:engineer.WorkDayBeginTime & validate & debounce;e-width.bind:'100%';e-time-format.bind: 'HH:00:00'"    class="form-control" id="WorkDayBeginTime" placeholder="Enter the daily start time for this engineer">
         </div>
         <div class="form-group">
             <label class="control-label" for="WorkDayEndTime">Daily Workday End Time</label>

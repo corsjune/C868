@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -19,6 +20,7 @@ namespace PiBooking.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class OrderController : ControllerBase
     {
         private IOrderService _orders;
@@ -89,6 +91,7 @@ namespace PiBooking.API.Controllers
 
         // POST: api/Order
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Post([FromBody] OrderViewModel value)
         {
             try

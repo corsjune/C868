@@ -13,8 +13,9 @@ export function configure(aurelia: Aurelia) {
 
 
     var authconfig = {
-        endpoint: 'auth',
-        configureEndpoints: ['auth'],
+        endpoint: '',
+        loginRedirect: '#/admin',
+        configureEndpoints: [''],
         loginUrl: 'user/authenticate',
         accessTokenProp:'Token',
         storageChangedReload: true,    // ensure secondary tab reloading after auth status changes
@@ -28,7 +29,7 @@ export function configure(aurelia: Aurelia) {
         .plugin(PLATFORM.moduleName('aurelia-api'), config => { 
             // Register hosts
             config.registerEndpoint('api', environment.remoteSessionUrl)
-                  .registerEndpoint('auth', environment.remoteSessionUrl)
+            .setDefaultEndpoint('api');
         })
         .plugin(PLATFORM.moduleName('aurelia-syncfusion-bridge'), (syncfusion) => syncfusion.useAll())
         .feature(PLATFORM.moduleName('resources/index'))

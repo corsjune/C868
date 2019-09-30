@@ -8,6 +8,7 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using System.Xml.XPath;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using PiBooking.Core.AppSettings;
@@ -21,6 +22,7 @@ namespace PiBooking.API.Controllers
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [Route("api/[controller]")]
+    [Authorize]
     public class ReportController : Controller, IReportController
     {
         // Report viewer requires a memory cache to store the information of consecutive client request and

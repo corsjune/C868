@@ -31,4 +31,4 @@ var Reports = (function () {
     return Reports;
 }());
 export { Reports };
-//# sourceMappingURL=reports.js.map
+//# sourceMappingURL=logout.js.map

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PiBooking.Core.Interfaces.Services;
@@ -14,6 +15,7 @@ namespace PiBooking.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class EngineerController : ControllerBase
     {
         private IEngineerService _engineers;
@@ -26,6 +28,7 @@ namespace PiBooking.API.Controllers
         }
         // GET: api/Engineer
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Get()
         {
             var response = _mapper.Map<List<Engineer>, List<EngineerViewModel>>((List<Engineer>)_engineers.GetAll());
@@ -34,6 +37,7 @@ namespace PiBooking.API.Controllers
 
         // GET: api/Engineer/5
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public IActionResult Get(int id)
         {
             var response = _mapper.Map<Engineer, EngineerViewModel>(_engineers.GetById(id));
