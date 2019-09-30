@@ -15,6 +15,7 @@ using PiBooking.Core.Models;
 using PiBooking.Core.AppSettings;
 using PiBooking.Core.Other;
 using System.Net;
+using Newtonsoft.Json;
 
 //Code was adapted from the following reference
 //https://jasonwatmore.com/post/2018/09/08/aspnet-core-21-basic-authentication-tutorial-with-example-api
@@ -43,11 +44,20 @@ namespace PiBooking.API.Controllers
             _settings = settings;
         }
 
+        public class AuthenticationViewModel
+        {
+            public string email;
+            public string password;
+        }
+         
+
         [AllowAnonymous]
         [HttpPost("authenticate")]
-        public IActionResult Authenticate([FromBody]UserViewModel userDto)
+        public IActionResult Authenticate([FromBody]AuthenticationViewModel userDto)
         {
-            var user = _userService.Authenticate(userDto.Username, userDto.Password);
+            //yes, the dto is listed as email to support the client library
+            //we will use as username
+            var user = _userService.Authenticate(userDto.email, userDto.password);
 
             if (user == null)
                 return BadRequest(new { message = "Username or password is incorrect" });

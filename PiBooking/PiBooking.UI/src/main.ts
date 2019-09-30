@@ -2,7 +2,7 @@
 import 'jsrender';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Aurelia } from 'aurelia-framework';
+import { Aurelia  } from 'aurelia-framework';
 import environment from './environment';
 import { PLATFORM } from 'aurelia-pal';
 import 'syncfusion-javascript/Scripts/ej/web/ej.web.all.min';
@@ -10,15 +10,32 @@ import 'syncfusion-javascript/Scripts/ej/web/ej.web.all.min';
 declare const IS_DEV_BUILD: boolean; // The value is supplied by Webpack during the build
 
 export function configure(aurelia: Aurelia) {
+
+
+    var authconfig = {
+        endpoint: 'auth',
+        configureEndpoints: ['auth'],
+        loginUrl: 'user/authenticate',
+        accessTokenProp:'Token',
+        storageChangedReload: true,    // ensure secondary tab reloading after auth status changes
+        expiredRedirect: 1             // redirect to logoutRedirect after token expiration
+    }; 
+
+
     aurelia.use
         .standardConfiguration()
         .plugin(PLATFORM.moduleName('aurelia-validation'))
         .plugin(PLATFORM.moduleName('aurelia-api'), config => { 
             // Register hosts
-            config.registerEndpoint('api', environment.remoteSessionUrl); 
+            config.registerEndpoint('api', environment.remoteSessionUrl)
+                  .registerEndpoint('auth', environment.remoteSessionUrl)
         })
         .plugin(PLATFORM.moduleName('aurelia-syncfusion-bridge'), (syncfusion) => syncfusion.useAll())
-        .feature(PLATFORM.moduleName('resources/index'));
+        .feature(PLATFORM.moduleName('resources/index'))
+        .globalResources(PLATFORM.moduleName('aurelia-authentication/authFilterValueConverter'))
+        .plugin(PLATFORM.moduleName('aurelia-authentication'), baseConfig => {
+            baseConfig.configure(authconfig);
+        })
 
     aurelia.use.developmentLogging(environment.debug ? 'debug' : 'warn');
 
