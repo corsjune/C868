@@ -56,9 +56,6 @@ var Bookings = (function () {
         this.errors = null;
         this.message = null;
     }
-    Bookings.prototype.add = function () {
-        this.router.navigateToRoute('engineerdetails', { id: null });
-    };
     Bookings.prototype.delete = function (id) {
         return __awaiter(this, void 0, void 0, function () {
             var self, result, deletedEngineer, _a;
@@ -66,18 +63,18 @@ var Bookings = (function () {
                 switch (_b.label) {
                     case 0:
                         self = this;
-                        result = confirm('Are you sure you wish to delete this engineer ?');
+                        result = confirm('Are you sure you wish to delete this booking ?');
                         if (!result) return [3, 3];
-                        return [4, this.apiEndpoint.destroyOne('engineer', id)
+                        return [4, this.apiEndpoint.destroyOne('order', id)
                                 .catch(function (e) {
-                                self.errors = "An error has occurred. The engineer did not save. Please review the data and try again!";
+                                self.errors = "An error has occurred. The booking did not save. Please review the data and try again!";
                             })];
                     case 1:
                         deletedEngineer = _b.sent();
                         _a = this;
-                        return [4, this.apiEndpoint.find('engineer')];
+                        return [4, this.apiEndpoint.find('order')];
                     case 2:
-                        _a.engineers = _b.sent();
+                        _a.orders = _b.sent();
                         _b.label = 3;
                     case 3: return [2];
                 }
@@ -85,7 +82,7 @@ var Bookings = (function () {
         });
     };
     Bookings.prototype.edit = function (id) {
-        this.router.navigateToRoute('engineerdetails', { id: id });
+        this.router.navigateToRoute('bookingsdetails', { id: id });
     };
     Bookings.prototype.activate = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -94,9 +91,9 @@ var Bookings = (function () {
                 switch (_b.label) {
                     case 0:
                         _a = this;
-                        return [4, this.apiEndpoint.find('engineer')];
+                        return [4, this.apiEndpoint.find('order')];
                     case 1:
-                        _a.engineers = _b.sent();
+                        _a.orders = _b.sent();
                         return [2];
                 }
             });

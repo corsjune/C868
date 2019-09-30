@@ -16,6 +16,14 @@ var Reports = (function () {
         this._baseUrl = env.remoteSessionUrl;
         this._reporturl = env.remoteSessionUrl + '/api/Report';
     }
+    Reports.prototype.activate = function (urlParams, routeMap, navInstr) {
+        if (routeMap.name === "haspaid") {
+            this.reportpath = "HasPaid.RDL";
+        }
+        else {
+            this.reportpath = "Upcoming.RDL";
+        }
+    };
     Reports = __decorate([
         autoinject,
         __metadata("design:paramtypes", [environment])

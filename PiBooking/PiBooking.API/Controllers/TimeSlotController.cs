@@ -70,6 +70,10 @@ namespace PiBooking.API.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] TimeSlotViewModel value)
         {
+            //ignore the end date for now
+            value.EndDatetime = value.BeginDatetime.AddHours(1).AddMinutes(-1);
+
+
             var added = _mapper.Map<TimeSlotViewModel, TimeSlot>(value); 
             return StatusCode((int)HttpStatusCode.Created, _timeSlots.Add(added));
         }
@@ -78,8 +82,12 @@ namespace PiBooking.API.Controllers
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] TimeSlotViewModel value)
         {
+            //ignore the end date for now
+            value.EndDatetime = value.BeginDatetime.AddHours(1).AddMinutes(-1);
+
             var updated = _mapper.Map<TimeSlotViewModel, TimeSlot>(value);
             var response = _timeSlots.Update(id, updated);
+
 
             return StatusCode((int)HttpStatusCode.OK, _mapper.Map<TimeSlot, TimeSlotViewModel>(response)); 
         }

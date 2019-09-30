@@ -54,9 +54,13 @@ namespace PiBooking.Core.Repository
 
         public IEnumerable<TimeSlot> GetAll()
         {
+            var sql = @"  SELECT *
+                FROM [dbo].[Timeslot]
+                Where Status <> (Select TimeSlotStatusID from dbo.TimeSlotStatus where TimeSlotName='Purchased')";
+
             using (SqlConnection connection = GetConnection())
             {
-                var returnObject = connection.GetAll<TimeSlot>(); 
+                var returnObject = connection.Query<TimeSlot>(sql); 
                 return returnObject;
             }
         }

@@ -5,42 +5,26 @@
 
     <div show.bind="errors" id="errors" role="alert" class="alert alert-danger">{{errors}}</div>
     <div if.bind="message" class="alert alert-success" role="alert">{{message}}</div>
-    <div class="row control-box">
-        <div class="input-append col-sm-6 search">
-            <input type="text"
-                   placeholder="Search"
-                   class="round"
-                   [ngTableFiltering]="config.filtering"
-                   (tableChanged)="onChangeTable(config)" />
-            <button type="submit" class="corner">
-                <span class="fas fa-search"></span>
-            </button>
-        </div>
-        <div class="col-sm-6">
-            <ul class="nav justify-content-end">
-                <li class="nav-item toolbaritem">
-                    <a class="btn btn-default" click.delegate="add()"><i class="fa fa-plus"></i>Add</a>
-                </li>
-            </ul>
-        </div>
+    <div class="form-group">
+        <button class="btn btn-outline-secondary  minimumwidth15em " click.delegate="add()"><i class="fa fa-plus"></i>Add</button>
     </div>
 
     <div>
         <ej-grid e-enable-responsive-row=true e-is-responsive=true e-data-source.bind="timeslots" e-allow-paging=true e-allow-sorting=true>
-            <ej-column e-width="7em" e-field="TimeslotID" e-header-text="ID" e-text-align="right"></ej-column>
+            <ej-column e-width="7em" e-field="TimeslotId" e-header-text="ID" e-text-align="right"></ej-column>
             <ej-column e-width="9em" e-field="EngineerID" e-header-text="Engineer ID" e-text-align="right"></ej-column>
-            <ej-column e-field="BeginDateTime" e-header-text="BeginDateTime" e-text-align="right"></ej-column>
-            <ej-column e-field="EndDateTime" e-header-text="EndDateTime" e-text-align="right"></ej-column>
+            <ej-column e-type="datetime" e-field="BeginDatetime" e-format="{0:MM/dd/yyyy hh:00 tt}" e-header-text="Begin Date" e-text-align="right"></ej-column>
+            <ej-column e-type="datetime" e-field="EndDatetime" e-format="{0:MM/dd/yyyy hh:00 tt}" e-header-text="End Date" e-text-align="right"></ej-column>
             <ej-column e-field="Rate" e-header-text="Rate" e-text-align="right"></ej-column>
             <ej-column e-field="Status" e-header-text="Status" e-text-align="right"></ej-column>
             <ej-column e-width="7em" e-header-text="Edit" e-text-align="right">
                 <ej-template>
-                    <a click.delegate="edit(EngineerID)" class="btn btn-default "><i class="fas fa-edit"></i>Edit</a>
+                    <a click.delegate="edit(TimeslotId)" class="btn btn-default "><i class="fas fa-edit"></i>Edit</a>
                 </ej-template>
             </ej-column>
             <ej-column e-width="7em" e-header-text="Delete" e-text-align="right">
                 <ej-template>
-                    <a click.delegate="delete(EngineerID)" class="btn btn-default "><i class="far fa-trash-alt"></i>Delete</a>
+                    <a click.delegate="delete(TimeslotId)" class="btn btn-default "><i class="far fa-trash-alt"></i>Delete</a>
                 </ej-template>
             </ej-column>
 

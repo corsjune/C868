@@ -63,7 +63,7 @@ var Step1 = (function () {
             majorSlot: 60
         };
         this.MinDate = moment().startOf('week').toDate();
-        this.MaxDate = moment().add(45, 'days').endOf('week').toDate();
+        this.MaxDate = moment().add(100, 'days').endOf('week').toDate();
         this.Views = ['workweek'];
         this.WorkHours = { start: 8, end: 20, highlight: false };
         this.myWorkWeek = ['Sunday', 'Monday', 'Tuesday', 'Friday', 'Saturday'];

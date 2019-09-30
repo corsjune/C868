@@ -69,15 +69,26 @@ var TimeslotsDetails = (function () {
             var num = Number.parseInt(value);
             return num === null || num === undefined || (Number.isInteger(num) && num >= min && num <= max);
         }, "${$displayName} must be an integer between ${$config.min} and ${$config.max}.", function (min, max) { return ({ min: min, max: max }); });
+        this.statuses = [{ "TimeSlotStatusID": 1, "TimeSlotName": "Available" },
+            { "TimeSlotStatusID": 2, "TimeSlotName": "Not Available" },
+            { "TimeSlotStatusID": 10, "TimeSlotName": "Personal" },
+            { "TimeSlotStatusID": 11, "TimeSlotName": "Holiday" },
+            { "TimeSlotStatusID": 12, "TimeSlotName": "Vacation" },
+            { "TimeSlotStatusID": 13, "TimeSlotName": "Training" },
+            { "TimeSlotStatusID": 14, "TimeSlotName": "Sales" }];
     }
     TimeslotsDetails.prototype.bind = function () {
         ValidationRules
-            .ensure('Email').required().email()
-            .ensure('FirstName').required()
-            .ensure('LastName').required()
-            .ensure('Phone').required()
-            .ensure('EmployeeID').required().satisfiesRule('integerRange', 1, 75000)
+            .ensure('BeginDatetime').required()
+            .ensure('EndDatetime').required()
+            .ensure('EngineerID').required()
+            .ensure('Status').required()
             .on(this.timeslot);
+    };
+    TimeslotsDetails.prototype.startimeChanged = function (args) {
+        if (args.detail.value) {
+            this.timeslot.EndDatetime = new Date(Date.parse(args.detail.value) + (59 * 60000));
+        }
     };
     TimeslotsDetails.prototype.Save = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -88,7 +99,7 @@ var TimeslotsDetails = (function () {
                         this.errors = null;
                         this.message = null;
                         self = this;
-                        if (!(this.timeslot != null)) return [3, 2];
+                        if (!(this.timeslot.TimeslotId != null)) return [3, 2];
                         return [4, this.apiEndpoint.update('timeslot', this.timeslot.TimeslotId, this.timeslot)];
                     case 1:
                         savedTimeslot = _a.sent();

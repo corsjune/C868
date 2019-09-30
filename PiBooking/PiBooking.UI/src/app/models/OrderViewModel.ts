@@ -10,11 +10,12 @@ import { EngineerViewModel } from './EngineerViewModel'
         public Job: JobViewModel;
         public TimeSlots: TimeSlotViewModel[];
         public Payment: PaymentViewModel;
-        public TotalAmount: number;
+        public TotalAmount: number; //one way to server
         public TotalCount: number;
         public Signature: string;
         public Engineer: EngineerViewModel = null;
         public OrderID: number;
+        public Total: number //one way from server
 
         constructor() {
 

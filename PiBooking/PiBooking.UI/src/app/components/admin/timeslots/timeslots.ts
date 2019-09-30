@@ -1,3 +1,4 @@
+/// <reference types="ej.web.all" />
 import { inject, autoinject } from 'aurelia-framework';
 import { Endpoint, Rest } from 'aurelia-api';
 import { TimeSlotViewModel } from 'app/models';
@@ -8,7 +9,7 @@ export class Timeslots {
 
     errors: string = null;
     message: string = null; 
-    timeslot: TimeSlotViewModel[];
+    timeslots:any;
 
     constructor(@inject(Endpoint.of('api')) public apiEndpoint: Rest, private router: Router) {
  
@@ -32,7 +33,7 @@ export class Timeslots {
                         self.errors = "An error has occurred. The timeslot did not save. Please review the data and try again!"
                     });
 
-            this.timeslot = await this.apiEndpoint.find('timeslot'); 
+            this.timeslots = ej.parseJSON(await this.apiEndpoint.find('timeslot')); ; 
         }
     }
 
@@ -42,7 +43,8 @@ export class Timeslots {
     }
 
     async activate() {
-        this.timeslot = await this.apiEndpoint.find('timeslot'); 
+   
+        this.timeslots = ej.parseJSON(await this.apiEndpoint.find('timeslot')); 
 
     }
 }

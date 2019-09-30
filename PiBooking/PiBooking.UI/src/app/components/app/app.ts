@@ -28,14 +28,7 @@ export class App {
             moduleId: PLATFORM.moduleName('../admin/admin_root/app'),
             nav: true,
             title: 'Admin'
-        }, {
-            route: 'step3',
-            name: 'step3',
-            settings: { icon: 'briefcase', enabled: true, roles: []  },
-            moduleId: PLATFORM.moduleName('../steps/step3/step3'),
-            nav: true,
-            title: 'Contact'
-        } 
+        }
         ]);
 
         this.router = router;

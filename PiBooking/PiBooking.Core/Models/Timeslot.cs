@@ -26,7 +26,7 @@ namespace PiBooking.Core.Models
 
         public int Status { get; set; }
 
-        public int OrderID { get; set; }
+        public int? OrderID { get; set; }
 
         //[Reference(ReferenceType.Foreign, ColumnName = "payment_id", ReferenceMemberName = "payment_id")]
         //[ComplexMapping]

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Mvc.RenderViewToString;
+using Newtonsoft.Json;
 using PiBooking.Core.AppSettings;
 using PiBooking.Core.Interfaces.Services;
 using PiBooking.Core.Models;
@@ -29,7 +30,7 @@ namespace PiBooking.API.Controllers
         private string _invoiceSubject;
         private string _BccEmail;
         IMapper _mapper;
-        public OrderController(IOrderService orders, ICustomerService customers, IEngineerService engineers, IJobService jobs , IMapper mappers,
+        public OrderController(IOrderService orders, ICustomerService customers, IEngineerService engineers, IJobService jobs, IMapper mappers,
                         IRazorViewToStringRenderer razor, IEmailService email, IOptions<AppSettings> settings)
         {
             _orders = orders;
@@ -43,33 +44,56 @@ namespace PiBooking.API.Controllers
             _invoiceSubject = settings.Value.EmailSMTPSubject;
             _BccEmail = settings.Value.EmailFrom;
         }
-        //// GET: api/TimeSlot
-        //[HttpGet]
-        //public IActionResult Get()
-        //{
-        //    int engineerID = 1;
-        //    DateTime startDateRange = Convert.ToDateTime("2019-08-25");
-        //    DateTime endDateRange = Convert.ToDateTime("2019-09-30");
+        //// GET: api/Order
+        [HttpGet]
+        public IActionResult Get()
+        {
+            //var response = _mapper.Map<List<Order>, List<OrderViewModel>>((List<Order>)_orders.GetAll());
 
-        //    var response = _mapper.Map<List<TimeSlot>, List<TimeSlotViewModel>>((List<TimeSlot>)_timeSlots.GetAll(engineerID, startDateRange, endDateRange));   
-        //    return StatusCode((int)HttpStatusCode.OK, response);
-        //}
+            //TODO: This is going  to be expensive
+            //Find a better way
+            var response = _orders.GetAll().Select(
+                 x => this.RefreshViewModel(x)
+                 ).ToList<OrderViewModel>();
 
-        //// GET: api/TimeSlot/5
-        //[HttpGet("{id}")]
-        //public IActionResult Get(int id)
-        //{ 
-        //    var response =  _mapper.Map<TimeSlot, TimeSlotViewModel>(_timeSlots.GetById(id));  
-        //    return StatusCode((int)HttpStatusCode.OK, response);
-        //}
+            return StatusCode((int)HttpStatusCode.OK, response);
+        }
 
-        // POST: api/TimeSlot
+        [Route("GetAllCustomers")]
+        public IActionResult GetAllCustomers(int customerID)
+        {
+            var response = _mapper.Map<List<CustomerAccount>, List<CustomerViewModel>>((List<CustomerAccount>)_customers.GetAll());
+            return StatusCode((int)HttpStatusCode.OK, response);
+        }
+
+        [Route("GetByCustomer")]
+        public IActionResult GetByCustomer(int customerID)
+        { 
+            //TODO: This is going  to be expensive
+            //Find a better way
+            var response = _orders.GetAll(customerID).Select(
+                 x => this.RefreshViewModel(x)
+                 ).ToList<OrderViewModel>();
+
+            return StatusCode((int)HttpStatusCode.OK, response);
+ 
+        }
+
+        //// GET: api/Order/5
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
+        {
+            var response = this.RefreshViewModel(_orders.GetById(id));
+            return StatusCode((int)HttpStatusCode.OK, response);
+        }
+
+        // POST: api/Order
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] OrderViewModel value)
         {
             try
             {
-                if (value.TimeSlots==null || value.TimeSlots.Count<1)
+                if (value.TimeSlots == null || value.TimeSlots.Count < 1)
                 {
                     throw new AppException("You have not chosen any timesheets to book. " +
                         "Please go back and select timeslots for this engineer");
@@ -80,7 +104,7 @@ namespace PiBooking.API.Controllers
                 var job = _mapper.Map<Job>(value.Job);
 
                 var tz = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
-                 
+
                 //adjust from UTC to EST
                 value.TimeSlots.ForEach(
                    x =>
@@ -134,6 +158,7 @@ namespace PiBooking.API.Controllers
 
         private OrderViewModel RefreshViewModel(Order order)
         {
+
             var returnObject = new OrderViewModel();
             var job = _jobs.GetById(order.JobID);
             var engineer = this._engineers.GetById(order.TimeSlots.First().EngineerID);
@@ -152,22 +177,21 @@ namespace PiBooking.API.Controllers
             return returnObject;
         }
 
-        //// PUT: api/TimeSlot/5
-        //[HttpPut("{id}")]
-        //public IActionResult Put(int id, [FromBody] TimeSlotViewModel value)
-        //{
-        //    var updated = _mapper.Map<TimeSlotViewModel, TimeSlot>(value);
-        //    var response = _timeSlots.Update(id, updated);
+        // PUT: api/Order/5
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, [FromBody] OrderViewModel value)
+        {
+            var updated = _mapper.Map<OrderViewModel, Order>(value);
+            var response = _orders.Update(id, updated);
+            return StatusCode((int)HttpStatusCode.OK, this.RefreshViewModel(response));
+        }
 
-        //    return StatusCode((int)HttpStatusCode.OK, _mapper.Map<TimeSlot, TimeSlotViewModel>(response)); 
-        //}
-
-        //// DELETE: api/ApiWithActions/5
-        //[HttpDelete("{id}")]
-        //public IActionResult Delete(int id)
-        //{
-        //    var response = _timeSlots.Delete(id);
-        //    return StatusCode((int)HttpStatusCode.NoContent);
-        //}
+        // DELETE: api/Order/5
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            var response = _orders.Delete(id);
+            return StatusCode((int)HttpStatusCode.NoContent);
+        }
     }
 }

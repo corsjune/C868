@@ -5,25 +5,13 @@
 
     <div show.bind="errors" id="errors" role="alert" class="alert alert-danger">{{errors}}</div>
     <div if.bind="message" class="alert alert-success" role="alert">{{message}}</div>
-    <div class="row control-box">
-        <div class="input-append col-sm-6 search">
-            <input type="text"
-                   placeholder="Search"
-                   class="round"
-                   [ngTableFiltering]="config.filtering"
-                   (tableChanged)="onChangeTable(config)" />
-            <button type="submit" class="corner">
-                <span class="fas fa-search"></span>
-            </button>
-        </div>
-        <div class="col-sm-6">
-            <ul class="nav justify-content-end">
-                <li class="nav-item toolbaritem">
-                    <a class="btn btn-default" click.delegate="add()"><i class="fa fa-plus"></i>Add</a>
-                </li>
-            </ul>
-        </div>
+
+
+    <div class="form-group"> 
+        <button class="btn btn-outline-secondary  minimumwidth15em " click.delegate="add()"><i class="fa fa-plus"></i>Add</button>
     </div>
+
+
 
     <div>
         <ej-grid e-enable-responsive-row=true e-is-responsive=true e-data-source.bind="engineers" e-allow-paging=true e-allow-sorting=true>

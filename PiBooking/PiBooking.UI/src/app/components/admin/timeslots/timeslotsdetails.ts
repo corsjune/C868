@@ -1,10 +1,11 @@
+/// <reference types="ej.web.all" />
 import { inject, autoinject } from 'aurelia-framework';
 import { Endpoint, Rest } from 'aurelia-api';
 import { TimeSlotViewModel, EngineerViewModel } from 'app/models'
 import { ValidationControllerFactory, Validator, ValidationController, ValidationRules, validateTrigger } from 'aurelia-validation';
 import { Router } from 'aurelia-router';
 import { BootstrapFormRenderer } from '../../customrenderer/customrenderer';
-
+ 
 
 @autoinject()
 export class TimeslotsDetails {
@@ -15,6 +16,8 @@ export class TimeslotsDetails {
     message: string = null; 
     engineers: EngineerViewModel[];
     timeslot: TimeSlotViewModel;
+    statuses: any;
+
     public validate: ValidationController;
 
 
@@ -38,17 +41,34 @@ export class TimeslotsDetails {
             },
             "${$displayName} must be an integer between ${$config.min} and ${$config.max}.",
             (min, max) => ({ min, max })
-          );
+        );
+         
+        this.statuses = [{ "TimeSlotStatusID": 1, "TimeSlotName": "Available" },
+                        { "TimeSlotStatusID": 2, "TimeSlotName": "Not Available" },
+                        { "TimeSlotStatusID": 10, "TimeSlotName": "Personal" },
+                        { "TimeSlotStatusID": 11, "TimeSlotName": "Holiday" },
+                        { "TimeSlotStatusID": 12, "TimeSlotName": "Vacation" },
+                        { "TimeSlotStatusID": 13, "TimeSlotName": "Training" },
+                        { "TimeSlotStatusID": 14, "TimeSlotName": "Sales" }];
+
     }
 
     bind() {
-        ValidationRules
-            .ensure('Email').required().email()
-            .ensure('FirstName').required()
-            .ensure('LastName').required()
-            .ensure('Phone').required()
-            .ensure('EmployeeID').required().satisfiesRule('integerRange', 1, 75000)
+        ValidationRules 
+            .ensure('BeginDatetime').required()
+            .ensure('EndDatetime').required()
+            .ensure('EngineerID').required()
+            .ensure('Status').required()
             .on(this.timeslot);
+    }
+
+    startimeChanged(args) {
+    
+        if (args.detail.value) {
+            
+            this.timeslot.EndDatetime = new Date(Date.parse(args.detail.value) + (59 * 60000));
+ 
+        }
     }
 
     async Save() {
@@ -57,9 +77,8 @@ export class TimeslotsDetails {
         this.message = null;
         let self = this;
 
-        let savedTimeslot: TimeSlotViewModel;
- 
-        if (this.timeslot != null) {
+        let savedTimeslot: TimeSlotViewModel; 
+        if (this.timeslot.TimeslotId != null) {
 
             savedTimeslot = await this.apiEndpoint.update('timeslot', this.timeslot.TimeslotId, this.timeslot);
         }

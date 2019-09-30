@@ -25,8 +25,8 @@ var App = (function () {
                 nav: true,
                 title: 'View/Search Bookings'
             }, {
-                route: 'bookingdetails',
-                name: 'bookingdetails',
+                route: 'bookingsdetails',
+                name: 'bookingsdetails',
                 settings: { icon: 'calendar-check', roles: [] },
                 moduleId: PLATFORM.moduleName('../bookings/bookingsdetails'),
                 nav: false,
@@ -75,12 +75,22 @@ var App = (function () {
                 title: 'Add/Edit Users'
             },
             {
-                route: 'reports',
-                name: 'reports',
+                route: 'haspaidreport',
+                name: 'haspaid',
                 settings: { icon: 'chart-pie', roles: [] },
                 moduleId: PLATFORM.moduleName('../reports/reports'),
                 nav: true,
-                title: 'Reports'
+                activationStrategy: activationStrategy.invokeLifecycle,
+                title: 'Report - Has Paid'
+            },
+            {
+                route: 'upcomingreport',
+                name: 'upcoming',
+                settings: { icon: 'chart-pie', roles: [] },
+                moduleId: PLATFORM.moduleName('../reports/reports'),
+                nav: true,
+                activationStrategy: activationStrategy.invokeLifecycle,
+                title: 'Report - Upcoming Orders'
             }
         ]);
         this.router = router;

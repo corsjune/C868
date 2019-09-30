@@ -2,9 +2,18 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Linq;
+using System.Xml.Serialization;
+using System.Xml.XPath;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using PiBooking.Core.AppSettings;
 using Syncfusion.EJ.ReportViewer;
+using Syncfusion.RDL.DOM;
+using Syncfusion.Report;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -17,15 +26,17 @@ namespace PiBooking.API.Controllers
         // Report viewer requires a memory cache to store the information of consecutive client request and
         // have the rendered report viewer information in server.
         private Microsoft.Extensions.Caching.Memory.IMemoryCache _cache;
-
+        private string _connection; 
         // IHostingEnvironment used with sample to get the application data from wwwroot.
         private Microsoft.AspNetCore.Hosting.IHostingEnvironment _hostingEnvironment;
 
-        public ReportController(Microsoft.Extensions.Caching.Memory.IMemoryCache memoryCache,
+        public ReportController(IOptions<AppSettings> settings, Microsoft.Extensions.Caching.Memory.IMemoryCache memoryCache,
             Microsoft.AspNetCore.Hosting.IHostingEnvironment hostingEnvironment)
         {
             _cache = memoryCache;
             _hostingEnvironment = hostingEnvironment;
+            _connection = settings.Value.PersistanceConnectionString;
+
         }
 
 
@@ -40,8 +51,31 @@ namespace PiBooking.API.Controllers
         {
             string basePath = _hostingEnvironment.ContentRootPath;
             // Here, we have loaded the sample report report from application the folder wwwroot. Sample.rdl should be there in wwwroot application folder.
-            FileStream reportStream = new FileStream(basePath + @"\Reports\PIBooking.Rdl", FileMode.Open, FileAccess.Read);
-            reportOption.ReportModel.Stream = reportStream;
+            FileStream reportStream;
+            if (reportOption.ReportModel.ReportPath=="HasPaid.RDL")
+            {
+                 reportStream = new FileStream(basePath + @"\Reports\HasPaid.Rdl", FileMode.Open, FileAccess.Read);
+            }
+            else
+            {
+                reportStream = new FileStream(basePath + @"\Reports\Upcoming.Rdl", FileMode.Open, FileAccess.Read);
+
+            }
+ 
+ 
+            //Ug.. XML parsing to correct the connect string
+            XElement rdl = XElement.Load(XmlReader.Create(reportStream)); 
+            XNamespace ns = rdl.Name.Namespace;
+            XElement ct = rdl.Elements(ns + "DataSources").Elements(ns + "DataSource").Elements(ns + "ConnectionProperties").Elements(ns + "ConnectString").FirstOrDefault();
+            if (ct != null)
+            {
+                 ct.Value = this._connection;
+            }
+        
+
+ 
+            reportOption.ReportModel.Stream= new MemoryStream(Encoding.UTF8.GetBytes(rdl.ToString() ?? ""));
+
         }
 
         public void OnReportLoaded(ReportViewerOptions reportOption)

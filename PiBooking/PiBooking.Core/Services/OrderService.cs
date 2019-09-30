@@ -39,6 +39,11 @@ namespace PiBooking.Core.Services
             return _repo.GetAll();
         }
 
+        public IEnumerable<Order> GetAll(int customerID)
+        {
+            return _repo.GetAll(customerID);
+        }
+
         public Order GetById(int id)
         {
             return _repo.GetById(id);
@@ -46,7 +51,12 @@ namespace PiBooking.Core.Services
 
         public Order Update(int orderID, Order item)
         {
-            throw new NotImplementedException();
+            var data = _repo.GetById(orderID);
+
+            data.Total = item.Total;
+            data.HasPaid = item.HasPaid; 
+
+            return _repo.Update(data);
         }
     }
 }

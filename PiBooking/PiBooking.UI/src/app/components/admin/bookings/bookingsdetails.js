@@ -48,7 +48,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 import { inject, autoinject } from 'aurelia-framework';
 import { Endpoint, Rest } from 'aurelia-api';
-import { EngineerViewModel } from 'app/models';
 import { ValidationControllerFactory, Validator, ValidationRules, validateTrigger } from 'aurelia-validation';
 import { Router } from 'aurelia-router';
 import { BootstrapFormRenderer } from '../../customrenderer/customrenderer';
@@ -72,35 +71,27 @@ var BookingsDetails = (function () {
     }
     BookingsDetails.prototype.bind = function () {
         ValidationRules
-            .ensure('Email').required().email()
-            .ensure('FirstName').required()
-            .ensure('LastName').required()
-            .ensure('Phone').required()
-            .ensure('EmployeeID').required().satisfiesRule('integerRange', 1, 75000)
-            .on(this.engineer);
+            .ensure('Total').required().between(-9999999999999, 9999999999999)
+            .on(this.order);
     };
     BookingsDetails.prototype.Save = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var self, savedEngineer;
+            var self, savedOrder;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         this.errors = null;
                         this.message = null;
                         self = this;
-                        if (!(this.engineer.EngineerID != null)) return [3, 2];
-                        return [4, this.apiEndpoint.update('engineer', this.engineer.EngineerID, this.engineer)];
+                        if (!(this.order.OrderID != null)) return [3, 2];
+                        return [4, this.apiEndpoint.update('order', this.order.OrderID, this.order)];
                     case 1:
-                        savedEngineer = _a.sent();
-                        return [3, 4];
-                    case 2: return [4, this.apiEndpoint.post('engineer', this.engineer)];
-                    case 3:
-                        savedEngineer = _a.sent();
-                        _a.label = 4;
-                    case 4:
-                        if (savedEngineer != null) {
-                            this.engineer = savedEngineer;
-                            this.message = "Engineer has been saved.";
+                        savedOrder = _a.sent();
+                        return [3, 2];
+                    case 2:
+                        if (savedOrder != null) {
+                            this.order = savedOrder;
+                            this.message = "Order has been saved.";
                             this.cansave = false;
                         }
                         return [2];
@@ -110,7 +101,7 @@ var BookingsDetails = (function () {
     };
     BookingsDetails.prototype.validateWhole = function () {
         var _this = this;
-        this.validator.validateObject(this.engineer)
+        this.validator.validateObject(this.order)
             .then(function (results) { return _this.cansave = results.every(function (result) { return result.valid; }); });
     };
     Object.defineProperty(BookingsDetails.prototype, "canSave", {
@@ -128,14 +119,11 @@ var BookingsDetails = (function () {
                     case 0:
                         if (!params.id) return [3, 2];
                         _a = this;
-                        return [4, this.apiEndpoint.find('engineer', params.id)];
+                        return [4, this.apiEndpoint.find('order', params.id)];
                     case 1:
-                        _a.engineer = _b.sent();
-                        return [3, 3];
-                    case 2:
-                        this.engineer = new EngineerViewModel();
-                        _b.label = 3;
-                    case 3: return [2];
+                        _a.order = _b.sent();
+                        _b.label = 2;
+                    case 2: return [2];
                 }
             });
         });

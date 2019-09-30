@@ -40,7 +40,7 @@ namespace PiBooking.Core.Repository
                         TimeSlots = item.TimeSlots.AsTvp<TimeSlot>("[dbo].[PurchasedTimeSlots]")
                     },
                     commandType: CommandType.StoredProcedure
-                ); ; 
+                );   
 
                 var returnObject = connection.Get<Order>(data);
                 returnObject.TimeSlots =(List<TimeSlot>) _timeslots.GetByOrder(returnObject.OrderID);
@@ -53,10 +53,15 @@ namespace PiBooking.Core.Repository
         {
             using (SqlConnection connection = GetConnection())
             {
-                if (connection.Delete(item))
-                    return 1;
-                else
-                    return 0;
+                var data = connection.Query<int>("[dbo].[DeleteOrder]",
+                    new
+                    {
+                        OrderID = item.OrderID
+                    },
+                    commandType: CommandType.StoredProcedure
+                );
+                //TODO: return a proper value
+                return 1; 
             }
         }
 
@@ -65,6 +70,34 @@ namespace PiBooking.Core.Repository
             using (SqlConnection connection = GetConnection())
             {
                 var returnObject = connection.GetAll<Order>();
+
+                //TODo: Expensive, find another way
+                foreach(Order order in returnObject)
+                {
+                    order.TimeSlots = (List<TimeSlot>)_timeslots.GetByOrder(Convert.ToInt32(order.OrderID));
+                }
+                return returnObject;
+            }
+        }
+
+        public IEnumerable<Order> GetAll(int customerID)
+        {
+            var sql = @"SELECT *
+              FROM  [dbo].[Order] O
+	            inner join [dbo].[Job] J on O.JobID=J.JobID
+	            inner join [dbo].[Customer] C on J.CustomerID=C.CustomerID
+              Where C.CustomerID = @CustomerID";
+
+            using (SqlConnection connection = GetConnection())
+            {
+                var returnObject = connection.Query<Order>(sql,
+                    new { CustomerID = customerID }) ;
+
+                //TODo: Expensive, find another way
+                foreach (Order order in returnObject)
+                {
+                    order.TimeSlots = (List<TimeSlot>)_timeslots.GetByOrder(Convert.ToInt32(order.OrderID));
+                }
                 return returnObject;
             }
         }

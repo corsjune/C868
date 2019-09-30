@@ -61,9 +61,9 @@ var Timeslots = (function () {
     };
     Timeslots.prototype.delete = function (id) {
         return __awaiter(this, void 0, void 0, function () {
-            var self, result, deletedEngineer, _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var self, result, deletedEngineer, _a, _b, _c;
+            return __generator(this, function (_d) {
+                switch (_d.label) {
                     case 0:
                         self = this;
                         result = confirm('Are you sure you wish to delete this timeslot ?');
@@ -73,12 +73,14 @@ var Timeslots = (function () {
                                 self.errors = "An error has occurred. The timeslot did not save. Please review the data and try again!";
                             })];
                     case 1:
-                        deletedEngineer = _b.sent();
+                        deletedEngineer = _d.sent();
                         _a = this;
+                        _c = (_b = ej).parseJSON;
                         return [4, this.apiEndpoint.find('timeslot')];
                     case 2:
-                        _a.timeslot = _b.sent();
-                        _b.label = 3;
+                        _a.timeslots = _c.apply(_b, [_d.sent()]);
+                        ;
+                        _d.label = 3;
                     case 3: return [2];
                 }
             });
@@ -89,14 +91,15 @@ var Timeslots = (function () {
     };
     Timeslots.prototype.activate = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var _a, _b, _c;
+            return __generator(this, function (_d) {
+                switch (_d.label) {
                     case 0:
                         _a = this;
+                        _c = (_b = ej).parseJSON;
                         return [4, this.apiEndpoint.find('timeslot')];
                     case 1:
-                        _a.timeslot = _b.sent();
+                        _a.timeslots = _c.apply(_b, [_d.sent()]);
                         return [2];
                 }
             });

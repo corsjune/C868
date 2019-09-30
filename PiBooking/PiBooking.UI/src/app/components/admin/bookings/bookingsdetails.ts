@@ -1,6 +1,6 @@
 import { inject, autoinject } from 'aurelia-framework';
 import { Endpoint, Rest } from 'aurelia-api';
-import { EngineerViewModel } from 'app/models';
+import { EngineerViewModel, OrderViewModel } from 'app/models';
 import { ValidationControllerFactory, Validator, ValidationController, ValidationRules, validateTrigger } from 'aurelia-validation';
 import { Router } from 'aurelia-router';
 import { BootstrapFormRenderer } from '../../customrenderer/customrenderer';
@@ -14,7 +14,7 @@ export class BookingsDetails {
     errors: string = null;
     message: string = null; 
 
-    engineer: EngineerViewModel;
+    order: OrderViewModel;
     public validate: ValidationController;
 
 
@@ -43,12 +43,8 @@ export class BookingsDetails {
 
     bind() {
         ValidationRules
-            .ensure('Email').required().email()
-            .ensure('FirstName').required()
-            .ensure('LastName').required()
-            .ensure('Phone').required()
-            .ensure('EmployeeID').required().satisfiesRule('integerRange', 1, 75000)
-            .on(this.engineer);
+            .ensure('Total').required().between(-9999999999999, 9999999999999)
+            .on(this.order);
     }
 
     async Save() {
@@ -57,27 +53,26 @@ export class BookingsDetails {
         this.message = null;
         let self = this;
 
-        let savedEngineer: EngineerViewModel;
+        let savedOrder: OrderViewModel;
  
-        if (this.engineer.EngineerID != null) {
+        if (this.order.OrderID != null) {
 
-            savedEngineer = await this.apiEndpoint.update('engineer', this.engineer.EngineerID, this.engineer);
+            savedOrder = await this.apiEndpoint.update('order', this.order.OrderID, this.order);
         }
         else {
-
-            savedEngineer = await this.apiEndpoint.post('engineer', this.engineer);
+             //not applicable
         } 
 
-        if (savedEngineer!= null) { 
-            this.engineer = savedEngineer;
+        if (savedOrder!= null) { 
+            this.order = savedOrder;
 
-            this.message = "Engineer has been saved.";
+            this.message = "Order has been saved.";
             this.cansave = false;
         }
     }
 
     private validateWhole() {
-        this.validator.validateObject(this.engineer)
+        this.validator.validateObject(this.order)
             .then(
                 results => this.cansave = results.every(result => result.valid)
             ); 
@@ -90,11 +85,8 @@ export class BookingsDetails {
     async activate(params) {
 
         if (params.id) {
-            this.engineer = await this.apiEndpoint.find('engineer', params.id);
-        }
-        else  {
-            this.engineer = new EngineerViewModel();
-        }
+            this.order = await this.apiEndpoint.find('order', params.id);
+        } 
 
     }
 }
