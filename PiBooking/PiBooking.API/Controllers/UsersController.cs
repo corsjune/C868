@@ -43,6 +43,19 @@ namespace PiBooking.API.Controllers
             _userService = userService;
             _mapper = mapper;
             _settings = settings;
+
+            try
+            {
+                var users = (List<User>)_userService.GetAll();
+                if (users.Count == 0)
+                {
+                    _userService.Add(new User() { Username = "admin", FirstName = "Admin", LastName = "Admin" }, "changethispassword");
+                }
+            }
+            catch
+            {
+                //eat any errors
+            }
         }
 
         public class AuthenticationViewModel

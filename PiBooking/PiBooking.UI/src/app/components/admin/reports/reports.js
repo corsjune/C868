@@ -8,13 +8,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { autoinject } from 'aurelia-framework';
-import { environment } from 'app/environment/environment';
+import environment from 'environment';
 var Reports = (function () {
-    function Reports(env) {
-        this.env = env;
+    function Reports() {
         var self = this;
-        this._baseUrl = env.remoteSessionUrl;
-        this._reporturl = env.remoteSessionUrl + '/api/Report';
+        this._baseUrl = environment.remoteSessionUrl;
+        this._reporturl = environment.remoteSessionUrl + '/Report';
     }
     Reports.prototype.activate = function (urlParams, routeMap, navInstr) {
         if (routeMap.name === "haspaid") {
@@ -26,7 +25,7 @@ var Reports = (function () {
     };
     Reports = __decorate([
         autoinject,
-        __metadata("design:paramtypes", [environment])
+        __metadata("design:paramtypes", [])
     ], Reports);
     return Reports;
 }());

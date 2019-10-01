@@ -1,7 +1,7 @@
 var environment = (function () {
     function environment() {
         this.stripePK = "";
-        this.remoteSessionUrl = "https://localhost:44310";
+        this.remoteSessionUrl = "https://massey-c868.azurewebsites.net/api/ ";
     }
     return environment;
 }());

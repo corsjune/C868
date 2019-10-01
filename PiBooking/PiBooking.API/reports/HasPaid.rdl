@@ -9,8 +9,7 @@
         <ConnectString></ConnectString>
         <IntegratedSecurity></IntegratedSecurity>
       </ConnectionProperties>
-      <rd:SecurityType>Integrated</rd:SecurityType>
-      <rd:DataSourceID>47ee0d79-6434-46d5-9eed-44a738c4e832</rd:DataSourceID>
+ 
     </DataSource>
   </DataSources>
   <DataSets>

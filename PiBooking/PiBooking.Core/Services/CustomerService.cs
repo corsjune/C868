@@ -50,7 +50,7 @@ namespace PiBooking.Core.Services
 
         public CustomerAccount Update(int customerID, CustomerAccount item)
         {
-            throw new NotImplementedException();
+            return _repo.Update(item);
         }
     }
 }

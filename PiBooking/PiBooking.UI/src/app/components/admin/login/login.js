@@ -66,22 +66,23 @@ var Login = (function () {
     });
     Login.prototype.login = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var returnValue, response, err_1, _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var returnValue, response, err_1, mess;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
                     case 0:
-                        _b.trys.push([0, 2, , 4]);
+                        _a.trys.push([0, 2, , 4]);
                         return [4, this.authService.login(this.Username, this.password)];
                     case 1:
-                        response = _b.sent();
-                        this.message = "Login Successful " + response;
+                        response = _a.sent();
+                        this.message = "Login Successful.";
                         return [3, 4];
                     case 2:
-                        err_1 = _b.sent();
-                        _a = this;
-                        return [4, response.json()];
+                        err_1 = _a.sent();
+                        return [4, (err_1.json())];
                     case 3:
-                        _a.errors = (_b.sent()).Message;
+                        mess = _a.sent();
+                        console.error(mess);
+                        this.errors = mess.Message;
                         return [3, 4];
                     case 4: return [2];
                 }

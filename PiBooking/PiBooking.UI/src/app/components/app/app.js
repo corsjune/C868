@@ -7,13 +7,24 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { PLATFORM, autoinject } from 'aurelia-framework';
+import { PLATFORM, autoinject, computedFrom } from 'aurelia-framework';
 import { stepsEnabledService } from "../../services/stepsEnabledService";
-import { AuthenticateStep } from 'aurelia-authentication';
+import { AuthenticateStep, AuthService } from 'aurelia-authentication';
 var App = (function () {
-    function App(stepsEnabled) {
+    function App(stepsEnabled, authService) {
         this.stepsEnabled = stepsEnabled;
+        this.authService = authService;
     }
+    App.prototype.logout = function () {
+        return this.authService.logout();
+    };
+    Object.defineProperty(App.prototype, "authenticated", {
+        get: function () {
+            return this.authService.authenticated;
+        },
+        enumerable: true,
+        configurable: true
+    });
     App.prototype.configureRouter = function (config, router) {
         config.title = 'Book Now';
         config.addAuthorizeStep(AuthenticateStep);
@@ -40,15 +51,20 @@ var App = (function () {
                 name: 'login',
                 settings: { icon: 'key', enabled: true, roles: [] },
                 moduleId: PLATFORM.moduleName('../admin/login/login'),
-                nav: true,
+                nav: false,
                 title: 'Login'
             }
         ]);
         this.router = router;
     };
+    __decorate([
+        computedFrom('authService.authenticated'),
+        __metadata("design:type", Object),
+        __metadata("design:paramtypes", [])
+    ], App.prototype, "authenticated", null);
     App = __decorate([
         autoinject,
-        __metadata("design:paramtypes", [stepsEnabledService])
+        __metadata("design:paramtypes", [stepsEnabledService, AuthService])
     ], App);
     return App;
 }());

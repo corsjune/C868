@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PiBooking.UI", "PiBooking.U
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PiBooking.API", "PiBooking.API\PiBooking.API.csproj", "{C2752FF9-D4D5-4E46-9F37-0CCA1520DEDD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PiBooking.CoreTests", "PiBooking.CoreTests\PiBooking.CoreTests.csproj", "{6D7D3CD5-BB86-4C4E-A367-AA66FD4C2FC8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{C2752FF9-D4D5-4E46-9F37-0CCA1520DEDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2752FF9-D4D5-4E46-9F37-0CCA1520DEDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2752FF9-D4D5-4E46-9F37-0CCA1520DEDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D7D3CD5-BB86-4C4E-A367-AA66FD4C2FC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D7D3CD5-BB86-4C4E-A367-AA66FD4C2FC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D7D3CD5-BB86-4C4E-A367-AA66FD4C2FC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D7D3CD5-BB86-4C4E-A367-AA66FD4C2FC8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

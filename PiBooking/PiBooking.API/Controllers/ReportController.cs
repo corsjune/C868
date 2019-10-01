@@ -22,7 +22,7 @@ namespace PiBooking.API.Controllers
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [Route("api/[controller]")]
-    [Authorize]
+
     public class ReportController : Controller, IReportController
     {
         // Report viewer requires a memory cache to store the information of consecutive client request and

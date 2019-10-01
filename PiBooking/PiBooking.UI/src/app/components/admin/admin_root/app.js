@@ -101,14 +101,6 @@ var App = (function () {
                 auth: true,
                 activationStrategy: activationStrategy.invokeLifecycle,
                 title: 'Report - Upcoming Orders'
-            },
-            {
-                route: 'login',
-                name: 'login',
-                settings: { icon: 'key', enabled: true, roles: [] },
-                moduleId: PLATFORM.moduleName('../login/login'),
-                nav: true,
-                title: 'Login'
             }
         ]);
         this.router = router;

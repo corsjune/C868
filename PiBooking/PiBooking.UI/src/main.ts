@@ -5,8 +5,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Aurelia  } from 'aurelia-framework';
 import environment from './environment';
 import { PLATFORM } from 'aurelia-pal';
-import 'syncfusion-javascript/Scripts/ej/web/ej.web.all.min';
-
+import 'syncfusion-javascript/Scripts/ej/web/ej.grid.min';
+import 'syncfusion-javascript/Scripts/ej/web/ej.schedule.min';
+import 'syncfusion-javascript/Scripts/ej/web/ej.reportviewer.min';
+import 'syncfusion-javascript/Scripts/ej/web/ej.signature.min';
+import 'syncfusion-javascript/Scripts/ej/web/ej.daterangepicker.min';
+import 'syncfusion-javascript/Scripts/ej/web/ej.datetimepicker.min';
 declare const IS_DEV_BUILD: boolean; // The value is supplied by Webpack during the build
 
 export function configure(aurelia: Aurelia) {
@@ -19,6 +23,7 @@ export function configure(aurelia: Aurelia) {
         loginUrl: 'user/authenticate',
         accessTokenProp:'Token',
         storageChangedReload: true,    // ensure secondary tab reloading after auth status changes
+
         expiredRedirect: 1             // redirect to logoutRedirect after token expiration
     }; 
 
@@ -31,7 +36,9 @@ export function configure(aurelia: Aurelia) {
             config.registerEndpoint('api', environment.remoteSessionUrl)
             .setDefaultEndpoint('api');
         })
-        .plugin(PLATFORM.moduleName('aurelia-syncfusion-bridge'), (syncfusion) => syncfusion.useAll())
+        .plugin(PLATFORM.moduleName('aurelia-syncfusion-bridge'), (syncfusion) =>
+            syncfusion.ejGrid().ejSchedule().ejReportViewer().ejSignature().ejDatePicker().ejDateTimePicker().ejTemplate()
+        )
         .feature(PLATFORM.moduleName('resources/index'))
         .globalResources(PLATFORM.moduleName('aurelia-authentication/authFilterValueConverter'))
         .plugin(PLATFORM.moduleName('aurelia-authentication'), baseConfig => {

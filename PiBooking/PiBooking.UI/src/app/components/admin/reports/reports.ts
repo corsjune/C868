@@ -3,7 +3,7 @@ import * as $ from 'jquery';
 import { autoinject } from 'aurelia-framework'; 
  
 import { OrderViewModel, PaymentViewModel, TimeSlotViewModel } from 'app/models'
-import { environment } from 'app/environment/environment'; 
+import  environment  from 'environment'; 
  
  
 
@@ -15,11 +15,11 @@ export class Reports {
     private parameters: any;
     private reportpath: string;
 
-    constructor(private env: environment) {
+    constructor() {
         var self = this; 
-        this._baseUrl = env.remoteSessionUrl;
+        this._baseUrl = environment.remoteSessionUrl;
 
-        this._reporturl = env.remoteSessionUrl + '/api/Report';
+        this._reporturl = environment.remoteSessionUrl + '/Report';
          
 
     }

@@ -10,6 +10,24 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="reports\HasPaid.rdl" />
+    <None Remove="reports\PIBooking.rdl" />
+    <None Remove="reports\Upcoming.rdl" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="reports\HasPaid.rdl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="reports\PIBooking.rdl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="reports\Upcoming.rdl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.9" />
