@@ -6,10 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Email\Templates\Invoice.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Remove="reports\HasPaid.rdl" />
     <None Remove="reports\PIBooking.rdl" />
     <None Remove="reports\Upcoming.rdl" />
@@ -41,11 +37,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Email\Templates\Invoice.cshtml" />
+    <Folder Include="Extensions\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Extensions\" />
+    <Content Update="Email\Templates\Invoice.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

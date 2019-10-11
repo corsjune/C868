@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="PiBooking.Core.Models.CustomerAccount">
+    <Position X="1.5" Y="1.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAACQAAAAIAAAAAAAAAAAAABADAAAAJAAAAAg=</HashCode>
+      <FileName>Models\CustomerAccount.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PiBooking.Core.Models.BaseModel" Collapsed="true">
+    <Position X="5.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>Models\BaseModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PiBooking.Core.Models.Engineer">
+    <Position X="8.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAIgAEAAACAAQAAAAAAAAABAAAgAAgAAAAAAIAAAAAg=</HashCode>
+      <FileName>Models\Engineer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PiBooking.Core.Models.Job">
+    <Position X="4.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAQAAAAAAAAAAAAAAAAAEAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Job.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PiBooking.Core.Models.Order">
+    <Position X="7.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAEAAAAAAAAABAAAAAQAQAAAAAAAAAAAE=</HashCode>
+      <FileName>Models\Order.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PiBooking.Core.Models.Payment">
+    <Position X="4" Y="1.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAAAAAAAIAAAAAAAAAQBAAAAAAAAEAAAA=</HashCode>
+      <FileName>Models\Payment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PiBooking.Core.Models.TimeSlot">
+    <Position X="2.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAABAEAAAAAAAAAAAAAAAgAAgAAAAgAAAAAAAAQAA=</HashCode>
+      <FileName>Models\Timeslot.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PiBooking.Core.Models.User">
+    <Position X="6.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EACCAEAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Models\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

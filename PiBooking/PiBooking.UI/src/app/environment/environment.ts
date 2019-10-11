@@ -11,7 +11,7 @@
        
         constructor() {
             this.stripePK="";
-             this.remoteSessionUrl ="https://massey-c868.azurewebsites.net/api/ ";
+            this.remoteSessionUrl = "https://localhost:44310/api/";
 
         }
 };

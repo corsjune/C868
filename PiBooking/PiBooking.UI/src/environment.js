@@ -1,6 +1,6 @@
 export default {
     debug: true,
     testing: true,
-    remoteSessionUrl: "https://massey-c868.azurewebsites.net/api/"
+    remoteSessionUrl: "https://localhost:44310/api/"
 };
 //# sourceMappingURL=environment.js.map

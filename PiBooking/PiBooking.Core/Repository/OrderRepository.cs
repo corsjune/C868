@@ -122,6 +122,8 @@ namespace PiBooking.Core.Repository
                 connection.Update(item);
 
                 var returnObject = connection.Get<Order>(item.OrderID);
+                returnObject.TimeSlots = (List<TimeSlot>)_timeslots.GetByOrder(Convert.ToInt32(returnObject.OrderID));
+
                 return returnObject;
             }
         }
