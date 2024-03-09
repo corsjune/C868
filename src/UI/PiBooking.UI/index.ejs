@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Phoenix Innovations, Inc.</title>
+
+<script src="https://kit.fontawesome.com/fd044dbf3e.js" crossorigin="anonymous"></script>
+    <style> 
+        .splash {
+            text-align: center;
+            margin: 10% 0 0 0;
+            box-sizing: border-box;
+        }
+
+            .splash .message {
+                font-size: 36px;
+                line-height: 36px;
+                text-shadow: rgba(0, 0, 0, 0.5) 0 0 15px;
+                text-transform: uppercase;
+                font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            }
+
+            .splash .fa-spinner {
+                text-align: center;
+                display: inline-block;
+                font-size: 72px;
+                margin-top: 50px;
+            }
+             
+    </style>
+</head>
+<body>
+    <div aurelia-app="main">
+        <% if (htmlWebpackPlugin.options.metadata.server) { %>
+        <!-- Webpack Dev Server reload -->
+        <script src="/webpack-dev-server.js"></script>
+        <% } %>
+        <div class="splash">
+            <div class="message">Loading.. this will only take a moment..</div>
+            <i class="fa fa-spinner fa-spin"></i>
+        </div>
+        <noscript>
+            <p>This application cannot work without JavaScript. Please enable it.</p> 
+        </noscript>
+    </div>
+</body>
+</html>

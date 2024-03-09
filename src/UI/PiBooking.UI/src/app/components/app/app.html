@@ -1,0 +1,52 @@
+<template bindable="router">
+
+    <require from="../navmenu/navmenu.html"></require>
+    <require from="./app.css"></require>
+    <!--Add Syncfusion JavaScript themes here-->
+    <require from="syncfusion-javascript/Content/ej/web/bootstrap-theme/ej.web.all.min.css"></require>
+    <require from="syncfusion-javascript/Content/ej/web/responsive-css/ej.responsive.css"></require>
+
+     
+    <div class="container-fluid">
+        <!-- Navigation panel -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="main-nav stick-fixed transparent">
+                    <div class="full-wrapper relative clearfix">
+                        <!-- Logo ( * your text or image into link tag *) -->
+                        <div class="nav-logo-wrap local-scroll">
+                            <a href="#top" class="logo">
+                                <img src="https://www.phoenixinnovations.net/images/PhoenixWeb.png" alt="" style="padding-top: 10px;padding-left: 5px;padding-bottom: 5px;margin-left: 30px" />
+                            </a>
+                        </div>
+                        <!-- Main Menu -->
+                        <div class="inner-nav desktop-nav">
+                            <ul class="clearlist scroll-nav local-scroll">
+
+                                <li style="height: 76px; line-height: 75px;" repeat.for="row of router.navigation">
+                                    <a href.bind="row.href">
+                                        <span class="glyphicon glyphicon-${ row.settings.icon }"></span> ${ row.title }
+                                    </a>
+                                </li>
+                                <li if.bind="authenticated" style="height: 76px;width:10rem; line-height: 75px;">
+                                    <a href="#" click.trigger='logout()'>
+                                        <span class="fas fa-sign-out-alt"></span>LOGOUT
+                                    </a>
+                                </li>
+                                <li if.bind="!authenticated" style="height: 76px;width:10rem; line-height: 75px;">
+                                    <a href="#" click.trigger='logout()'>
+                           
+                                    </a>
+                                </li>
+                            </ul>
+ 
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Navigation panel -->
+        <router-view class="${router.isNavigating ? 'navigating' : ''}"></router-view>
+    </div> 
+</template>

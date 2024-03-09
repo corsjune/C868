@@ -1,0 +1,77 @@
+<template>
+    <require from="app/components/gotoroute/gotoroute"></require>
+    <require from="app/resources/currency-format"></require>
+    <br />
+    <div class="alert alert-info" role="alert">Please enter the engineer information below. </div>
+    <div if.bind="errors" id="errors" role="alert" class="alert alert-danger">${errors}</div>
+    <div if.bind="message" class="alert alert-success" role="alert">${message}</div>
+    <form role="form">
+        <div class="form-group">
+            <label class="control-label" for="EngineerID">Engineer ID</label>
+            <input value.bind="engineer.engineerID & validate & debounce" type="text" class="form-control"
+                id="EngineerID" placeholder="(new)" disabled>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="FirstName">First Name</label>
+            <input value.bind="engineer.firstName & validate & debounce" type="text" class="form-control" id="FirstName"
+                placeholder="Enter first name">
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="LastName">Last Name</label>
+            <input value.bind="engineer.lastName & validate & debounce" type="text" class="form-control" id="LastName"
+                placeholder="Enter last name">
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="EmployeeID">Employee ID</label>
+            <input value.bind="engineer.employeeID & validate & debounce" type="text" class="form-control"
+                id="EmployeeID" placeholder="Enter employee id">
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="Phone">Phone</label>
+            <input value.bind="engineer.phone & validate & debounce" type="tel" class="form-control" id="Phone"
+                placeholder="Enter phone">
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="Email">Email address</label>
+            <input value.bind="engineer.email & validate & debounce" type="email" class="form-control" id="Email"
+                placeholder="Enter email">
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="Rate">Rate</label>
+            <input value.bind="engineer.rate  & validate & debounce" type="number" class="form-control" id="Rate"
+                placeholder="Enter rate">
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="AvailableStartDate">Engineer's Start Date</label>
+            <input
+                ej-date-time-picker="e-value.two-way:engineer.availableStartDate  & validate & debounce;e-width.bind:'100%';e-allow-edit.bind:'false';e-interval.bind:60"
+                class="form-control" id="Rate" placeholder="When was this engineer's first day?">
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="AvailableEndDate">Engineer's Termination Date</label>
+            <input e-allow-edit="false"
+                ej-date-time-picker="e-value.two-way:engineer.availableEndDate  & validate & debounce;e-width.bind:'100%';e-allow-edit.bind:'false';e-interval.bind:60"
+                class="form-control" id="AvailableEndDate" placeholder="When is this engineer's last day?">
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="WorkDayBeginTime">Daily Workday Start Time</label>
+            <input
+                ej-time-picker="e-value.two-way:engineer.workDayBeginTime & validate & debounce;e-width.bind:'100%';e-time-format.bind: 'HH:00:00';e-allow-edit.bind:'false';"
+                class="form-control" id="WorkDayBeginTime" placeholder="Enter the daily start time for this engineer">
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="workDayEndTime">Daily Workday End Time</label>
+            <input
+                ej-time-picker="e-value.two-way:engineer.WorkDayEndTime & validate & debounce;e-width.bind:'100%';e-time-format.bind: 'HH:00:00';e-allow-edit.bind:'false';"
+                class="form-control" id="WorkDayEndTime" placeholder="Enter the daily end time for this engineer">
+        </div>
+    </form>
+    <div id="navigation" class="row paddingtop10">
+        <div class="col-sm-12  btn-group">
+            <button go-to-route="route: engineers" class="btn btn-default minimumwidth15em "><span
+                    class="glyphicon glyphicon-arrow-left"></span>Back</button>
+            <button click.delegate="Save()" class="btn btn-default minimumwidth15em" disabled.bind="!canSave"><i
+                    class="fas fa-save"></i>Save</button>
+        </div>
+    </div>
+</template>

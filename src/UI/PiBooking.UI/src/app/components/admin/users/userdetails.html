@@ -1,0 +1,42 @@
+<template>
+    <require from="../../gotoroute/gotoroute"></require>
+    <br />
+    <div class="alert alert-info" role="alert">Please enter the user information below. </div>
+    <div if.bind="errors" id="errors" role="alert" class="alert alert-danger">${errors}</div>
+    <div if.bind="message" class="alert alert-success" role="alert">${message}</div>
+    <form role="form">
+        <div class="form-group">
+            <label class="control-label" for="Id">User ID</label>
+            <input value.bind="user.id & validate & debounce" type="text" class="form-control" id="Id"
+                placeholder="(new)" disabled>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="FirstName">First Name</label>
+            <input value.bind="user.firstName & validate & debounce" type="text" class="form-control" id="FirstName"
+                readonly.bind="user.Id" placeholder="Enter first name">
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="LastName">Last Name</label>
+            <input value.bind="user.lastName & validate & debounce" type="text" class="form-control" id="LastName"
+                readonly.bind="user.Id" placeholder="Enter last name">
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="Username">User Name</label>
+            <input value.bind="user.username & validate & debounce" type="text" class="form-control" id="Username"
+                readonly.bind="user.Id" placeholder="Enter user name">
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="Password">Password</label>
+            <input value.bind="user.password & validate & debounce" type="tel" class="form-control" id="Password"
+                placeholder="Enter password">
+        </div>
+    </form>
+    <div id="navigation" class="row paddingtop10">
+        <div class="col-sm-12  btn-group">
+            <button go-to-route="route: users" class="btn btn-default minimumwidth15em "><span
+                    class="glyphicon glyphicon-arrow-left"></span>Back</button>
+            <button click.delegate="Save()" class="btn btn-default minimumwidth15em" disabled.bind="!canSave"><i
+                    class="fas fa-save"></i>Save</button>
+        </div>
+    </div>
+</template>

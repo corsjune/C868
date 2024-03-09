@@ -1,0 +1,57 @@
+<template>
+    <require from="../../gotoroute/gotoroute"></require>
+    <br />
+    <div class="alert alert-info" role="alert">Please complete the timeslot information below. </div>
+    <div if.bind="errors" id="errors" role="alert" class="alert alert-danger">${errors}</div>
+    <div if.bind="message" class="alert alert-success" role="alert">${message}</div>
+    <form role="form">
+        <div class="form-group">
+            <label class="control-label" for="TimeslotID">Timeslot ID</label>
+            <input value.bind="timeslot.timeslotId & validate & debounce" type="text" class="form-control"
+                id="TimeslotID" placeholder="(new)" disabled>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="Engineer">Engineer</label>
+            <select value.bind="timeslot.engineerID & validate & debounce" class="form-control" id="Engineer">
+                <option model.bind="null">Select an Engineer...</option>
+                <option repeat.for="engineer of engineers" model.bind="engineer.engineerID">
+                    ${engineer.firstName} ${engineer.lastName}
+                </option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="StartDateTime">Start Date Time</label>
+            <input e-on-change.trigger="startimeChanged($event)"
+                ej-date-time-picker="e-value.two-way:timeslot.beginDatetime  & validate & debounce;e-width.bind:'100%';e-allow-edit.bind:'false';e-interval.bind:60"
+                type="text" class="form-control" id="StartDateTime" placeholder="Enter start date time">
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="EndDateTime">End Date Time</label>
+            <input
+                ej-date-time-picker="e-enabled.bind:'false';e-value.one-way:timeslot.endDatetime;e-width.bind:'100%';e-allow-edit.bind:'false';e-interval.bind:60"
+                type="text" class="form-control" id="EndDateTime" placeholder="Enter end date time">
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="Phone">Rate</label>
+            <input value.bind="timeslot.rate & validate & debounce" type="tel" class="form-control" id="Rate"
+                placeholder="Enter Rate">
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="Status">Status</label>
+            <select value.bind="timeslot.Status & validate & debounce" class="form-control" id="Status">
+                <option model.bind="null">Select Status...</option>
+                <option repeat.for="status of statuses" model.bind="status.timeSlotStatusID">
+                    ${status.timeSlotName}
+                </option>
+            </select>
+        </div>
+    </form>
+    <div id="navigation" class="row paddingtop10">
+        <div class="col-sm-12  btn-group">
+            <button go-to-route="route: timeslots" class="btn btn-default minimumwidth15em "><span
+                    class="glyphicon glyphicon-arrow-left"></span>Back</button>
+            <button click.delegate="Save()" class="btn btn-default minimumwidth15em" disabled.bind="!canSave"><i
+                    class="fas fa-save"></i>Save</button>
+        </div>
+    </div>
+</template>

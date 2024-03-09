@@ -1,0 +1,45 @@
+﻿.e-monthheader {
+    color: #333;
+}
+
+.caption {
+    display: block;
+    opacity: 0.5;
+    overflow: hidden;
+}
+
+.columntop {
+    top: 5px;
+}
+
+.e-workcells td {
+    padding: 2px 2px 3px 2px;
+    min-height: 20px;
+}
+
+.e-workcells.white-background {
+ 
+    background-color:cornsilk ;
+}
+
+    .e-workcells.white-background.e-mousehover {
+        background-color: #dbdbdb;
+    }
+
+    .e-workcells.white-background.e-selectedCell {
+        background-color: #dbdbdb;
+    }
+
+.apptemplate {
+    height: 100%;
+    background-color: black;
+    margin-left: 5px;
+    padding: 2px 2px 3px 2px;
+    min-height: 20px; 
+}
+
+.e-appointment{
+    width:100% !important
+}
+
+ 

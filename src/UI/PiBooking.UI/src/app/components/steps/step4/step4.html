@@ -1,0 +1,103 @@
+<template>
+    <require from="../../gotoroute/gotoroute"></require>
+
+    <div class="alert alert-info hidden-xs hidden-sm" role="alert">Please confirm the requested times, contact info, and
+        terms; and sign below. You can use the left-click button on your mouse to sign your signature. </div>
+    <div class="alert alert-info visible-xs visible-sm" role="alert">Please confirm the requested times, contact info,
+        and terms; and sign below. </div>
+
+    <br />
+
+    <table class="table table-user-information" with.bind="currentOrder">
+        <tbody>
+
+            <tr>
+                <td>Name:</td>
+                <td>${customer.firstName} ${customer.lastName}</td>
+            </tr>
+            <tr>
+                <td>Address</td>
+                <td>${customer.address} </td>
+            </tr>
+            <tr>
+                <td>City - State</td>
+                <td>${customer.city} , ${customer.state} </td>
+            </tr>
+            <tr>
+            <tr>
+                <td>Phone</td>
+                <td>${customer.phone}</td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>${customer.email}</td>
+            </tr>
+            <tr>
+                <td>Job:</td>
+                <td> ${job.jobName}</td>
+            </tr>
+            <tr>
+                <td>Description:</td>
+                <td>
+                    ${job.jobDescription}
+                </td>
+            </tr>
+            <tr>
+                <td>Engineer:</td>
+                <td>
+                    ${engineer.firstName} ${engineer.lastName}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div>
+        <div class="row paddingtop10">
+            <div class="col-xs-12">
+                <h5><b>Requested Times</b></h5>
+                <ej-grid id="Grid8" e-data-source.two-way="gridData" e-allow-paging=true e-allow-sorting=true
+                    e-on-record-click.delegate="recordClick($event.detail)" e-allow-multi-sorting=true
+                    e-sort-settings.bind="gridSort">
+                    <ej-column e-field="beginDatetime" e-header-text="Booking Time" e-format="{0:MM/dd/yyyy hh:00 tt}"
+                        e-text-align="right"></ej-column>
+                    <ej-column e-field="rate" e-header-text="Rate" e-text-align="right"></ej-column>
+                </ej-grid>
+            </div>
+        </div>
+        <div id="signatureBlock" class="row paddingtop10">
+            <div class="col-xs-12">
+                <ul>
+                    <li>
+                        I agree that the above information is correct and true and that I am hiring Phoenix Innovations,
+                        Inc for the purpose of Software or Web Development.
+                    </li>
+                    <li>
+                        I understand that Phoenix Innovations, Inc. will have the right to refuse any work in which I
+                        will receive a refund of any amount paid that is UNEARNED.
+                    </li>
+                    <li>
+                        I understand that the work involved and listed above will be done in Fort Mill, South Carolina.
+                        Any alternative location may be subject to an additional premium and will need to be negotiated
+                        seperately.
+                    </li>
+                    <li>
+                        I understand that all work is to be done on a time and materials basis. I understand that if the
+                        hours purchased above is insufficient for the hired task, I will need to purchase additional
+                        hours.
+                    </li>
+                </ul>
+                <h3>Sign here</h3>
+                <ej-signature id="signature" e-widget.bind="mySignature" style="display:block;" e-height="400px"
+                    e-is-responsive.bind="true" e-stroke-width.bind="3"></ej-signature>
+            </div>
+        </div>
+    </div>
+    <div id="navigation" class="row paddingtop10">
+        <div class="col-sm-12  btn-group">
+            <button go-to-route="route: step3" class="btn btn-default minimumwidth15em "><span
+                    class="glyphicon glyphicon-arrow-left"></span> Previous Step</button>
+            <button go-to-route="route: step5" class="btn btn-default minimumwidth15em"><span
+                    class="glyphicon glyphicon-arrow-right"></span> Next Step</button>
+        </div>
+    </div>
+</template>

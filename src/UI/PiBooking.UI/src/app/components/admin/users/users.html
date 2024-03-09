@@ -1,0 +1,35 @@
+<template>
+
+    <h1>Users</h1>
+    <p>Below are the available users. </p>
+
+    <div show.bind="errors" id="errors" role="alert" class="alert alert-danger">{{errors}}</div>
+    <div if.bind="message" class="alert alert-success" role="alert">{{message}}</div>
+
+    <div class="form-group">
+        <button class="btn btn-outline-secondary  minimumwidth15em " click.delegate="add()"><i
+                class="fa fa-plus"></i>Add</button>
+    </div>
+
+    <div>
+        <ej-grid e-enable-responsive-row=true e-is-responsive=true e-data-source.bind="users" e-allow-paging=true
+            e-allow-sorting=true>
+            <ej-column e-width="7em" e-field="id" e-header-text="ID" e-text-align="right"></ej-column>
+            <ej-column e-field="firstName" e-header-text="First Name" e-text-align="right"></ej-column>
+            <ej-column e-field="lastName" e-header-text="Last Name" e-text-align="right"></ej-column>
+            <ej-column e-field="username" e-header-text="UserName" e-text-align="right"></ej-column>
+            <ej-column e-width="7em" e-header-text="Edit" e-text-align="right">
+                <ej-template>
+                    <a click.delegate="edit(id)" class="btn btn-default "><i class="fas fa-edit"></i>Edit</a>
+                </ej-template>
+            </ej-column>
+            <ej-column e-width="7em" e-header-text="Delete" e-text-align="right">
+                <ej-template>
+                    <a click.delegate="delete(id)" class="btn btn-default "><i class="far fa-trash-alt"></i>Delete</a>
+                </ej-template>
+            </ej-column>
+
+        </ej-grid>
+    </div>
+
+</template>

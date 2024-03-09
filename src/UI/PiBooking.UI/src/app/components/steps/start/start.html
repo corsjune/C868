@@ -1,0 +1,25 @@
+﻿<template>
+    <require from="../../gotoroute/gotoroute"></require>
+    <br />
+    <div class="alert alert-info" role="alert">
+        Welcome. Please choose an engineer for this order.
+    </div>
+    <div class="form-group">
+        <label class="control-label" for="Engineer">Engineer</label>
+        <select change.delegate="engineerChanged()" value.bind="engineerID" class="form-control" id="Engineer">
+            <option model.bind="null">Select an Engineer...</option>
+            <option repeat.for="engineer of engineers" model.bind="engineer.engineerID">
+                ${engineer.firstName} ${engineer.lastName}
+            </option>
+        </select>
+    </div>
+
+
+    <div id="navigation" class="row paddingtop10">
+        <div class="col-sm-12  btn-group">
+            <button go-to-route="route: step1" disabled.bind="!currentOrder.engineer"
+                class="btn btn-default minimumwidth15em"><span class="glyphicon glyphicon-arrow-right"></span> Next
+                Step</button>
+        </div>
+    </div>
+</template>

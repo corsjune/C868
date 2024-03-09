@@ -1,0 +1,65 @@
+﻿<template>
+    <require from="./step1.css"></require>
+    <require from="../../../resources/date-format"></require>
+    <require from="../../../resources/currency-format"></require>
+    <require from="../../gotoroute/gotoroute"></require>
+    <h1> ${currentOrder.engineer.firstName} ${currentOrder.engineer.lastName}</h1>
+    <p>Below are the available timeslots for ${currentOrder.engineer.firstName} ${currentOrder.engineer.lastName}
+        available along with their hourly rate.
+    </p>
+
+    <p>
+        The rates vary depending on date and time. For example:
+    <ul>
+        <li if.bind="example1" with.bind="example1"><strong>${beginDatetime | dateFormat:'M/D/YYYY h:mm:ss a'} is
+                available at a rate of $${rate}</strong> </li>
+        <li if.bind="example2" with.bind="example2"><strong>${beginDatetime | dateFormat:'M/D/YYYY h:mm:ss a'} is
+                available at a rate of $${rate}</strong> </li>
+        <li if.bind="example3" with.bind="example3"><strong>${beginDatetime | dateFormat:'M/D/YYYY h:mm:ss a'} is
+                available at a rate of $${rate}</strong> </li>
+    </ul>
+    These rates are for work done onsite in Unicoi, TN. Any alternative work location is subject to rate surcharges.
+    </p>
+
+    <div class="alert alert-info" role="alert">Click on the available highlighted cells in the calendar below to book a
+        timeslot. You can click on the arrows to the left and right of the Date to navigate through the weeks. The total
+        amount due will be shown below once you have made your selection(s). Once you have completed selecting the
+        requested timeslot(s), click "Next Step" below to continue. </div>
+    <div if.bind="currentOrder.totalCount" class="alert alert-success" role="alert">You plan to book
+        ${currentOrder.totalCount} ${currentOrder.totalCount>1?'hours':'hour'} for a Total Amount of
+        $${currentOrder.totalAmount}. Thats an average of ${currentOrder.totalAmount/currentOrder.totalCount |
+        currencyFormat } an hour.</div>
+
+
+    <div>
+        <ej-schedule e-widget.bind="mySched" id="Schedule8" e-show-current-time-indicator="false" e-width="100%"
+            e-height="525px" e-start-hour="8" e-views.bind="Views" e-show-next-prev-month="false"
+            e-work-hours.bind="WorkHours" e-appointment-settings.bind="AppointmentList"
+            e-on-appointment-click.trigger="onAppointmentClick($event)"
+            e-on-appointment-window-open.trigger="onAppointmentWindowOpen($event)"
+            e-on-cell-click.trigger="onClick($event)" e-on-query-cell-info.trigger="check($event)"
+            e-time-scale.bind="TimeInterval" e-max-date.bind="MaxDate" e-min-date.bind="MinDate"
+            e-show-quick-window="false" e-appointment-template-id="#apptemplate" e-allow-drag-and-drop="false"
+            e-show-delete-confirmation-dialog="false" e-show-all-day-row="false" e-show-appointment-navigator="false"
+            e-enable-appointment-resize="false" e-on-appointment-removed.trigger="appointmentRemoved($event)" />
+    </div>
+
+    <div id="navigation" class="row paddingtop10">
+        <div class="col-sm-12  btn-group">
+            <button go-to-route="route: start" class="btn btn-default minimumwidth15em "><span
+                    class="glyphicon glyphicon-arrow-left"></span> Previous Step</button>
+            <button go-to-route="route: step2" disabled.bind="!canSave" class="btn btn-default minimumwidth15em"><span
+                    class="glyphicon glyphicon-arrow-right"></span> Next Step</button>
+        </div>
+    </div>
+
+
+
+    <script id="apptemplate" type="text/x-jsrender">
+        <div class="apptemplate">
+            <div style="margin-left: 2px;">Booked at {{:rate}}</div>
+        </div>
+
+    </script>
+
+</template>

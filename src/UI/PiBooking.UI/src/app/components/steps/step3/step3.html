@@ -1,0 +1,25 @@
+<template>
+    <require from="../../gotoroute/gotoroute"></require>
+    <br />
+    <div class="alert alert-info" role="alert">Please tell us more about the job that you are hiring us for </div>
+    <form role="form">
+        <div class="form-group">
+            <label class="control-label" for="jobName">Job Name</label>
+            <input value.bind="currentOrder.job.jobName & validate & debounce" type="email" class="form-control"
+                id="jobName" placeholder="Job Name">
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="jobDescription">Job Description</label>
+            <textarea rows="10" value.bind="currentOrder.job.jobDescription & validate & debounce" type="text"
+                class="form-control" id="jobDescription" placeholder="Job Description"></textarea>
+        </div>
+    </form>
+    <div id="navigation" class="row paddingtop10">
+        <div class="col-sm-12  btn-group">
+            <button go-to-route="route: step2" class="btn btn-default minimumwidth15em"><span
+                    class="glyphicon glyphicon-arrow-left"></span> Previous Step</button>
+            <button click.delegate="Step4()" class="btn btn-default minimumwidth15em" disabled.bind="!canSave"><span
+                    class="glyphicon glyphicon-arrow-right"></span> Next Step</button>
+        </div>
+    </div>
+</template>

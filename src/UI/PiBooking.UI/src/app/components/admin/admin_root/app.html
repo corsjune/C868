@@ -1,0 +1,14 @@
+<template>
+
+    <require from="../../navmenu/navmenu.html"></require>
+    <div class="row">
+        <div class="col-sm-3">
+            <navmenu router.bind="router"></navmenu>
+        </div>
+        <div class="col-sm-9 body-content">
+            <div>
+                <router-view class="${router.isNavigating ? 'navigating' : ''}"></router-view>
+            </div>
+        </div>
+    </div>&nbsp;&nbsp;&nbsp;&nbsp;
+</template>
