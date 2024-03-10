@@ -58,7 +58,7 @@ namespace PiBooking.API
             {
                 options.AddPolicy("AllowLocalhost", builder =>
                 {
-                    builder.WithOrigins("http://localhost:5050", "https://localhost:5001") // Add more ports if needed
+                    builder.WithOrigins("http://localhost:5050", "http://localhost:8080") // Add more ports if needed
                            .AllowAnyHeader()
                            .AllowCredentials()
                            .AllowAnyMethod();
@@ -131,10 +131,11 @@ namespace PiBooking.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseCors("AllowLocalhost");
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseCors("AllowLocalhost");
             }
             else
             {

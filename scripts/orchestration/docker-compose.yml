@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  aurelia-app:
+    build:
+      context: ../../src/UI/PiBooking.UI
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+
+  dotnet-api:
+    build:
+      context: ../../
+      dockerfile: src/PiBooking.API/Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      - AppSettings__PersistanceConnectionString=Trust Server Certificate=True;Server=sql-server;Database=PiBooking;User=sa;Password=YourStrongPassword123
+
+  sql-server:
+    build:
+      context: ../database
+      dockerfile: Dockerfile
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=YourStrongPassword123
+      - MSSQL_PID=Developer
+    ports:
+      - "14333:1433"

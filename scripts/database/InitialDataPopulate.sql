@@ -37,3 +37,7 @@ INSERT INTO dbo.ModelTimeslot (BeginDateTime,EndDateTime,UpdateDate,CreateDate) 
 	 ('21:00:00.000','21:59:59.999','2019-09-26 15:51:58.23','2019-09-26 15:51:58.23'),
 	 ('22:00:00.000','22:59:59.999','2019-09-26 15:51:58.23','2019-09-26 15:51:58.23'),
 	 ('23:00:00.000','23:59:59.999','2019-09-26 15:51:58.23','2019-09-26 15:51:58.23');
+
+INSERT INTO dbo.Engineer (FirstName,LastName,Phone,Email,EmployeeID,Rate,AvailableStartDate,AvailableEndDate,WorkDayBeginTime,WorkDayEndTime,UpdateDate,CreateDate) VALUES
+	 (N'Wayne',N'Massey',N'423-560-5600',N'dwmassey@phoenixinnovations.org',1,50.52,'2019-09-25',null,'09:00:00.000','17:00:00.000','2019-09-30 13:33:32.263','2019-09-30 13:33:32.263');
+ 

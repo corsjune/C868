@@ -9,7 +9,7 @@ import { sessionService } from '../../../services/sessionService';
 export class Login {
 
     errors: string = null;
-    message: string = null; 
+    message: string = null;
 
     authService: AuthService;
 
@@ -19,7 +19,7 @@ export class Login {
 
     heading = 'Login';
 
-    Username = '';
+    username = '';
     password = '';
 
     // make a getter to get the authentication status.
@@ -32,14 +32,14 @@ export class Login {
     async login() {
         var returnValue;
         try {
-            var response = await this.authService.login(this.Username, this.password);
+            var response = await this.authService.login(this.username, this.password);
             this.message = "Login Successful.";
         }
         catch (err) {
             let mess = await (err.json());
             console.error(mess);
-            this.errors = mess.Message;
-  
+            this.errors = mess.message;
+
         }
     }
 

@@ -35,7 +35,7 @@ export class RemoteTSService {
             myOrderModel.job.jobID = returnValue;
         }
         else {
-            throw new Error((await response.json()).Message)
+            throw new Error((await response.json()).message)
         }
     }
 
@@ -49,7 +49,7 @@ export class RemoteTSService {
         });
 
         if (response.ok) return await response.json() as Promise<number>;
-        throw new Error((await response.json()).Message)
+        throw new Error((await response.json()).message)
 
     }
 

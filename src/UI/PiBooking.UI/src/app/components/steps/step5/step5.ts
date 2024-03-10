@@ -97,7 +97,7 @@ export class Step5 {
 
         }
         catch (response) {
-            errorElement.textContent = (await response.json()).Message;
+            errorElement.textContent = (await response.json()).message;
             this.showErrors = true;
         }
 
