@@ -5,8 +5,6 @@ import { autoinject, inject } from 'aurelia-framework';
 import { sessionService } from '../../../services/sessionService'
 import { stepsEnabledService } from '../../../services/stepsEnabledService'
 
-import * as Enumerable from 'linq'
-import * as moment from 'moment'
 import { OrderViewModel } from 'app/models'
 import { environment } from '../../../environment/environment';
 import { Router } from 'aurelia-router';

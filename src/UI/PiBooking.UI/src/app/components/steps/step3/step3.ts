@@ -4,8 +4,6 @@ import { autoinject } from 'aurelia-framework';
 import { sessionService } from '../../../services/sessionService'
 import { stepsEnabledService } from '../../../services/stepsEnabledService'
 
-import * as Enumerable from 'linq'
-import * as moment from 'moment'
 
 import { OrderViewModel } from 'app/models'
 import { ValidationController, ValidationControllerFactory, ValidationRules, Validator, validateTrigger } from 'aurelia-validation';

@@ -4,7 +4,6 @@ import { HttpClient } from 'aurelia-fetch-client';
 import { autoinject, inject } from 'aurelia-framework';
 import { sessionService } from '../../../services/sessionService'
 import { stepsEnabledService } from '../../../services/stepsEnabledService'
-import * as Enumerable from 'linq'
 import * as moment from 'moment'
 
 import { TimeSlotViewModel, OrderViewModel } from 'app/models'
@@ -61,10 +60,9 @@ export class Step1 {
     }
 
     onAppointmentClick(event) {
-        let args: ej.Schedule.AppointmentClickEventArgs = event.detail;
 
+        let args: ej.Schedule.AppointmentClickEventArgs = event.detail;
         this.mySched.deleteAppointment(args.appointment);
-        //this.refreshTotals(sched.getAppointments());
     }
 
     appointmentRemoved(event) {
@@ -185,11 +183,10 @@ export class Step1 {
             );
             // let data = await this.remoteTS.GetTimeSlots(this.MinDate, this.MaxDate);
 
-            let myDictionary = data.filter(
-                x => {
-                    return x.isBooked === false;
-                }
-            );
+
+            let myDictionary = data
+                .filter(x => !x.isBooked);
+
             myDictionary.forEach(x => {
                 this.TimeSlots[new Date(x.beginDatetime).getTime()] = {
                     beginDatetime: new Date(x.beginDatetime),
@@ -203,8 +200,20 @@ export class Step1 {
 
             });
 
+
             //populate examples
-            let sortedValues = Enumerable.from(data).where(x => x.isBooked === false).orderBy(x => x.rate).thenBy(y => y.beginDatetime).take(3).toArray();
+            const sortedValues = data
+                .filter(x => {
+                    return x.isBooked === false;
+                })
+                .sort((a, b) => {
+                    if (a.rate !== b.rate) {
+                        return a.rate - b.rate;
+                    } else {
+                        return a.beginDatetime.toString().localeCompare(b.beginDatetime.toString());
+                    }
+                })
+                .slice(0, 3);
 
             this.example1 = sortedValues[0];
             this.example2 = sortedValues[1];

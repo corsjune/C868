@@ -1,14 +1,10 @@
 ﻿/// <reference types="ej.web.all" />
-import * as $ from 'jquery';
+
 import { autoinject, inject } from 'aurelia-framework';
 import { sessionService } from '../../../services/sessionService'
 import { stepsEnabledService } from '../../../services/stepsEnabledService'
-
-import * as Enumerable from 'linq'
-import * as moment from 'moment'
 import { ValidationController, ValidationControllerFactory, ValidationRules, Validator, validateTrigger } from 'aurelia-validation';
 import { OrderViewModel, TimeSlotViewModel, EngineerViewModel } from 'app/models'
-import { BootstrapFormRenderer } from '../../customrenderer/customrenderer'
 import { Router } from 'aurelia-router';
 import { Endpoint, Rest } from 'aurelia-api';
 

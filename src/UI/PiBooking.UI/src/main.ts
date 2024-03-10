@@ -33,7 +33,7 @@ export function configure(aurelia: Aurelia) {
                 .setDefaultEndpoint('api');
         })
         .plugin(PLATFORM.moduleName('aurelia-syncfusion-bridge'), (syncfusion) =>
-            syncfusion.ejGrid().ejSchedule().ejReportViewer().ejSignature().ejDatePicker().ejDateTimePicker().ejTemplate()
+            syncfusion.useAll()
         )
         .feature(PLATFORM.moduleName('resources/index'))
         .globalResources(PLATFORM.moduleName('aurelia-authentication/authFilterValueConverter'))
